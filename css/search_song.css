@@ -1,0 +1,68 @@
+@charset "utf-8";
+/* search_songscc */
+.mod_songlist {
+	margin-top: 10px;
+}
+.songlist__header, .songlist__list1,.songlist__list2 {
+    position: relative;
+    padding-left: 20px;
+    padding-right: 100px;
+}
+.songlist__header{
+    height: 50px;
+    line-height: 50px;
+    background-color: rgba(0,0,0,.01);
+    color: #999;
+}
+.songlist__list1 {
+    height: 50px;
+    line-height: 50px;
+    background-color:rgba(255,255,255,1.00);
+    color: #727272;
+}
+.songlist__list2 {
+   	height: 50px;
+    line-height: 50px;
+    background-color: rgba(0,0,0,.01);
+    color: #727272;
+}
+.songlist__header_name {
+    float: left;
+    width: 56%;
+    position: relative;
+    white-space: normal;
+}
+.songlist__name{
+	float: left;
+    width: 36%;
+    position: relative;
+    white-space: normal;
+}
+.songlist__btn{
+	float: left;
+    width: 20%;
+    position: relative;
+    white-space: normal;
+}
+.songlist_btn{
+	margin-left: 10px;
+}	
+.songlist__header_album, .songlist__header_author {
+    float: right;
+    padding-left: 20px;
+    width: 22%;
+    box-sizing: border-box;
+}
+.songlist__header_time {
+    position: absolute;
+    top: 0;
+    right: 38px;
+    width: 50px;
+}
+.songlist__header_other, {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 38px;
+    overflow: inherit;
+}

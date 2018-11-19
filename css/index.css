@@ -1,0 +1,33 @@
+@charset "utf-8";
+/* CSS Document */
+/*右侧主页面*/
+
+
+
+.form-inline{
+	padding-bottom: 20px;
+	font-family: 'Microsoft YaHei', sans-serif;
+}
+#choose_botton button{
+	font-family: 'Microsoft YaHei', sans-serif;
+	font-weight: 300;
+}
+#search_button{
+	float: right;
+}
+#search_button button{
+	font-family: 'Microsoft YaHei', sans-serif;font-weight: 300;
+}
+.pagination{
+	margin-bottom: 20px;
+}
+.table-hover{
+	background: #FFFFFF;
+}
+.table-hover button{
+	font-family: 'Microsoft YaHei', sans-serif;
+	font-weight: 200;
+	font-size: 0.9em;
+	padding: 6px 12px;
+}
+

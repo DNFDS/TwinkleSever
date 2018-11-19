@@ -1,0 +1,57 @@
+@charset "utf-8";
+/* CSS Document */
+/*右侧主页面*/
+
+.form-inline{
+	padding-bottom: 20px;
+	font-family: 'Microsoft YaHei', sans-serif;
+}
+#choose_botton button{
+	font-family: 'Microsoft YaHei', sans-serif;
+	font-weight: 300;
+}
+
+#search_button button{
+	font-family: 'Microsoft YaHei', sans-serif;font-weight: 300;
+}
+.pagination{
+	margin-bottom: 20px;
+}
+.table-hover{
+	background: #FFFFFF;
+}
+.table-hover button{
+	font-family: 'Microsoft YaHei', sans-serif;
+	font-weight: 200;
+	font-size: 0.9em;
+	padding: 6px 12px;
+}
+.form-group inout{
+	font-family: 'Microsoft YaHei', sans-serif;
+}
+/*修改*/
+#search_button{
+	margin-top: 20px;
+	margin-left:170px;
+}
+#left_area form{
+	margin-top: 79px;
+}
+#right_area list_right{
+	margin-top: 80px;
+}
+.sub{
+	padding-left: 30px;
+}
+.sub button{
+	font-family: 'Microsoft YaHei', sans-serif;
+	font-weight: 200;
+}
+#left_area2{
+	margin-top: 30px;
+	
+}
+#right_area2{
+	margin-top: 30px;
+}
+
