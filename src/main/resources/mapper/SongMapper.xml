@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.SongMapper" >
+  <resultMap id="BaseResultMap" type="com.example.demo.entity.Song" >
+    <id column="SONGID" property="songid" jdbcType="VARCHAR" />
+    <result column="SONGPATH" property="songpath" jdbcType="VARCHAR" />
+    <result column="SONGNAME" property="songname" jdbcType="VARCHAR" />
+    <result column="WRITERNAME" property="writername" jdbcType="VARCHAR" />
+    <result column="PRODUCERNAME" property="producername" jdbcType="VARCHAR" />
+    <result column="SONGIMAGE" property="songimage" jdbcType="VARCHAR" />
+    <result column="LENGTH" property="length" jdbcType="VARCHAR" />
+    <result column="PLAYTIMES" property="playtimes" jdbcType="NUMERIC" />
+    <result column="ALBUMID" property="albumid" jdbcType="VARCHAR" />
+    <result column="SONGSCHOOL" property="songschool" jdbcType="VARCHAR" />
+    <result column="SONGAGE" property="songage" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SONGID, SONGPATH, SONGNAME, WRITERNAME, PRODUCERNAME, SONGIMAGE, LENGTH, PLAYTIMES, 
+    ALBUMID, SONGSCHOOL, SONGAGE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.demo.entity.Example.SongExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SONG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SONG
+    where SONGID = #{songid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SONG
+    where SONGID = #{songid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.demo.entity.Example.SongExample" >
+    delete from SONG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.entity.Song" >
+    insert into SONG (SONGID, SONGPATH, SONGNAME, 
+      WRITERNAME, PRODUCERNAME, SONGIMAGE, 
+      LENGTH, PLAYTIMES, ALBUMID, 
+      SONGSCHOOL, SONGAGE)
+    values (#{songid,jdbcType=VARCHAR}, #{songpath,jdbcType=VARCHAR}, #{songname,jdbcType=VARCHAR}, 
+      #{writername,jdbcType=VARCHAR}, #{producername,jdbcType=VARCHAR}, #{songimage,jdbcType=VARCHAR}, 
+      #{length,jdbcType=VARCHAR}, #{playtimes,jdbcType=NUMERIC}, #{albumid,jdbcType=VARCHAR}, 
+      #{songschool,jdbcType=VARCHAR}, #{songage,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.entity.Song" >
+    insert into SONG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="songid != null" >
+        SONGID,
+      </if>
+      <if test="songpath != null" >
+        SONGPATH,
+      </if>
+      <if test="songname != null" >
+        SONGNAME,
+      </if>
+      <if test="writername != null" >
+        WRITERNAME,
+      </if>
+      <if test="producername != null" >
+        PRODUCERNAME,
+      </if>
+      <if test="songimage != null" >
+        SONGIMAGE,
+      </if>
+      <if test="length != null" >
+        LENGTH,
+      </if>
+      <if test="playtimes != null" >
+        PLAYTIMES,
+      </if>
+      <if test="albumid != null" >
+        ALBUMID,
+      </if>
+      <if test="songschool != null" >
+        SONGSCHOOL,
+      </if>
+      <if test="songage != null" >
+        SONGAGE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="songid != null" >
+        #{songid,jdbcType=VARCHAR},
+      </if>
+      <if test="songpath != null" >
+        #{songpath,jdbcType=VARCHAR},
+      </if>
+      <if test="songname != null" >
+        #{songname,jdbcType=VARCHAR},
+      </if>
+      <if test="writername != null" >
+        #{writername,jdbcType=VARCHAR},
+      </if>
+      <if test="producername != null" >
+        #{producername,jdbcType=VARCHAR},
+      </if>
+      <if test="songimage != null" >
+        #{songimage,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null" >
+        #{length,jdbcType=VARCHAR},
+      </if>
+      <if test="playtimes != null" >
+        #{playtimes,jdbcType=NUMERIC},
+      </if>
+      <if test="albumid != null" >
+        #{albumid,jdbcType=VARCHAR},
+      </if>
+      <if test="songschool != null" >
+        #{songschool,jdbcType=VARCHAR},
+      </if>
+      <if test="songage != null" >
+        #{songage,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.demo.entity.Example.SongExample" resultType="java.lang.Integer" >
+    select count(*) from SONG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SONG
+    <set >
+      <if test="record.songid != null" >
+        SONGID = #{record.songid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.songpath != null" >
+        SONGPATH = #{record.songpath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.songname != null" >
+        SONGNAME = #{record.songname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.writername != null" >
+        WRITERNAME = #{record.writername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.producername != null" >
+        PRODUCERNAME = #{record.producername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.songimage != null" >
+        SONGIMAGE = #{record.songimage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.length != null" >
+        LENGTH = #{record.length,jdbcType=VARCHAR},
+      </if>
+      <if test="record.playtimes != null" >
+        PLAYTIMES = #{record.playtimes,jdbcType=NUMERIC},
+      </if>
+      <if test="record.albumid != null" >
+        ALBUMID = #{record.albumid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.songschool != null" >
+        SONGSCHOOL = #{record.songschool,jdbcType=VARCHAR},
+      </if>
+      <if test="record.songage != null" >
+        SONGAGE = #{record.songage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update SONG
+    set SONGID = #{record.songid,jdbcType=VARCHAR},
+      SONGPATH = #{record.songpath,jdbcType=VARCHAR},
+      SONGNAME = #{record.songname,jdbcType=VARCHAR},
+      WRITERNAME = #{record.writername,jdbcType=VARCHAR},
+      PRODUCERNAME = #{record.producername,jdbcType=VARCHAR},
+      SONGIMAGE = #{record.songimage,jdbcType=VARCHAR},
+      LENGTH = #{record.length,jdbcType=VARCHAR},
+      PLAYTIMES = #{record.playtimes,jdbcType=NUMERIC},
+      ALBUMID = #{record.albumid,jdbcType=VARCHAR},
+      SONGSCHOOL = #{record.songschool,jdbcType=VARCHAR},
+      SONGAGE = #{record.songage,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.entity.Song" >
+    update SONG
+    <set >
+      <if test="songpath != null" >
+        SONGPATH = #{songpath,jdbcType=VARCHAR},
+      </if>
+      <if test="songname != null" >
+        SONGNAME = #{songname,jdbcType=VARCHAR},
+      </if>
+      <if test="writername != null" >
+        WRITERNAME = #{writername,jdbcType=VARCHAR},
+      </if>
+      <if test="producername != null" >
+        PRODUCERNAME = #{producername,jdbcType=VARCHAR},
+      </if>
+      <if test="songimage != null" >
+        SONGIMAGE = #{songimage,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null" >
+        LENGTH = #{length,jdbcType=VARCHAR},
+      </if>
+      <if test="playtimes != null" >
+        PLAYTIMES = #{playtimes,jdbcType=NUMERIC},
+      </if>
+      <if test="albumid != null" >
+        ALBUMID = #{albumid,jdbcType=VARCHAR},
+      </if>
+      <if test="songschool != null" >
+        SONGSCHOOL = #{songschool,jdbcType=VARCHAR},
+      </if>
+      <if test="songage != null" >
+        SONGAGE = #{songage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SONGID = #{songid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.Song" >
+    update SONG
+    set SONGPATH = #{songpath,jdbcType=VARCHAR},
+      SONGNAME = #{songname,jdbcType=VARCHAR},
+      WRITERNAME = #{writername,jdbcType=VARCHAR},
+      PRODUCERNAME = #{producername,jdbcType=VARCHAR},
+      SONGIMAGE = #{songimage,jdbcType=VARCHAR},
+      LENGTH = #{length,jdbcType=VARCHAR},
+      PLAYTIMES = #{playtimes,jdbcType=NUMERIC},
+      ALBUMID = #{albumid,jdbcType=VARCHAR},
+      SONGSCHOOL = #{songschool,jdbcType=VARCHAR},
+      SONGAGE = #{songage,jdbcType=VARCHAR}
+    where SONGID = #{songid,jdbcType=VARCHAR}
+  </update>
+</mapper>

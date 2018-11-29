@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>欢迎注册</title>
+<style>
+body{
+    background:url(image/Register_image/photo-jay-mantri-n-958.jpg);
+    font-family: 'Microsoft YaHei', sans-serif;
+    background-repeat:no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position:center,center;
+    font:inherit;
+}
+input[type="submit"],input[type="text"]{
+    transition: 0.1s all;
+}
+h1{
+    text-align: center;
+    font-family: 'Microsoft YaHei', sans-serif;
+    margin-bottom: 10px;
+    font-size: 3em;
+    font-weight: 530;
+    color:#FFFFFF;
+    letter-spacing: 7px;
+    padding-left: 10px;
+}
+.login-form {
+    padding-top: 1.5em;
+    background:rgba(0,30,41,0.70);
+    position: relative;
+    width: 300px;
+    height: 530px;
+    padding:2em;
+    margin: 100px auto 0 auto;
+    text-align: center;
+    border-radius: 15px;/*圆角边框*/
+}
+input[type="text"] {
+      width: 70%;
+      padding: 1em 2em 1em 3em;
+      color:#B2BCC1;
+      font-size: 18px;
+      outline: none;
+      background: url(image/Register_image/adm.png) no-repeat 10px 15px;
+      border: none;
+      font-weight: 100;
+      border-bottom: 1px solid#484856;
+      margin-top: 1.5em;
+    font-family: 'Microsoft YaHei', sans-serif;
+}
+ input[type="password"]{
+      width: 70%;
+      padding: 1em 2em 1em 3em;
+      color:#C8534E;
+      font-size: 18px;
+      outline: none;
+      background: url(image/Register_image/key.png) no-repeat 10px 23px;
+      border: none;
+      font-weight: 100;
+     border-bottom: 1px solid#484856;
+     font-family: 'Microsoft YaHei', sans-serif;
+ }
+
+input[type="submit"]{
+  font-size: 30px;
+    background-color:#438ccb;
+    border:none;
+    border-radius:0.5em;
+    width:242px;
+    height:39px;
+    color:white;
+    font-weight:330;
+    font-size:18px;
+    margin-top:1.5em;
+    outline:none;
+    font-family: 'Microsoft YaHei', sans-serif;
+}
+input[type="submit"]:hover {
+    background: #ff2775;
+  border-bottom-left-radius: 15px;
+    -webkit-border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    -webkit-border-bottom-right-radius: 15px;
+    transition: 1s all;
+    -webkit-transition: 1s all;
+}
+.regist{
+    width:100%;
+}
+</style>
+</head>
+<body>
+    <div class="login-form">
+        <h1>欢迎注册</h1>
+        <div class="chathead">
+            <img src="image/Register_image/woody_music.png" height="120" width="120" />
+        </div>
+        <form th:action="@{/Register}" method="post">
+            <input type="text" name="name"class="text" value="" placeholder="用户名">
+            <div class="key" id="key1">
+                <input type="password" name="pwd" value="" placeholder="密码">
+            </div>
+            <div class="key" id="key2">
+                <input type="password" name="pwd_again"value="" placeholder="确认密码">
+            </div>
+            <div class="regist">
+                <input type="submit" value="注册">
+            </div>
+        </form>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.BuyMapper" >
+  <resultMap id="BaseResultMap" type="com.example.demo.entity.Buy" >
+    <id column="SONGID" property="songid" jdbcType="VARCHAR" />
+    <id column="USERID" property="userid" jdbcType="VARCHAR" />
+    <result column="BUYTIME" property="buytime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SONGID, USERID, BUYTIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.demo.entity.Example.BuyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from BUY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.example.demo.entity.BuyKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from BUY
+    where SONGID = #{songid,jdbcType=VARCHAR}
+      and USERID = #{userid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.example.demo.entity.BuyKey" >
+    delete from BUY
+    where SONGID = #{songid,jdbcType=VARCHAR}
+      and USERID = #{userid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.demo.entity.Example.BuyExample" >
+    delete from BUY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.entity.Buy" >
+    insert into BUY (SONGID, USERID, BUYTIME
+      )
+    values (#{songid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{buytime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.entity.Buy" >
+    insert into BUY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="songid != null" >
+        SONGID,
+      </if>
+      <if test="userid != null" >
+        USERID,
+      </if>
+      <if test="buytime != null" >
+        BUYTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="songid != null" >
+        #{songid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="buytime != null" >
+        #{buytime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.demo.entity.Example.BuyExample" resultType="java.lang.Integer" >
+    select count(*) from BUY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update BUY
+    <set >
+      <if test="record.songid != null" >
+        SONGID = #{record.songid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null" >
+        USERID = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buytime != null" >
+        BUYTIME = #{record.buytime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update BUY
+    set SONGID = #{record.songid,jdbcType=VARCHAR},
+      USERID = #{record.userid,jdbcType=VARCHAR},
+      BUYTIME = #{record.buytime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.entity.Buy" >
+    update BUY
+    <set >
+      <if test="buytime != null" >
+        BUYTIME = #{buytime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where SONGID = #{songid,jdbcType=VARCHAR}
+      and USERID = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.Buy" >
+    update BUY
+    set BUYTIME = #{buytime,jdbcType=TIMESTAMP}
+    where SONGID = #{songid,jdbcType=VARCHAR}
+      and USERID = #{userid,jdbcType=VARCHAR}
+  </update>
+</mapper>

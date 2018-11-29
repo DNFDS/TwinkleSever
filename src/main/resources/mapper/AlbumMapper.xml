@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.AlbumMapper" >
+  <resultMap id="BaseResultMap" type="com.example.demo.entity.Album" >
+    <id column="ALBUMID" property="albumid" jdbcType="VARCHAR" />
+    <result column="ALBUMNAME" property="albumname" jdbcType="VARCHAR" />
+    <result column="SINGERID" property="singerid" jdbcType="VARCHAR" />
+    <result column="ALBUMIMAGE" property="albumimage" jdbcType="VARCHAR" />
+    <result column="ALBUMAGE" property="albumage" jdbcType="VARCHAR" />
+    <result column="ADMINID" property="adminid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ALBUMID, ALBUMNAME, SINGERID, ALBUMIMAGE, ALBUMAGE, ADMINID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.demo.entity.Example.AlbumExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ALBUM
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ALBUM
+    where ALBUMID = #{albumid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ALBUM
+    where ALBUMID = #{albumid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.demo.entity.Example.AlbumExample" >
+    delete from ALBUM
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.entity.Album" >
+    insert into ALBUM (ALBUMID, ALBUMNAME, SINGERID, 
+      ALBUMIMAGE, ALBUMAGE, ADMINID
+      )
+    values (#{albumid,jdbcType=VARCHAR}, #{albumname,jdbcType=VARCHAR}, #{singerid,jdbcType=VARCHAR}, 
+      #{albumimage,jdbcType=VARCHAR}, #{albumage,jdbcType=VARCHAR}, #{adminid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.entity.Album" >
+    insert into ALBUM
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="albumid != null" >
+        ALBUMID,
+      </if>
+      <if test="albumname != null" >
+        ALBUMNAME,
+      </if>
+      <if test="singerid != null" >
+        SINGERID,
+      </if>
+      <if test="albumimage != null" >
+        ALBUMIMAGE,
+      </if>
+      <if test="albumage != null" >
+        ALBUMAGE,
+      </if>
+      <if test="adminid != null" >
+        ADMINID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="albumid != null" >
+        #{albumid,jdbcType=VARCHAR},
+      </if>
+      <if test="albumname != null" >
+        #{albumname,jdbcType=VARCHAR},
+      </if>
+      <if test="singerid != null" >
+        #{singerid,jdbcType=VARCHAR},
+      </if>
+      <if test="albumimage != null" >
+        #{albumimage,jdbcType=VARCHAR},
+      </if>
+      <if test="albumage != null" >
+        #{albumage,jdbcType=VARCHAR},
+      </if>
+      <if test="adminid != null" >
+        #{adminid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.demo.entity.Example.AlbumExample" resultType="java.lang.Integer" >
+    select count(*) from ALBUM
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ALBUM
+    <set >
+      <if test="record.albumid != null" >
+        ALBUMID = #{record.albumid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.albumname != null" >
+        ALBUMNAME = #{record.albumname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.singerid != null" >
+        SINGERID = #{record.singerid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.albumimage != null" >
+        ALBUMIMAGE = #{record.albumimage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.albumage != null" >
+        ALBUMAGE = #{record.albumage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminid != null" >
+        ADMINID = #{record.adminid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ALBUM
+    set ALBUMID = #{record.albumid,jdbcType=VARCHAR},
+      ALBUMNAME = #{record.albumname,jdbcType=VARCHAR},
+      SINGERID = #{record.singerid,jdbcType=VARCHAR},
+      ALBUMIMAGE = #{record.albumimage,jdbcType=VARCHAR},
+      ALBUMAGE = #{record.albumage,jdbcType=VARCHAR},
+      ADMINID = #{record.adminid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.entity.Album" >
+    update ALBUM
+    <set >
+      <if test="albumname != null" >
+        ALBUMNAME = #{albumname,jdbcType=VARCHAR},
+      </if>
+      <if test="singerid != null" >
+        SINGERID = #{singerid,jdbcType=VARCHAR},
+      </if>
+      <if test="albumimage != null" >
+        ALBUMIMAGE = #{albumimage,jdbcType=VARCHAR},
+      </if>
+      <if test="albumage != null" >
+        ALBUMAGE = #{albumage,jdbcType=VARCHAR},
+      </if>
+      <if test="adminid != null" >
+        ADMINID = #{adminid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ALBUMID = #{albumid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.Album" >
+    update ALBUM
+    set ALBUMNAME = #{albumname,jdbcType=VARCHAR},
+      SINGERID = #{singerid,jdbcType=VARCHAR},
+      ALBUMIMAGE = #{albumimage,jdbcType=VARCHAR},
+      ALBUMAGE = #{albumage,jdbcType=VARCHAR},
+      ADMINID = #{adminid,jdbcType=VARCHAR}
+    where ALBUMID = #{albumid,jdbcType=VARCHAR}
+  </update>
+</mapper>

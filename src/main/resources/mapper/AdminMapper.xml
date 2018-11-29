@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.AdminMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.entity.Admin">
+    <id column="ADMINID" jdbcType="VARCHAR" property="adminid" />
+    <result column="ADMINNAME" jdbcType="VARCHAR" property="adminname" />
+    <result column="ADMINPASSWORD" jdbcType="VARCHAR" property="adminpassword" />
+    <result column="ADMINIMAGE" jdbcType="VARCHAR" property="adminimage" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ADMINID, ADMINNAME, ADMINPASSWORD, ADMINIMAGE
+  </sql>
+  <select id="selectByExample" parameterType="com.example.demo.entity.Example.AdminExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ADMIN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ADMIN
+    where ADMINID = #{adminid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ADMIN
+    where ADMINID = #{adminid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.demo.entity.Example.AdminExample">
+    delete from ADMIN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.entity.Admin">
+    insert into ADMIN (ADMINID, ADMINNAME, ADMINPASSWORD, 
+      ADMINIMAGE)
+    values (#{adminid,jdbcType=VARCHAR}, #{adminname,jdbcType=VARCHAR}, #{adminpassword,jdbcType=VARCHAR}, 
+      #{adminimage,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.entity.Admin">
+    insert into ADMIN
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="adminid != null">
+        ADMINID,
+      </if>
+      <if test="adminname != null">
+        ADMINNAME,
+      </if>
+      <if test="adminpassword != null">
+        ADMINPASSWORD,
+      </if>
+      <if test="adminimage != null">
+        ADMINIMAGE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="adminid != null">
+        #{adminid,jdbcType=VARCHAR},
+      </if>
+      <if test="adminname != null">
+        #{adminname,jdbcType=VARCHAR},
+      </if>
+      <if test="adminpassword != null">
+        #{adminpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="adminimage != null">
+        #{adminimage,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.demo.entity.Example.AdminExample" resultType="java.lang.Integer">
+    select count(*) from ADMIN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ADMIN
+    <set>
+      <if test="record.adminid != null">
+        ADMINID = #{record.adminid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminname != null">
+        ADMINNAME = #{record.adminname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminpassword != null">
+        ADMINPASSWORD = #{record.adminpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminimage != null">
+        ADMINIMAGE = #{record.adminimage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ADMIN
+    set ADMINID = #{record.adminid,jdbcType=VARCHAR},
+      ADMINNAME = #{record.adminname,jdbcType=VARCHAR},
+      ADMINPASSWORD = #{record.adminpassword,jdbcType=VARCHAR},
+      ADMINIMAGE = #{record.adminimage,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.entity.Admin">
+    update ADMIN
+    <set>
+      <if test="adminname != null">
+        ADMINNAME = #{adminname,jdbcType=VARCHAR},
+      </if>
+      <if test="adminpassword != null">
+        ADMINPASSWORD = #{adminpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="adminimage != null">
+        ADMINIMAGE = #{adminimage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ADMINID = #{adminid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.Admin">
+    update ADMIN
+    set ADMINNAME = #{adminname,jdbcType=VARCHAR},
+      ADMINPASSWORD = #{adminpassword,jdbcType=VARCHAR},
+      ADMINIMAGE = #{adminimage,jdbcType=VARCHAR}
+    where ADMINID = #{adminid,jdbcType=VARCHAR}
+  </update>
+</mapper>
