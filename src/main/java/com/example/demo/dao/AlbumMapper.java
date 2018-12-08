@@ -3,6 +3,8 @@ package com.example.demo.dao;
 import com.example.demo.entity.Album;
 import com.example.demo.entity.Example.AlbumExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface AlbumMapper {
@@ -27,4 +29,25 @@ public interface AlbumMapper {
     int updateByPrimaryKeySelective(Album record);
 
     int updateByPrimaryKey(Album record);
+
+    /**
+     * @param Map
+     * @IN :"albumname"
+     * @OUT: "result"> ArrayList<Album>
+     */
+    void getAlbumByName_part(Map<String,Object> Map);
+
+    /**
+     * @param Map
+     * @IN :"albumname"
+     * @OUT: "result"> ArrayList<Album>
+     */
+    void getAlbumByName(Map<String,Object> Map);
+
+    /**
+     * @param Map
+     * @IN :"SingerId"
+     * @OUT: "result"> ArrayList<Album>
+     */
+    void getAlbumBySingerId(Map<String,Object> Map);
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.demo.dao.SongListMapper" >
-  <resultMap id="BaseResultMap" type="com.example.demo.entity.SongList" >
+  <resultMap id="SongListResultMap" type="com.example.demo.entity.SongList" >
     <id column="SONGLISTID" property="songlistid" jdbcType="VARCHAR" />
     <result column="SONGLISTNAME" property="songlistname" jdbcType="VARCHAR" />
     <result column="SONGLISTIMAGE" property="songlistimage" jdbcType="VARCHAR" />
@@ -69,7 +69,7 @@
   <sql id="Base_Column_List" >
     SONGLISTID, SONGLISTNAME, SONGLISTIMAGE, ISPRIVATE, USERID
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.demo.entity.Example.SongListExample" >
+  <select id="selectByExample" resultMap="SongListResultMap" parameterType="com.example.demo.entity.Example.SongListExample" >
     select
     <if test="distinct" >
       distinct
@@ -83,7 +83,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="SongListResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from SONGLIST
@@ -208,4 +208,13 @@
       USERID = #{userid,jdbcType=VARCHAR}
     where SONGLISTID = #{songlistid,jdbcType=VARCHAR}
   </update>
+  <select id="getSongListCreatedByUserId" parameterType="java.util.HashMap" statementType="CALLABLE">
+    call SONGLIST_PKG.VIEW_SONGLIST_CREATED(#{userid,mode=IN,jdbcType=VARCHAR},#{createdsonglist,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SongListResultMap})
+  </select>
+  <select id="getSongListKeepedByUserId" parameterType="java.util.HashMap" statementType="CALLABLE">
+    call SONGLIST_PKG.VIEW_SONGLIST_SAVED(#{userid,mode=IN,jdbcType=VARCHAR},#{keepedsonglist,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SongListResultMap})
+  </select>
+  <select id="getSongsInSongList" parameterType="java.util.HashMap" statementType="CALLABLE">
+    call SONGLIST_PKG.VIEW_SONG_IN_SONGLIST(#{songlistid,mode=IN,jdbcType=VARCHAR},#{songs,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SongResultMap})
+  </select>
 </mapper>

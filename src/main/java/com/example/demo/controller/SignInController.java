@@ -33,6 +33,7 @@ public class SignInController {
         ResultEntity result = userService.SignIn(user);
         if(result.getSuccess()){
             request.getSession().setAttribute("user",result.getObject());
+            request.getSession().setAttribute("visted",result.getObject());
             return "redirect:/profile/like_song";
         }
         else{

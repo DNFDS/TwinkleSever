@@ -29,9 +29,39 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    /**
+     * @param Map
+     * @IN :"userid"
+     * @OUT: "result"> 1:true 0:false
+     */
     void isUserExit(Map<String, Object> Map);
 
+    /**
+     * @param Map
+     * @IN :"username" "userpassword" "userimage" "usersex"
+     * @OUT: "result"> userid:true 0:false
+     */
     void addUser(Map<String, Object> Map);
 
+    /**
+     * @param Map
+     * @IN :"userid"
+     * @OUT: "result"> ArrayList<User>
+     */
     void getUserById(Map<String, Object> Map);
+
+    /**
+     * @param Map
+     * @IN :"userid"
+     * @OUT: "result"> ArrayList<User>
+     */
+    void getFansByUserId(Map<String, Object>Map);
+
+    /**
+     * @param Map
+     * @IN :"userid"
+     * @OUT: "result"> ArrayList<User>
+     */
+    void getFriendsByUserId(Map<String, Object>Map);
 }

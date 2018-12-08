@@ -6,11 +6,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
 <title>搜索音乐</title>
 <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link href="css/PersonalMessage.css" rel="stylesheet">
-<link href="css/main.css" rel="stylesheet">
-<script src="JS/jquery-3.3.1.min.js"></script>
-<script src="JS/bootstrap.min.js"></script>
-<script src="JS/main_js.js"></script>	
+<link href="../css/PersonalMessage.css" rel="stylesheet">
+<link href="../css/main.css" rel="stylesheet">
+<script src="../JS/jquery-3.3.1.min.js"></script>
+<script src="../JS/bootstrap.min.js"></script>
+<script src="../JS/main_js.js"></script>
 <style>
 body {
     background-color: #fafafa;
@@ -124,18 +124,18 @@ body {
 			<span class=" mod_tab__current" >我喜欢</span>
 			<a class="mod_tab__item" href="Purchased_album_form.jsp" id="buy_tab" data-tab="buy" data-stat="y_new.profile.tab.digital_album">我的已购</a>
 			<a class="mod_tab__item" href="follow_singer.jsp" id="focus_tab" data-tab="focus" data-stat="y_new.profile.tab.focus">关注</a>
-			<a class="mod_tab__item" href="Fans.html" id="fans_tab" data-tab="fans" data-stat="y_new.profile.tab.fans">粉丝</a>
+			<a class="mod_tab__item" href="Fans.jsp" id="fans_tab" data-tab="fans" data-stat="y_new.profile.tab.fans">粉丝</a>
 			<a class="mod_tab__item" href="javascript:;" id="uploadmv_tab" data-tab="uploadmv" data-stat="y_new.profile.tab.uploadmv">我上传的视频</a>
 		</div>
 		<div class="mod_tab" role="nav">
-			<a class="mod_tab__item" href="like_song.jsp" data-tab="like_song" data-stat="y_new.profile.like.tab.song">歌曲 36</a>
+			<a class="mod_tab__item" href="like_song.html" data-tab="like_song" data-stat="y_new.profile.like.tab.song">歌曲 36</a>
 			<a class="mod_tab__item mod_tab__current" href="javascript:;" data-tab="like_playlist" data-stat="y_new.profile.like.tab.playlist">歌单 1</a>
 			<a class="mod_tab__item" href="like_album_form.jsp" data-tab="like_album" data-stat="y_new.profile.like.tab.album">专辑 0</a>
 			<a class="mod_tab__item" href="javascript:;" data-tab="like_mv" data-stat="y_new.profile.like.tab.mv">视频 0</a>
 		</div>
 		<div class="style_switch" aria-label="排列方式">
 			<a href="javascript:;" class="style_switch__item style_switch__item--select" title="上图下文" data-type="mod_playlist" data-tab="like_playlist" data-stat="y_new.profile.like.playlist.pic_mod"><img src="image/Index_image/表格active.png" alt="play" height="17px" width="17px" class="style_switch__item_img"/></a>
-			<a href="like_songlist_list.jsp" class="style_switch__item_right " title="列表" data-type="mod_playlist_text" data-tab="like_playlist" data-stat="y_new.profile.like.playlist.list_mod"><img src="image/Index_image/列表.png" alt="play" height="17px" width="17px" class="style_switch__item_img"/></a>
+			<a href="like_songlist_list.html" class="style_switch__item_right " title="列表" data-type="mod_playlist_text" data-tab="like_playlist" data-stat="y_new.profile.like.playlist.list_mod"><img src="image/Index_image/列表.png" alt="play" height="17px" width="17px" class="style_switch__item_img"/></a>
 		    </div>
 	 	<div class="mod_playlist" style="display: ;">
 			<ul class="playlist__list">
@@ -264,7 +264,7 @@ body {
 	<a href="my_music.jsp" class="disc l2" onMouseOver="disc2_over()" onMouseOut="disc2_out()">
 	<div id="disc2" class="">我的音乐</div>
 	</a>
-	<a href="like_song.jsp" class="disc l3" onMouseOver="disc3_over()" onMouseOut="disc3_out()">
+	<a href="like_song.html" class="disc l3" onMouseOver="disc3_over()" onMouseOut="disc3_out()">
 	<div id="disc3" class="">个人主页</div>
 	</a>
 	<a href="VIP_index.jsp" class="disc l4" onMouseOver="disc4_over()" onMouseOut="disc4_out()">

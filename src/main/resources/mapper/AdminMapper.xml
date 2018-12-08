@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.dao.AdminMapper">
-  <resultMap id="BaseResultMap" type="com.example.demo.entity.Admin">
+  <resultMap id="AdminResultMap" type="com.example.demo.entity.Admin">
     <id column="ADMINID" jdbcType="VARCHAR" property="adminid" />
     <result column="ADMINNAME" jdbcType="VARCHAR" property="adminname" />
     <result column="ADMINPASSWORD" jdbcType="VARCHAR" property="adminpassword" />
@@ -68,7 +68,7 @@
   <sql id="Base_Column_List">
     ADMINID, ADMINNAME, ADMINPASSWORD, ADMINIMAGE
   </sql>
-  <select id="selectByExample" parameterType="com.example.demo.entity.Example.AdminExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.example.demo.entity.Example.AdminExample" resultMap="AdminResultMap">
     select
     <if test="distinct">
       distinct
@@ -82,7 +82,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="AdminResultMap">
     select 
     <include refid="Base_Column_List" />
     from ADMIN

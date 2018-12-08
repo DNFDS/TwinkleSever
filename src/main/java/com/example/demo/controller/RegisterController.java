@@ -20,7 +20,7 @@ public class RegisterController {
     @Autowired
     private UserService userService;
     @RequestMapping(value ="/Register",method = RequestMethod.GET)
-    public String Register(Map<String, Object> map){
+    public String Register(){
         return "Register";
     }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.demo.dao.SingerMapper" >
-  <resultMap id="BaseResultMap" type="com.example.demo.entity.Singer" >
+  <resultMap id="SingerResultMap" type="com.example.demo.entity.Singer" >
     <id column="SINGERID" property="singerid" jdbcType="VARCHAR" />
     <result column="SINGERNAME" property="singername" jdbcType="VARCHAR" />
     <result column="SINGERIMAGE" property="singerimage" jdbcType="VARCHAR" />
@@ -70,7 +70,7 @@
   <sql id="Base_Column_List" >
     SINGERID, SINGERNAME, SINGERIMAGE, SINGERSEX, REGION, INTRODUCTION
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.demo.entity.Example.SingerExample" >
+  <select id="selectByExample" resultMap="SingerResultMap" parameterType="com.example.demo.entity.Example.SingerExample" >
     select
     <if test="distinct" >
       distinct
@@ -84,7 +84,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="SingerResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from SINGER

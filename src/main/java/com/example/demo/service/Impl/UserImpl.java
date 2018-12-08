@@ -1,6 +1,8 @@
 package com.example.demo.service.Impl;
 
+import com.example.demo.dao.SongListMapper;
 import com.example.demo.dao.UserMapper;
+import com.example.demo.entity.SongList;
 import com.example.demo.entity.User;
 import com.example.demo.entity.result.ResultEntity;
 import com.example.demo.service.UserService;
@@ -15,6 +17,8 @@ import java.util.Map;
 public class UserImpl implements UserService {
     @Resource
     private UserMapper userMapper;
+    @Resource
+    private SongListMapper songListMapper;
 
 
     @Override
@@ -55,5 +59,29 @@ public class UserImpl implements UserService {
             ArrayList<User>users = (ArrayList<User>)map.get("result");
             return new ResultEntity(true,"",users.get(0));
         }
+    }
+    @Override
+    public ResultEntity getFans(User user){
+        Map<String,Object>map = new HashMap<>();
+        map.put("userid",user.getUserid());
+        userMapper.getFansByUserId(map);
+        ArrayList<User>fans = (ArrayList<User>)map.get("result");
+        return new ResultEntity(true,"",fans);
+    }
+    @Override
+    public ResultEntity getFriends(User user){
+        Map<String,Object>map = new HashMap<>();
+        map.put("userid",user.getUserid());
+        userMapper.getFriendsByUserId(map);
+        ArrayList<User>friends = (ArrayList<User>)map.get("result");
+        return new ResultEntity(true,"",friends);
+    }
+    @Override
+    public ResultEntity getSongLists(User user){
+        Map<String,Object>map = new HashMap<>();
+        map.put("userid",user.getUserid());
+        songListMapper.getSongListCreatedByUserId(map);//"createdsonglist"
+        songListMapper.getSongListKeepedByUserId(map);//"keepedsonglist"
+        return new ResultEntity(true,"",map);
     }
 }

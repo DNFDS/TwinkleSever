@@ -255,6 +255,7 @@
       ISBANNED = #{isbanned,jdbcType=CHAR}
     where USERID = #{userid,jdbcType=VARCHAR}
   </update>
+
   <parameterMap type="java.util.Map" id="addUserMap">
     <parameter property="username" mode="IN" jdbcType="VARCHAR"/>
     <parameter property="userpassword" mode="IN" jdbcType="VARCHAR"/>
@@ -272,5 +273,13 @@
 
   <select id="getUserById" parameterType="java.util.HashMap" statementType="CALLABLE">
     call USER_PKG.GET_USER(#{userid,mode=IN,jdbcType=VARCHAR},#{result,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=UserResultMap})
+  </select>
+
+  <select id="getFansByUserId" parameterType="java.util.HashMap" statementType="CALLABLE">
+    call USER_PKG.GET_FANS_LIST(#{userid,mode=IN,jdbcType=VARCHAR},#{result,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=UserResultMap})
+  </select>
+
+  <select id="getFriendsByUserId" parameterType="java.util.HashMap" statementType="CALLABLE">
+    call USER_PKG.GET_FRIEND_LIST(#{userid,mode=IN,jdbcType=VARCHAR},#{result,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=UserResultMap})
   </select>
 </mapper>

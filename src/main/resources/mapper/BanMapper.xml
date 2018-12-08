@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.demo.dao.BanMapper" >
-  <resultMap id="BaseResultMap" type="com.example.demo.entity.Ban" >
+  <resultMap id="BanResultMap" type="com.example.demo.entity.Ban" >
     <id column="USERID" property="userid" jdbcType="VARCHAR" />
     <id column="ADMINID" property="adminid" jdbcType="VARCHAR" />
     <result column="BANTIME" property="bantime" jdbcType="TIMESTAMP" />
@@ -68,7 +68,7 @@
   <sql id="Base_Column_List" >
     USERID, ADMINID, BANTIME, BANREASON
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.demo.entity.Example.BanExample" >
+  <select id="selectByExample" resultMap="BanResultMap" parameterType="com.example.demo.entity.Example.BanExample" >
     select
     <if test="distinct" >
       distinct
@@ -82,7 +82,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.example.demo.entity.BanKey" >
+  <select id="selectByPrimaryKey" resultMap="BanResultMap" parameterType="com.example.demo.entity.BanKey" >
     select 
     <include refid="Base_Column_List" />
     from BAN

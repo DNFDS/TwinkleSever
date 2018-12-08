@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.demo.dao.BuyMapper" >
-  <resultMap id="BaseResultMap" type="com.example.demo.entity.Buy" >
+  <resultMap id="BuyResultMap" type="com.example.demo.entity.Buy" >
     <id column="SONGID" property="songid" jdbcType="VARCHAR" />
     <id column="USERID" property="userid" jdbcType="VARCHAR" />
     <result column="BUYTIME" property="buytime" jdbcType="TIMESTAMP" />
@@ -67,7 +67,7 @@
   <sql id="Base_Column_List" >
     SONGID, USERID, BUYTIME
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.demo.entity.Example.BuyExample" >
+  <select id="selectByExample" resultMap="BuyResultMap" parameterType="com.example.demo.entity.Example.BuyExample" >
     select
     <if test="distinct" >
       distinct
@@ -81,7 +81,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.example.demo.entity.BuyKey" >
+  <select id="selectByPrimaryKey" resultMap="BuyResultMap" parameterType="com.example.demo.entity.BuyKey" >
     select 
     <include refid="Base_Column_List" />
     from BUY

@@ -91,10 +91,6 @@
 .user_statistic__number, .user_statistic__tit {
     color: #fff;
 }
-.main {
-    z-index: 2;
-	min-height: 500px;
-}
 .mod_tab, .mod_tab__item {
     height: 56px;
     line-height: 56px;
@@ -201,8 +197,8 @@
     vertical-align: -3px;
 }
 .operate_btn{
-		height: 18px;
-		position: relative;
-		bottom:2px;
-		right: 3px;
+	height: 18px;
+	position: relative;
+	bottom:2px;
+	right: 3px;
 }

@@ -14,7 +14,7 @@
 .songlist__list1 {
     height: 50px;
     line-height: 50px;
-    background-color:rgba(255,255,255,1.00);
+    background-color:rgba(251,251,251,1.00);
     color: #727272;
 }
 .songlist__list2 {
@@ -56,7 +56,7 @@
     right: 38px;
     width: 50px;
 }
-.songlist__header_other, {
+.songlist__header_other {
     position: absolute;
     top: 0;
     right: 0;
