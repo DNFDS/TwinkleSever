@@ -193,4 +193,11 @@
       and SONGID = #{songid,jdbcType=VARCHAR}
       and COMMENTTIME = #{commenttime,jdbcType=TIMESTAMP}
   </update>
+
+  <select id="addComment" statementType="CALLABLE">
+    call USER_PKG.add_comment(#{userid,mode=IN,jdbcType=VARCHAR},#{songid,mode=IN,jdbcType=VARCHAR},#{commenttext,mode=IN,jdbcType=VARCHAR},#{succ,mode=OUT,jdbcType=VARCHAR})
+  </select>
+  <select id="getComment" parameterType="java.util.HashMap" statementType="CALLABLE">
+    call USER_PKG.get_comments(#{songid,mode=IN,jdbcType=VARCHAR},#{comments,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=commentsResultMap})
+  </select>
 </mapper>

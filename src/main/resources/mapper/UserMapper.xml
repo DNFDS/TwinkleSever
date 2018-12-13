@@ -270,16 +270,34 @@
   <select id="isUserExit" parameterType="java.util.Map" resultType="java.util.Map" statementType="CALLABLE">
     call USER_PKG.IS_USER_EXIST(#{userid,jdbcType=VARCHAR,mode=IN},#{userpassword,jdbcType=VARCHAR,mode=IN},#{result,jdbcType=VARCHAR,mode=OUT})
   </select>
-
+  <select id="isUserBanned" parameterType="java.util.HashMap" statementType="CALLABLE">
+    call USER_PKG.IS_USER_BANNED(#{userid,jdbcType=VARCHAR,mode=IN},#{banddetail,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=BanResultMap})
+  </select>
   <select id="getUserById" parameterType="java.util.HashMap" statementType="CALLABLE">
     call USER_PKG.GET_USER(#{userid,mode=IN,jdbcType=VARCHAR},#{result,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=UserResultMap})
   </select>
-
   <select id="getFansByUserId" parameterType="java.util.HashMap" statementType="CALLABLE">
     call USER_PKG.GET_FANS_LIST(#{userid,mode=IN,jdbcType=VARCHAR},#{result,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=UserResultMap})
   </select>
-
   <select id="getFriendsByUserId" parameterType="java.util.HashMap" statementType="CALLABLE">
     call USER_PKG.GET_FRIEND_LIST(#{userid,mode=IN,jdbcType=VARCHAR},#{result,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=UserResultMap})
   </select>
+    <select id="getUserByNamePart" parameterType="java.util.HashMap" statementType="CALLABLE">
+        call USER_PKG.SEARCH_USER_BY_NAME_PART(#{username,mode=IN,jdbcType=VARCHAR},#{users,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=UserResultMap})
+    </select>
+    <select id="getUserByName" parameterType="java.util.HashMap" statementType="CALLABLE">
+        call USER_PKG.SEARCH_USER_BY_NAME_FULL(#{username,mode=IN,jdbcType=VARCHAR},#{users,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=UserResultMap})
+    </select>
+    <select id="getAllUser" parameterType="java.util.HashMap" statementType="CALLABLE">
+        call USER_PKG.VIEW_ALL_USER(#{users,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=UserResultMap})
+    </select>
+    <select id="updateUserPwd" statementType="CALLABLE">
+        call USER_PKG.CHANGE_USER_PWD(#{userid,mode=IN,jdbcType=VARCHAR},#{pwd,mode=IN,jdbcType=VARCHAR},#{succ,mode=OUT,jdbcType=VARCHAR})
+    </select>
+    <select id="updateUserImg" statementType="CALLABLE">
+        call USER_PKG.CHANGE_USER_IMG(#{userid,mode=IN,jdbcType=VARCHAR},#{userimage,mode=IN,jdbcType=VARCHAR},#{succ,mode=OUT,jdbcType=VARCHAR})
+    </select>
+    <select id="updateUserName" statementType="CALLABLE">
+        call USER_PKG.CHANGE_USER_NAME(#{userid,mode=IN,jdbcType=VARCHAR},#{username,mode=IN,jdbcType=VARCHAR},#{succ,mode=OUT,jdbcType=VARCHAR})
+    </select>
 </mapper>

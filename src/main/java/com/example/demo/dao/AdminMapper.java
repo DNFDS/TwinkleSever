@@ -3,6 +3,8 @@ package com.example.demo.dao;
 import com.example.demo.entity.Admin;
 import com.example.demo.entity.Example.AdminExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface AdminMapper {
@@ -27,4 +29,18 @@ public interface AdminMapper {
     int updateByPrimaryKeySelective(Admin record);
 
     int updateByPrimaryKey(Admin record);
+
+    /**
+     * @param Map
+     * @IN :"adminid","adminpassword"
+     * @OUT: "result"> String
+     */
+    String isAdminExist(Map<String,Object> Map);
+
+    /**
+     * @param Map
+     * @IN :"adminid"
+     * @OUT: "admin"> Admin
+     */
+    String getAdminById(Map<String,Object> Map);
 }

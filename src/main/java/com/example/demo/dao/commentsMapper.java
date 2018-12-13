@@ -4,6 +4,8 @@ import com.example.demo.entity.comments;
 import com.example.demo.entity.Example.commentsExample;
 import com.example.demo.entity.commentsKey;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface commentsMapper {
@@ -28,4 +30,19 @@ public interface commentsMapper {
     int updateByPrimaryKeySelective(comments record);
 
     int updateByPrimaryKey(comments record);
+
+    /**
+     * @param Map
+     * @IN :"userid","songid","commenttext"
+     * @OUT: "succ"> String
+     */
+    String addComment(Map<String,Object> Map);
+
+    /**
+     * @param Map
+     * @IN :"songid"
+     * @OUT: "comments"> ArrayList<comments>
+     */
+    void getComment(Map<String,Object>Map);
+
 }

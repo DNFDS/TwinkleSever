@@ -303,4 +303,29 @@
       SONGAGE = #{songage,jdbcType=VARCHAR}
     where SONGID = #{songid,jdbcType=VARCHAR}
   </update>
+
+  <select id="getSongById" parameterType="java.util.HashMap" statementType="CALLABLE">
+    call SONG_PKG.search_song_by_id(#{songid,mode=IN,jdbcType=VARCHAR},#{songs,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SongResultMap})
+  </select>
+  <select id="getSongByNamePart" parameterType="java.util.HashMap" statementType="CALLABLE">
+    call SONG_PKG.search_song_by_name_part(#{songname,mode=IN,jdbcType=VARCHAR},#{songs,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SongResultMap})
+  </select>
+  <select id="getSongByName" parameterType="java.util.HashMap" statementType="CALLABLE">
+    call SONG_PKG.search_song_by_name_full(#{songname,mode=IN,jdbcType=VARCHAR},#{songs,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SongResultMap})
+  </select>
+  <select id="getSongBySingerId" parameterType="java.util.HashMap" statementType="CALLABLE">
+    call SONG_PKG.search_song_by_singer_id(#{singerid,mode=IN,jdbcType=VARCHAR},#{songs,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SongResultMap})
+  </select>
+  <select id="getSongByAlbumId" parameterType="java.util.HashMap" statementType="CALLABLE">
+    call SONG_PKG.SEARCH_SONG_BY_ALBUM_ID(#{albumid,mode=IN,jdbcType=VARCHAR},#{songs,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SongResultMap})
+  </select>
+  <select id="getSongSinger" parameterType="java.util.HashMap" statementType="CALLABLE">
+    call SONG_PKG.get_song_singer(#{songid,mode=IN,jdbcType=VARCHAR},#{singers,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SingerResultMap})
+  </select>
+  <select id="getAllSongDesc" parameterType="java.util.HashMap" statementType="CALLABLE">
+    call SONG_PKG.view_all_song_desc(#{songs,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SongResultMap})
+  </select>
+  <select id="songPlaytimesPlus" statementType="CALLABLE">
+    call SONG_PKG.song_playtimes_plus(#{singerid,mode=IN,jdbcType=VARCHAR},#{succ,mode=OUT,jdbcType=VARCHAR})
+  </select>
 </mapper>

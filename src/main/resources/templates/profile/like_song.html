@@ -23,6 +23,45 @@ body {
     min-height:400px;
 }
 </style>
+	<script type="text/javascript" th:inline="javascript">
+        function show_song_list_details() {
+            /*<![CDATA[*/
+            var id = [[${session.visted.getUserid()}]];
+            /*]]>*/
+            $.ajax({
+                type:"GET",
+                url:"/profile/like_song_song_typeList",
+                data:{String:id},
+                dataType: "html",   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
+                cache:false,
+                success:function(data){
+                    $('#flushDIV').html(data);
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown){
+                    alert(XMLHttpRequest.status);
+                    alert(XMLHttpRequest.readyState);
+                    alert(textStatus);
+                }
+            });
+        }
+	</script>
+	<script>
+        function show_songlist_list_details() {
+            /*<![CDATA[*/
+            var id = [[${session.visted.getUserid()}]];
+            /*]]>*/
+            $.ajax({
+                type:"GET",
+                url:"/profile/like_song_songlist_typeList",
+                data:{String:id},
+                dataType: "html",   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
+                cache:false,
+                success:function(data){
+                    $('#flushDIV').html(data);
+                }
+            });
+        }
+	</script>
 </head>
 <body>
 	<div class="container-fluid">
@@ -57,8 +96,9 @@ body {
 			<a class="mod_tab__item" href="javascript:;" id="uploadmv_tab" data-tab="uploadmv" data-stat="y_new.profile.tab.uploadmv">我上传的视频</a>
 		</div>
 		<div class="mod_tab" role="nav">
-			<a class="mod_tab__item mod_tab__current" href="javascript:;" data-tab="like_song" data-stat="y_new.profile.like.tab.song">歌曲 <span th:text=" ${songs.size()}"></span></a>
-			<a class="mod_tab__item" href="/profile/like_songlist" data-tab="like_playlist" data-stat="y_new.profile.like.tab.playlist" >歌单 <span th:text=" ${SongListNum}"></span></a>
+
+			<a class="mod_tab__item mod_tab__current" href="javascript:;" onclick="show_song_list_details()" data-tab="like_song" data-stat="y_new.profile.like.tab.song">歌曲 <span th:text=" ${songs.size()}"></span></a>
+			<a class="mod_tab__item" href="javascript:;" onclick="show_songlist_list_details()" data-tab="like_playlist" data-stat="y_new.profile.like.tab.playlist" >歌单 <span th:text=" ${SongListNum}"></span></a>
 			<a class="mod_tab__item" href="like_album_form.jsp" data-tab="like_album" data-stat="y_new.profile.like.tab.album">专辑 0</a>
 			<a class="mod_tab__item" href="javascript:;" data-tab="like_mv" data-stat="y_new.profile.like.tab.mv">视频 0</a>
 		</div>
@@ -68,7 +108,7 @@ body {
 			<a href="javascript:;" class="mod_btn js_all_down"><i class="mod_btn__icon_down"></i><img src="../image/Index_image/mod_download.png" class="operate_btn" alt="download">下载</a>
 			<a href="javascript:;" class="mod_btn js_batch"><i class="mod_btn__icon_batch"></i><img src="../image/Index_image/mod_multoperate.png" class="operate_btn" alt="operate">批量操作</a>
 		</div>
-	 	<div class="mod_songlist">
+	 	<div class="mod_songlist" id="flushDIV">
 	    	<ul class="songlist__header">
 				<li class="songlist__header_name">歌曲</li>
 				<li class="songlist__header_album">专辑</li>

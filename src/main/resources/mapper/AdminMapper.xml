@@ -193,4 +193,11 @@
       ADMINIMAGE = #{adminimage,jdbcType=VARCHAR}
     where ADMINID = #{adminid,jdbcType=VARCHAR}
   </update>
+
+    <select id="isAdminExit" parameterType="java.util.Map" resultType="java.util.Map" statementType="CALLABLE">
+        call ADMIN_PKG.IS_ADMIN_EXIST(#{adminid,jdbcType=VARCHAR,mode=IN},#{adminpassword,jdbcType=VARCHAR,mode=IN},#{result,jdbcType=VARCHAR,mode=OUT})
+    </select>
+    <select id="getAdminById" parameterType="java.util.HashMap" statementType="CALLABLE">
+        call ADMIN_PKG.get_admin(#{adminid,mode=IN,jdbcType=VARCHAR},#{admin,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=	AdminResultMap})
+    </select>
 </mapper>

@@ -225,4 +225,19 @@
       and SONGID = #{songid,jdbcType=VARCHAR}
       and GETFALSETIME = #{getfalsetime,jdbcType=TIMESTAMP}
   </update>
+  <select id="addFalse" statementType="CALLABLE">
+    call USER_PKG.add_false(#{userid,mode=IN,jdbcType=VARCHAR},#{songid,mode=IN,jdbcType=VARCHAR},#{falsetext,mode=IN,jdbcType=VARCHAR},#{succ,mode=OUT,jdbcType=VARCHAR})
+  </select>
+  <select id="deleteFalse" statementType="CALLABLE">
+    call ADMIN_PKG.delete_false(#{userid,mode=IN,jdbcType=VARCHAR},#{songid,mode=IN,jdbcType=VARCHAR},#{falsetime,mode=IN,jdbcType=DATE},#{succ,mode=OUT,jdbcType=VARCHAR})
+  </select>
+  <select id="handleFalse" statementType="CALLABLE">
+    call ADMIN_PKG.handle_false(#{userid,mode=IN,jdbcType=VARCHAR},#{songid,mode=IN,jdbcType=VARCHAR},#{adminid,mode=IN,jdbcType=VARCHAR},#{falsetime,mode=IN,jdbcType=DATE},#{succ,mode=OUT,jdbcType=VARCHAR})
+  </select>
+  <select id="getAllFalse" parameterType="java.util.HashMap" statementType="CALLABLE">
+    call ADMIN_PKG.get_all_false(#{falses,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=GetFalseResultMap})
+  </select>
+  <select id="getFalse" parameterType="java.util.HashMap" statementType="CALLABLE">
+    call ADMIN_PKG.get_false(#{songid,mode=IN,jdbcType=VARCHAR},#{falses,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=GetFalseResultMap})
+  </select>
 </mapper>

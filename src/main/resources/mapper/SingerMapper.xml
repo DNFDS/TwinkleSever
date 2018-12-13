@@ -225,4 +225,16 @@
       INTRODUCTION = #{introduction,jdbcType=VARCHAR}
     where SINGERID = #{singerid,jdbcType=VARCHAR}
   </update>
+    <select id="getSingerById" parameterType="java.util.HashMap" statementType="CALLABLE">
+        call SINGER_PKG.search_singer_by_id(#{singerid,mode=IN,jdbcType=VARCHAR},#{singers,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SingerResultMap})
+    </select>
+    <select id="getSingerByNamePart" parameterType="java.util.HashMap" statementType="CALLABLE">
+        call SINGER_PKG.search_singer_by_name_part(#{singername,mode=IN,jdbcType=VARCHAR},#{singers,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SingerResultMap})
+    </select>
+    <select id="getSingerByName" parameterType="java.util.HashMap" statementType="CALLABLE">
+        call SINGER_PKG.search_singer_by_name_full(#{singername,mode=IN,jdbcType=VARCHAR},#{singers,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SingerResultMap})
+    </select>
+    <select id="getAllSinger" parameterType="java.util.HashMap" statementType="CALLABLE">
+        call SINGER_PKG.view_all_singer(#{singers,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SingerResultMap})
+    </select>
 </mapper>

@@ -32,22 +32,28 @@ public interface SingerMapper {
 
     /**
      * @param Map
-     * @IN :"songid"
-     * @OUT: "result"> ArrayList<String>
+     * @IN :"singerid"
+     * @OUT: "singers"> Singer
      */
-    void getSingerIdBySongId(Map<String,Object> Map);
+    void getSingerById(Map<String,Object> Map);
 
     /**
      * @param Map
-     * @IN :"songname"
-     * @OUT: "result"> ArrayList<Song>
+     * @IN :"singername"
+     * @OUT: "singers"> ArrayList<Singer>
      */
     void getSingerByName_part(Map<String,Object> Map);
 
     /**
      * @param Map
-     * @IN :"songname"
-     * @OUT: "result"> ArrayList<Song>
+     * @IN :"singername"
+     * @OUT: "singers"> ArrayList<Singer>
      */
     void getSingerByName(Map<String,Object> Map);
+
+    /**
+     * @param Map
+     * @OUT: "singers"> ArrayList<Singer>
+     */
+    void getAllSinger(Map<String,Object> Map);
 }

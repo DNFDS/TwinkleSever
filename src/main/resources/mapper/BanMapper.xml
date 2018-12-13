@@ -193,4 +193,25 @@
     where USERID = #{userid,jdbcType=VARCHAR}
       and ADMINID = #{adminid,jdbcType=VARCHAR}
   </update>
+  <select id="getBannedUser" parameterType="java.util.HashMap" statementType="CALLABLE">
+    call ADMIN_PKG.get_banned_user(#{adminid,mode=IN,jdbcType=VARCHAR},#{bannedusers,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=BanResultMap})
+  </select>
+  <select id="banUser" statementType="CALLABLE">
+    call ADMIN_PKG.ban_user(#{userid,mode=IN,jdbcType=VARCHAR},#{adminid,mode=IN,jdbcType=VARCHAR},#{banreason,mode=IN,jdbcType=VARCHAR},#{succ,mode=OUT,jdbcType=VARCHAR})
+  </select>
+  <select id="unbanUser" statementType="CALLABLE">
+    call ADMIN_PKG.unban_user(#{userid,mode=IN,jdbcType=VARCHAR},#{succ,mode=OUT,jdbcType=VARCHAR})
+  </select>
+  <select id="getBannedInfo" parameterType="java.util.HashMap" statementType="CALLABLE">
+    call ADMIN_PKG.get_banned_info(#{userid,mode=IN,jdbcType=VARCHAR},#{baninfo,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=BanResultMap})
+  </select>
+  <select id="getBannedReason" statementType="CALLABLE">
+    call ADMIN_PKG.get_banned_reason(#{userid,mode=IN,jdbcType=VARCHAR},#{banreason,mode=OUT,jdbcType=VARCHAR})
+  </select>
+  <select id="getAllBannedUser" parameterType="java.util.HashMap" statementType="CALLABLE">
+    call ADMIN_PKG.view_all_banned_user(#{username,mode=IN,jdbcType=VARCHAR},#{banneduser,mode=OUT,jdbcType=VARCHAR,javaType=ResultSet,resultMap=UserResultMap})
+  </select>
+  <select id="getAllUnbannedUser" parameterType="java.util.HashMap" statementType="CALLABLE">
+    call ADMIN_PKG.view_all_unbanned_user(#{username,mode=IN,jdbcType=VARCHAR},#{unbanneduser,mode=OUT,jdbcType=VARCHAR,javaType=ResultSet,resultMap=UserResultMap})
+  </select>
 </mapper>

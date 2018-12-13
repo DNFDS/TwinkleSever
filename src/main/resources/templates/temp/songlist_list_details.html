@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/PersonalMessage.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet">
+    <script src="../JS/jquery-3.3.1.min.js"></script>
+    <script src="../JS/bootstrap.min.js"></script>
+    <script src="../JS/main_js.js"></script>
+    <style>
+        body {
+            background-color: #fafafa;
+        }
+        .songlist__header, .songlist__list1,.songlist__list2 {
+            position: relative;
+            padding-left: 20px;
+            padding-right: 100px;
+        }
+        .songlist__header{
+            height: 50px;
+            line-height: 50px;
+            background-color: rgba(0,0,0,.01);
+            color: #999;
+        }
+        .songlist__header_name {
+            float: left;
+            width: 56%;
+            position: relative;
+            white-space: normal;
+        }
+        .songlist__header_album, .songlist__header_author {
+            float: right;
+            padding-left: 20px;
+            width: 22%;
+            box-sizing: border-box;
+        }
+        .songlist__header_time {
+            position: absolute;
+            top: 0;
+            right: 38px;
+            width: 50px;
+        }
+        .songlist__list1 {
+            height: 70px;
+            line-height: 50px;
+            background-color:rgba(251,251,251,1.00);
+            color: #727272;
+        }
+        .songlist__list2 {
+            height: 70px;
+            line-height: 50px;
+            background-color: rgba(0,0,0,.01);
+            color: #727272;
+        }
+        .songlist__name{
+            float: left;
+            padding-top:10px;
+            width: 36%;
+            position: relative;
+            white-space: normal;
+        }
+        .songlist__btn{
+            float: left;
+            top:10px;
+            width: 20%;
+            position: relative;
+            white-space: normal;
+        }
+        .songlist_btn{
+            margin-left: 10px;
+        }
+        .songlist__album, .songlist__author {
+            float: right;
+            padding-top:10px;
+            padding-left: 20px;
+            width: 22%;
+            box-sizing: border-box;
+        }
+        .songlist__time {
+            position: absolute;
+            top: 10px;
+            right: 38px;
+            width: 50px;
+        }
+        .playlist__cover {
+            float: left;
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            overflow: hidden;
+        }
+
+    </style>
+</head>
+<body>
+<ul class="songlist__header">
+    <li class="songlist__header_name">歌单</li>
+    <li class="songlist__header_album">曲目数</li>
+    <li class="songlist__header_author">创建人</li>
+    <li class="songlist__header_time">收藏数</li>
+</ul>
+<ul class="songlist__list1 submeau_1">
+    <li class="songlist__name"><img src="../image/SongList_image/album1.png" alt="songlist_cover" class="playlist__cover">Tales of the Electric Romeo</li>
+    <div class="songlist__btn" id="oa_1">
+        <span><a href="#"><img src="../image/Index_image/play.png" alt="play" height="35px" width="35px" class="songlist_btn"/></a></span>
+        <span><a href="#"><img src="../image/Index_image/like.png" alt="like" height="35px" width="35px" class="songlist_btn"/></a></span>
+        <span><a href="#"><img src="../image/Index_image/add.png" alt="add" height="35px" width="35px" class="songlist_btn"/></a></span>
+        <span><a href="#"><img src="../image/Index_image/download.png" alt="download" height="35px" width="35px" class="songlist_btn"/></a></span>
+    </div>
+    <!--按钮悬停事件-->
+    <script type="text/javascript">
+
+        $("#oa_1").hide();
+        $(".submeau_1").hover(function () {
+            $("#oa_1 ").show();
+        }, function () {
+            $("#oa_1").hide();
+        })
+        // 鼠标移动到list的div上的时候list div不会被隐藏
+        $("#oa_1").hover(function () {
+            $("#oa_1").show();
+        }, function () {
+            $("#oa_1").hide();
+        })
+    </script>
+    <li class="songlist__album">Trailerhead:Triumph</li>
+    <li class="songlist__author">Immediate Music</li>
+    <li class="songlist__time">04:00</li>
+</ul>
+<ul class="songlist__list2 submeau_2">
+    <li class="songlist__name"><img src="../image/SongList_image/album1.png" alt="songlist_cover" class="playlist__cover">Tales of the Electric Romeo</li>
+    <li class="songlist__btn" id="oa_2">
+        <span><a href="#"><img src="../image/Index_image/play.png" alt="play" height="35px" width="35px" class="songlist_btn"/></a></span>
+        <span><a href="#"><img src="../image/Index_image/like.png" alt="like" height="35px" width="35px" class="songlist_btn"/></a></span>
+        <span><a href="#"><img src="../image/Index_image/add.png" alt="add" height="35px" width="35px" class="songlist_btn"/></a></span>
+        <span><a href="#"><img src="../image/Index_image/download.png" alt="download" height="35px" width="35px" class="songlist_btn"/></a></span>
+    </li>
+    <!--按钮悬停事件-->
+    <script type="text/javascript">
+
+        $("#oa_2").hide();
+        $(".submeau_2").hover(function () {
+            $("#oa_2 ").show();
+        }, function () {
+            $("#oa_2").hide();
+        })
+        // 鼠标移动到list的div上的时候list div不会被隐藏
+        $("#oa_2").hover(function () {
+            $("#oa_2").show();
+        }, function () {
+            $("#oa_2").hide();
+        })
+    </script>
+    <li class="songlist__album">Trailerhead:Triumph</li>
+    <li class="songlist__author">Immediate Music</li>
+    <li class="songlist__time">04:00</li>
+</ul>
+</body>
+</html>

@@ -33,9 +33,16 @@ public interface SongListMapper {
     /**
      * @param Map
      * @IN :"userid","songlistid"
-     * @OUT: "result"> 1:true 0:false
+     * @OUT: "succ"> 1:true 0:false
      */
     void keepSongList(Map<String, Object> Map);
+
+    /**
+     * @param Map
+     * @IN :"songlistid","userid"
+     * @OUT: "succ"> String
+     */
+    void unKeepSongList(Map<String,Object>Map);
 
     /**
      * @param Map
@@ -46,17 +53,32 @@ public interface SongListMapper {
 
     /**
      * @param Map
+     * @IN :"songlistid"
+     * @OUT: "succ"> String
+     */
+    String deleteSongList(Map<String,Object>Map);
+
+    /**
+     * @param Map
      * @IN :"songid","songlistid"
-     * @OUT: "result"> 1:true 0:false
+     * @OUT: "succ"> 1:true 0:false
+     */
+    void deleteSongFromSongList(Map<String, Object> Map);
+
+    /**
+     * @param Map
+     * @IN :"songlistid","songid"
+     * @OUT: "succ"> 1:true 0:false
      */
     void addSongToSongList(Map<String, Object> Map);
 
     /**
      * @param Map
-     * @IN :"songid","songlistid"
-     * @OUT: "result"> 1:true 0:false
+     * @IN :"songlistname","songlistimage","isprivate","userid"
+     * @OUT: "songlistid"> String
      */
-    void deleteSongFromSongList(Map<String, Object> Map);
+    void createSongList(Map<String, Object> Map);
+
 
     /**
      * @param Map
@@ -81,22 +103,28 @@ public interface SongListMapper {
 
     /**
      * @param Map
+     * @OUT: "songlists"> ArrayList<SongList>
+     */
+    void getAllSonglist(Map<String,Object>Map);
+
+    /**
+     * @param Map
      * @IN :"songlistid"
-     * @OUT: "result"> int
+     * @OUT: "savednum"> int
      */
     void getSongListSavedNum(Map<String,Object>Map);
 
     /**
      * @param Map
      * @IN :"songlistname"
-     * @OUT: "result"> ArrayList<SongList>
+     * @OUT: "songlists"> ArrayList<SongList>
      */
-    void getSongListByName_part(Map<String,Object>Map);
+    void getSongListByNamePart(Map<String,Object>Map);
 
     /**
      * @param Map
      * @IN :"songlistname"
-     * @OUT: "result"> ArrayList<SongList>
+     * @OUT: "songlists"> ArrayList<SongList>
      */
     void getSongListByName(Map<String,Object>Map);
 
@@ -108,4 +136,24 @@ public interface SongListMapper {
     void getSongListById(Map<String,Object>Map);
 
 
+    /**
+     * @param Map
+     * @IN :"songlistid","songlistname"
+     * @OUT: "succ"> String
+     */
+    void updateSongListName(Map<String,Object>Map);
+
+    /**
+     * @param Map
+     * @IN :"songlistid","songlistimage"
+     * @OUT: "succ"> String
+     */
+    void updateSongListImage(Map<String,Object>Map);
+
+    /**
+     * @param Map
+     * @IN :"songlistid","isprivate"
+     * @OUT: "succ"> String
+     */
+    void updateIsPrivate(Map<String,Object>Map);
 }
