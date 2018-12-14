@@ -36,6 +36,12 @@ body {
                 cache:false,
                 success:function(data){
                     $('#flushDIV').html(data);
+                    var song = document.getElementById('song_tab');
+                    var songlist = document.getElementById('songlist_tab');
+                    var album = document.getElementById('album_tab');
+                    song.className = 'mod_tab__item mod_tab__current';
+                    songlist.className = 'mod_tab__item';
+                    album.className = 'mod_tab__item';
                 },
                 error:function(XMLHttpRequest, textStatus, errorThrown){
                     alert(XMLHttpRequest.status);
@@ -53,11 +59,20 @@ body {
             $.ajax({
                 type:"GET",
                 url:"/profile/like_song_songlist_typeList",
-                data:{String:id},
+                data:{
+                    String:id,
+					flag:"1"
+				},
                 dataType: "html",   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
                 cache:false,
                 success:function(data){
                     $('#flushDIV').html(data);
+                    var song = document.getElementById('song_tab');
+                    var songlist = document.getElementById('songlist_tab');
+                    var album = document.getElementById('album_tab');
+                    song.className = 'mod_tab__item';
+                    songlist.className = 'mod_tab__item mod_tab__current';
+                    album.className = 'mod_tab__item';
                 }
             });
         }
@@ -87,19 +102,19 @@ body {
   		</div>
 	</div>
 	<!-- 主体 -->
-	<div class="main main--profile" style="">
+	<div class="main main--profile" id="main" style="">
 		<div class="mod_tab profile_nav" role="nav" id="nav">
 			<span class=" mod_tab__current" >我喜欢</span>
 			<a class="mod_tab__item" href="Purchased_album_form.jsp" id="buy_tab" data-tab="buy" data-stat="y_new.profile.tab.digital_album">我的已购</a>
 			<a class="mod_tab__item" href="follow_singer.jsp" id="focus_tab" data-tab="focus" data-stat="y_new.profile.tab.focus">关注</a>
-			<a class="mod_tab__item" href="Fans.jsp" id="fans_tab" data-tab="fans" data-stat="y_new.profile.tab.fans">粉丝</a>
+			<a class="mod_tab__item" th:href="Fans" id="fans_tab" data-tab="fans" data-stat="y_new.profile.tab.fans">粉丝</a>
 			<a class="mod_tab__item" href="javascript:;" id="uploadmv_tab" data-tab="uploadmv" data-stat="y_new.profile.tab.uploadmv">我上传的视频</a>
 		</div>
 		<div class="mod_tab" role="nav">
 
-			<a class="mod_tab__item mod_tab__current" href="javascript:;" onclick="show_song_list_details()" data-tab="like_song" data-stat="y_new.profile.like.tab.song">歌曲 <span th:text=" ${songs.size()}"></span></a>
-			<a class="mod_tab__item" href="javascript:;" onclick="show_songlist_list_details()" data-tab="like_playlist" data-stat="y_new.profile.like.tab.playlist" >歌单 <span th:text=" ${SongListNum}"></span></a>
-			<a class="mod_tab__item" href="like_album_form.jsp" data-tab="like_album" data-stat="y_new.profile.like.tab.album">专辑 0</a>
+			<a class="mod_tab__item mod_tab__current" id="song_tab" href="javascript:;" onclick="show_song_list_details()" data-tab="like_song" data-stat="y_new.profile.like.tab.song">歌曲 <span th:text=" ${songs.size()}"></span></a>
+			<a class="mod_tab__item" id="songlist_tab" href="javascript:;" onclick="show_songlist_list_details()" data-tab="like_playlist" data-stat="y_new.profile.like.tab.playlist" >歌单 <span th:text=" ${SongListNum}"></span></a>
+			<a class="mod_tab__item" id="album_tab" href="like_album_form.jsp" data-tab="like_album" data-stat="y_new.profile.like.tab.album">专辑 0</a>
 			<a class="mod_tab__item" href="javascript:;" data-tab="like_mv" data-stat="y_new.profile.like.tab.mv">视频 0</a>
 		</div>
 		<div class="mod_songlist_toolbar">

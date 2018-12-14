@@ -56,20 +56,25 @@ public class PersonalController {
         Map<String,Object>e_map = (Map<String, Object>) e.getObject();
         ArrayList<SongList> createdsonglist = (ArrayList<SongList>)e_map.get("createdsonglist");
         getFavoriteList(map,createdsonglist);
-        return new ModelAndView("/temp/song_list_details",map);
+        return new ModelAndView("/temp/mylike/song_list_details",map);
     }
 
     @ResponseBody
     @RequestMapping(value = "/profile/like_song_songlist_typeList", method = RequestMethod.GET)
     public ModelAndView showSongsListInList(HttpServletRequest request, HttpServletResponse response){
         String id = request.getParameter("id");
+        String flag = request.getParameter("flag");
         ResultEntity e;
         Map<String,Object>map = new HashMap<>();
         User user = new User();
         user.setUserid(id);
         e = userService.getSongLists(user);
         Map<String,Object>e_map = (Map<String, Object>) e.getObject();
-        return new ModelAndView("/temp/songlist_list_details",e_map);
+        if(flag.equals("1"))
+            return new ModelAndView("/temp/mylike/songlist_details",e_map);
+        if(flag.equals("2"))
+            return new ModelAndView("/temp/mylike/songlist_form_details",e_map);
+        return new ModelAndView("/temp/mylike/songlist_list_details",e_map);
     }
 
     @RequestMapping(value = "/profile/like_songlist", method = RequestMethod.GET)
@@ -77,7 +82,7 @@ public class PersonalController {
         return "profile/like_songlist_list";
     }
 
-    void getFavoriteList(Map<String,Object> map,ArrayList<SongList> createdsonglist){
+    private void getFavoriteList(Map<String,Object> map,ArrayList<SongList> createdsonglist){
         ResultEntity e;
         for(SongList i : createdsonglist){
             if(i.getSonglistname().equals("favorite")){
