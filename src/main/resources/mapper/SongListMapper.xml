@@ -247,9 +247,6 @@
   <select id="unKeepSongList" statementType="CALLABLE">
     call SONGLIST_PKG.delete_savesonglist(#{songlistid,mode=IN,jdbcType=VARCHAR},#{userid,mode=IN,jdbcType=VARCHAR},#{succ,mode=OUT,jdbcType=VARCHAR})
   </select>
-  <select id="addSongToSongList" statementType="CALLABLE">
-    call SONGLIST_PKG.add_savesonglist(#{songlistid,mode=IN,jdbcType=VARCHAR},#{songid,mode=IN,jdbcType=VARCHAR},#{succ,mode=OUT,jdbcType=VARCHAR})
-  </select>
   <select id="deleteSongFromSongList" statementType="CALLABLE">
     call SONGLIST_PKG.delete_savesonglist(#{songlistid,mode=IN,jdbcType=VARCHAR},#{songid,mode=IN,jdbcType=VARCHAR},#{succ,mode=OUT,jdbcType=VARCHAR})
   </select>
