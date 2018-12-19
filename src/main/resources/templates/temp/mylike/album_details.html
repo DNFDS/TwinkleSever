@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>搜索音乐</title>
+    <title>个人主页</title>
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/PersonalMessage.css" rel="stylesheet">
@@ -11,6 +10,46 @@
     <script src="../JS/jquery-3.3.1.min.js"></script>
     <script src="../JS/bootstrap.min.js"></script>
     <script src="../JS/main_js.js"></script>
+    <script>
+        function showAlbum_list() {
+            /*<![CDATA[*/
+            var id = [[${session.visted.getUserid()}]];
+            /*]]>*/
+            $.ajax({
+                type:"GET",
+                url:"/profile/showAlbum",
+                data:{String:id,flag:"3"},
+                dataType: "html",
+                cache:true,
+                success:function(data){
+                    $('#typeFlush_album').html(data);
+                    var list = document.getElementById('list');
+                    var form = document.getElementById('form');
+                    list.className = 'style_switch__item style_switch__item--select';
+                    form.className = 'style_switch__item_right';
+                }
+            });
+        }
+        function showAlbum_form() {
+            /*<![CDATA[*/
+            var id = [[${session.visted.getUserid()}]];
+            /*]]>*/
+            $.ajax({
+                type:"GET",
+                url:"/profile/showAlbum",
+                data:{String:id,flag:"2"},
+                dataType: "html",
+                cache:true,
+                success:function(data){
+                    $('#typeFlush_album').html(data);
+                    var list = document.getElementById('list');
+                    var form = document.getElementById('form');
+                    list.className = 'style_switch__item_right';
+                    form.className = 'style_switch__item style_switch__item--select';
+                }
+            });
+        }
+    </script>
     <style>
         body {
             background-color: #fafafa;
@@ -93,7 +132,7 @@
             right: 38px;
             width: 50px;
         }
-        .songlist__other {
+        .songlist__other{
             position: absolute;
             top: 10px;
             right: 0;
@@ -139,59 +178,16 @@
             margin-top: 50px;
         }
     </style>
-    <script>
-        function show_form_details() {
-            /*<![CDATA[*/
-            var id = [[${session.visted.getUserid()}]];
-            /*]]>*/
-            $.ajax({
-                type:"GET",
-                url:"/profile/like_song_songlist_typeList",
-                data:{String:id,flag:"2"},
-                dataType: "html",
-                cache:true,
-                success:function(data){
-                    $('#toFlush').html(data);
-                    var list = document.getElementById('list');
-                    var form = document.getElementById('form');
-                    list.className = 'style_switch__item_right';
-                    form.className = 'style_switch__item style_switch__item--select';
-                }
-            });
-        }
-    </script>
-    <script>
-        function show_list_details() {
-            /*<![CDATA[*/
-            var id = [[${session.visted.getUserid()}]];
-            /*]]>*/
-            $.ajax({
-                type:"GET",
-                url:"/profile/like_song_songlist_typeList",
-                data:{String:id,flag:"3"},
-                dataType: "html",
-                cache:true,
-                success:function(data){
-                    $('#toFlush').html(data);
-                    var list = document.getElementById('list');
-                    var form = document.getElementById('form');
-                    list.className = 'style_switch__item style_switch__item--select';
-                    form.className = 'style_switch__item_right';
-                }
-            });
-        }
-    </script>
-</head>
 <body>
-    <div class="style_switch" aria-label="排列方式">
-        <a href="#"  onclick="show_list_details()" class="style_switch__item style_switch__item--select " id="list" title="列表" data-type="mod_playlist_text" data-tab="like_playlist" data-stat="y_new.profile.like.playlist.list_mod"><img src="../image/Index_image/列表.png" alt="play" height="17px" width="17px" class="style_switch__item_img"/></a>
-        <a href="#" onclick="show_form_details()" class="style_switch__item_right" id="form" title="上图下文" data-type="mod_playlist" data-tab="like_playlist" data-stat="y_new.profile.like.playlist.pic_mod"><img src="../image/Index_image/表格active.png" alt="play" height="17px" width="17px" class="style_switch__item_img"/></a>
-    </div>
-    <div id="toFlush">
+<div class="style_switch" aria-label="排列方式">
+    <a href="#"  onclick="showAlbum_list()" class="style_switch__item style_switch__item--select " id="list" title="列表" data-type="mod_playlist_text" data-tab="like_playlist" data-stat="y_new.profile.like.playlist.list_mod"><img src="../image/Index_image/列表.png" alt="play" height="17px" width="17px" class="style_switch__item_img"/></a>
+    <a href="#" onclick="showAlbum_form()" class="style_switch__item_right" id="form" title="上图下文" data-type="mod_playlist" data-tab="like_playlist" data-stat="y_new.profile.like.playlist.pic_mod"><img src="../image/Index_image/表格active.png" alt="play" height="17px" width="17px" class="style_switch__item_img"/></a>
+</div>
+<div id="typeFlush_album">
         <ul class="songlist__header">
-            <li class="songlist__header_name">歌单</li>
+            <li class="songlist__header_name">专辑</li>
             <li class="songlist__header_album">曲目数</li>
-            <li class="songlist__header_author">创建人</li>
+            <li class="songlist__header_author">歌手</li>
             <li class="songlist__header_time">收藏数</li>
         </ul>
         <ul class="songlist__list1 submeau_1">

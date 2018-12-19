@@ -130,7 +130,7 @@ body {
 		</div>
 		<div class="mod_tab" role="nav">
 			<span class="mod_tab__item mod_tab__current">歌手</span>
-			<a class="mod_tab__item" href="follow_user.jsp" data-tab="like_playlist" data-stat="y_new.profile.like.tab.playlist">用户</a>
+			<a class="mod_tab__item" href="temp/follow_main.html" data-tab="like_playlist" data-stat="y_new.profile.like.tab.playlist">用户</a>
 		</div>
 		<div class="profile_cont">
 			<a href="javascript:;" class="mod_btn btn_focus_fan js_focus_friends" style="display: block;"><img src="image/Index_image/add_more.png" alt="add_more" class="operate_btn">关注更多歌手</a>

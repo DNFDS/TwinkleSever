@@ -1,5 +1,6 @@
 package com.example.demo.service.Impl;
 
+import com.example.demo.dao.AlbumMapper;
 import com.example.demo.dao.SongListMapper;
 import com.example.demo.dao.UserMapper;
 import com.example.demo.entity.SongList;
@@ -19,6 +20,8 @@ public class UserImpl implements UserService {
     private UserMapper userMapper;
     @Resource
     private SongListMapper songListMapper;
+    @Resource
+    private AlbumMapper albumMapper;
 
 
     @Override
@@ -77,11 +80,23 @@ public class UserImpl implements UserService {
         return new ResultEntity(true,"",friends);
     }
     @Override
+    public ResultEntity getFollowSingers(User user){
+        return new ResultEntity(true,"","");
+    }
+    @Override
     public ResultEntity getSongLists(User user){
         Map<String,Object>map = new HashMap<>();
         map.put("userid",user.getUserid());
         songListMapper.getSongListCreatedByUserId(map);//"createdsonglist"
         songListMapper.getSongListKeepedByUserId(map);//"keepedsonglist"
         return new ResultEntity(true,"",map);
+    }
+    @Override
+    public ResultEntity getFavoriteAlbum(User user){
+        Map<String,Object>map = new HashMap<>();
+        map.put("userid",user.getUserid());
+        songListMapper.getSongListCreatedByUserId(map);//"keepedsonglist"
+        ArrayList<SongList>list = (ArrayList<SongList>)map.get("createdsonglist");
+        return new ResultEntity(true,"",list);
     }
 }

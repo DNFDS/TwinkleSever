@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>搜索音乐</title>
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/PersonalMessage.css" rel="stylesheet">
@@ -42,6 +43,13 @@
             top: 0;
             right: 38px;
             width: 50px;
+        }
+        .songlist__header_other{
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 38px;
+            overflow: inherit;
         }
         .songlist__list1 {
             height: 70px;
@@ -85,6 +93,13 @@
             right: 38px;
             width: 50px;
         }
+        .songlist__other {
+            position: absolute;
+            top: 10px;
+            right: 0;
+            width: 38px;
+            overflow: inherit;
+        }
         .playlist__cover {
             float: left;
             width: 50px;
@@ -92,7 +107,37 @@
             margin-right: 10px;
             overflow: hidden;
         }
-
+        .style_switch {
+            position: absolute;
+            top: 30px;
+            right: 0;
+            width: 80px;
+            height: 38px;
+            border-radius: 2px;
+            border: 1px solid #c9c9c9;
+        }
+        .style_switch__item {
+            float: left;
+            width: 50%;
+            height: 38px;
+            position: relative;
+        }
+        .style_switch__item_right {
+            float: left;
+            width: 50%;
+            height: 36px;
+            position: relative;
+        }
+        .style_switch__item--select {
+            background-color: rgba(22,154,243,1.00);
+        }
+        .style_switch__item_img {
+            margin-left: 12px;
+            margin-top: 10px;
+        }
+        .mod_songlist {
+            margin-top: 50px;
+        }
     </style>
 </head>
 <body>

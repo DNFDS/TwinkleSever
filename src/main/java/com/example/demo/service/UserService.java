@@ -9,5 +9,7 @@ public interface UserService {
     ResultEntity Register(User user);
     ResultEntity getFans(User user);
     ResultEntity getFriends(User user);
+    ResultEntity getFollowSingers(User user);
     ResultEntity getSongLists(User user);
+    ResultEntity getFavoriteAlbum(User user);
 }

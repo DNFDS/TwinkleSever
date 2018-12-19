@@ -1,24 +1,116 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>搜索音乐</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet">
+    <link href="../css/PersonalMessage.css" rel="stylesheet">
+    <link href="../css/like_song.css" rel="stylesheet">
+    <script src="../JS/jquery-3.3.1.min.js"></script>
+    <script src="../JS/bootstrap.min.js"></script>
+    <script src="../JS/main_js.js"></script>
+    <style>
+        body {
+            background-color: #fafafa;
+        }
+        .mod_songlist_toolbar a:hover{
+            color: rgba(0,124,249,1.00);
+        }
+        .mod_songlist {
+            padding-bottom:50px;
+            min-height:400px;
+        }
+    </style>
+    <script>
+        function mylike_refresh() {
+            show_song_list_details();
+        }
+        function show_song_list_details() {
+            /*<![CDATA[*/
+            var id = [[${session.visted.getUserid()}]];
+            /*]]>*/
+            $.ajax({
+                type:"GET",
+                url:"/profile/like_song_song_typeList",
+                data:{String:id},
+                dataType: "html",   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
+                cache:true,
+                success:function(data){
+                    $('#flushDIV').html(data);
+                    var song = document.getElementById('song_tab');
+                    var songlist = document.getElementById('songlist_tab');
+                    var album = document.getElementById('album_tab');
+                    song.className = 'mod_tab__item mod_tab__current';
+                    songlist.className = 'mod_tab__item';
+                    album.className = 'mod_tab__item';
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown){
+                    alert(XMLHttpRequest.status);
+                    alert(XMLHttpRequest.readyState);
+                    alert(textStatus);
+                }
+            });
+        }
+    </script>
+    <script>
+        function show_songlist_list_details() {
+            /*<![CDATA[*/
+            var id = [[${session.visted.getUserid()}]];
+            /*]]>*/
+            $.ajax({
+                type:"GET",
+                url:"/profile/like_song_songlist_typeList",
+                data:{
+                    String:id,
+                    flag:"1"
+                },
+                dataType: "html",   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
+                cache:false,
+                success:function(data){
+                    $('#flushDIV').html(data);
+                    var song = document.getElementById('song_tab');
+                    var songlist = document.getElementById('songlist_tab');
+                    var album = document.getElementById('album_tab');
+                    song.className = 'mod_tab__item';
+                    songlist.className = 'mod_tab__item mod_tab__current';
+                    album.className = 'mod_tab__item';
+                }
+            });
+        }
+        function showAlbum_list_details() {
+            /*<![CDATA[*/
+            var id = [[${session.visted.getUserid()}]];
+            /*]]>*/
+            $.ajax({
+                type:"GET",
+                url:"/profile/showAlbum",
+                data:{
+                    String:id,
+                    flag:"1"
+                },
+                dataType: "html",   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
+                cache:false,
+                success:function(data){
+                    $('#flushDIV').html(data);
+                    var song = document.getElementById('song_tab');
+                    var songlist = document.getElementById('songlist_tab');
+                    var album = document.getElementById('album_tab');
+                    song.className = 'mod_tab__item';
+                    songlist.className = 'mod_tab__item';
+                    album.className = 'mod_tab__item mod_tab__current';
+                }
+            });
+        }
+    </script>
 </head>
-<body>
-<div class="main main--profile" id="main" style="">
-    <div class="mod_tab profile_nav" role="nav" id="nav">
-        <span class=" mod_tab__current" >我喜欢</span>
-        <a class="mod_tab__item" href="Purchased_album_form.jsp" id="buy_tab" data-tab="buy" data-stat="y_new.profile.tab.digital_album">我的已购</a>
-        <a class="mod_tab__item" href="follow_singer.jsp" id="focus_tab" data-tab="focus" data-stat="y_new.profile.tab.focus">关注</a>
-        <a class="mod_tab__item" th:href="Fans" id="fans_tab" data-tab="fans" data-stat="y_new.profile.tab.fans">粉丝</a>
-        <a class="mod_tab__item" href="javascript:;" id="uploadmv_tab" data-tab="uploadmv" data-stat="y_new.profile.tab.uploadmv">我上传的视频</a>
-    </div>
+<body onload="mylike_refresh()">
     <div class="mod_tab" role="nav">
-
-        <a class="mod_tab__item mod_tab__current" id="song_tab" href="javascript:;" onclick="show_song_list_details()" data-tab="like_song" data-stat="y_new.profile.like.tab.song">歌曲 <span th:text=" ${songs.size()}"></span></a>
-        <a class="mod_tab__item" id="songlist_tab" href="javascript:;" onclick="show_songlist_list_details()" data-tab="like_playlist" data-stat="y_new.profile.like.tab.playlist" >歌单 <span th:text=" ${SongListNum}"></span></a>
-        <a class="mod_tab__item" id="album_tab" href="like_album_form.jsp" data-tab="like_album" data-stat="y_new.profile.like.tab.album">专辑 0</a>
-        <a class="mod_tab__item" href="javascript:;" data-tab="like_mv" data-stat="y_new.profile.like.tab.mv">视频 0</a>
+        <a class="mod_tab__item mod_tab__current" id="song_tab" href="#" onclick="show_song_list_details()" data-tab="like_song" data-stat="y_new.profile.like.tab.song">歌曲 </a>
+        <a class="mod_tab__item" id="songlist_tab" href="#" onclick="show_songlist_list_details()" data-tab="like_playlist" data-stat="y_new.profile.like.tab.playlist" >歌单 </a>
+        <a class="mod_tab__item" id="album_tab" href="#" onclick="showAlbum_list_details()" data-tab="like_album" data-stat="y_new.profile.like.tab.album">专辑</a>
+        <a class="mod_tab__item" href="#" data-tab="like_mv" data-stat="y_new.profile.like.tab.mv">视频</a>
     </div>
     <div class="mod_songlist_toolbar">
         <a href="javascript:;" class="mod_btn_blue js_all_play"><i class="mod_btn_green__icon_play"></i><img src="../image/Index_image/mod_play.png" class="operate_btn" alt="play">播放全部</a>
@@ -88,8 +180,8 @@
             <li class="songlist__header_author">Immediate Music</li>
             <li class="songlist__header_time">04:00</li>
         </ul>
+
     </div>
-</div>
 
 </body>
 </html>

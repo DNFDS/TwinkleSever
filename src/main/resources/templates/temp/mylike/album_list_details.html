@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <ul class="songlist__header">
+        <li class="songlist__header_name">专辑</li>
+        <li class="songlist__header_album">曲目数</li>
+        <li class="songlist__header_author">歌手</li>
+        <li class="songlist__header_time">收藏数</li>
+    </ul>
+    <ul class="songlist__list1 submeau_1">
+        <li class="songlist__name"><img src="../image/SongList_image/album1.png" alt="songlist_cover" class="playlist__cover">Tales of the Electric Romeo</li>
+        <div class="songlist__btn" id="oa_1">
+            <span><a href="#"><img src="../image/Index_image/play.png" alt="play" height="35px" width="35px" class="songlist_btn"/></a></span>
+            <span><a href="#"><img src="../image/Index_image/like.png" alt="like" height="35px" width="35px" class="songlist_btn"/></a></span>
+            <span><a href="#"><img src="../image/Index_image/add.png" alt="add" height="35px" width="35px" class="songlist_btn"/></a></span>
+            <span><a href="#"><img src="../image/Index_image/download.png" alt="download" height="35px" width="35px" class="songlist_btn"/></a></span>
+        </div>
+        <!--按钮悬停事件-->
+        <script type="text/javascript">
+
+            $("#oa_1").hide();
+            $(".submeau_1").hover(function () {
+                $("#oa_1 ").show();
+            }, function () {
+                $("#oa_1").hide();
+            })
+            // 鼠标移动到list的div上的时候list div不会被隐藏
+            $("#oa_1").hover(function () {
+                $("#oa_1").show();
+            }, function () {
+                $("#oa_1").hide();
+            })
+        </script>
+        <li class="songlist__album">Trailerhead:Triumph</li>
+        <li class="songlist__author">Immediate Music</li>
+        <li class="songlist__time">04:00</li>
+    </ul>
+    <ul class="songlist__list2 submeau_2">
+        <li class="songlist__name"><img src="../image/SongList_image/album1.png" alt="songlist_cover" class="playlist__cover">Tales of the Electric Romeo</li>
+        <li class="songlist__btn" id="oa_2">
+            <span><a href="#"><img src="../image/Index_image/play.png" alt="play" height="35px" width="35px" class="songlist_btn"/></a></span>
+            <span><a href="#"><img src="../image/Index_image/like.png" alt="like" height="35px" width="35px" class="songlist_btn"/></a></span>
+            <span><a href="#"><img src="../image/Index_image/add.png" alt="add" height="35px" width="35px" class="songlist_btn"/></a></span>
+            <span><a href="#"><img src="../image/Index_image/download.png" alt="download" height="35px" width="35px" class="songlist_btn"/></a></span>
+        </li>
+        <!--按钮悬停事件-->
+        <script type="text/javascript">
+
+            $("#oa_2").hide();
+            $(".submeau_2").hover(function () {
+                $("#oa_2 ").show();
+            }, function () {
+                $("#oa_2").hide();
+            })
+            // 鼠标移动到list的div上的时候list div不会被隐藏
+            $("#oa_2").hover(function () {
+                $("#oa_2").show();
+            }, function () {
+                $("#oa_2").hide();
+            })
+        </script>
+        <li class="songlist__album">Trailerhead:Triumph</li>
+        <li class="songlist__author">Immediate Music</li>
+        <li class="songlist__time">04:00</li>
+    </ul>
+</body>
+</html>
