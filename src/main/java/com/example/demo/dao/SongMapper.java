@@ -29,7 +29,7 @@ public interface SongMapper {
     int updateByPrimaryKeySelective(Song record);
 
     int updateByPrimaryKey(Song record);
-
+    
     /**
      * @param Map
      * @IN :"songid"

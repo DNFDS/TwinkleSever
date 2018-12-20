@@ -20,13 +20,12 @@ public class UserImpl implements UserService {
     @Resource
     private SongListMapper songListMapper;
 
-
     @Override
     public ResultEntity SignIn(User user) {
         Map<String,Object>map = new HashMap<>();
         map.put("userid",user.getUserid());
         map.put("userpassword",user.getUserpassword());
-        userMapper.isUserExit(map);
+        userMapper.isUserExist(map);
         int example = Integer.parseInt(map.get("result").toString());
         if(example == 0){
             return new ResultEntity(false,"User Not Exist or PassWord not correct",null);
@@ -77,11 +76,82 @@ public class UserImpl implements UserService {
         return new ResultEntity(true,"",friends);
     }
     @Override
+    public ResultEntity getFollowSingers(User user){
+        return new ResultEntity(true,"","");
+    }
+    @Override
     public ResultEntity getSongLists(User user){
         Map<String,Object>map = new HashMap<>();
         map.put("userid",user.getUserid());
         songListMapper.getSongListCreatedByUserId(map);//"createdsonglist"
         songListMapper.getSongListKeepedByUserId(map);//"keepedsonglist"
         return new ResultEntity(true,"",map);
+    }
+    @Override
+    public ResultEntity getFavoriteAlbum(User user){
+        Map<String,Object>map = new HashMap<>();
+        map.put("userid",user.getUserid());
+        songListMapper.getSongListCreatedByUserId(map);//"keepedsonglist"
+        ArrayList<SongList>list = (ArrayList<SongList>)map.get("createdsonglist");
+        return new ResultEntity(true,"",list);
+    }
+
+    @Override
+    public ResultEntity getUserById(String id){
+        Map<String,Object> map = new HashMap<>();
+        User user;
+        map.put("userid",id);
+        userMapper.getUserById(map);
+        ArrayList<User> users = (ArrayList<User>)map.get("result");
+        if(users.size() == 0){
+            user = new User();
+            user.setUserid("null");
+            user.setUsername("无");
+        }
+        else
+        user = users.get(0);
+        return new ResultEntity(true,"",user);
+    }
+
+    @Override
+    public ResultEntity followUser(String userid, String friendid){
+        Map<String,Object>map = new HashMap<>();
+        boolean result;
+        map.put("userid",userid);
+        map.put("friendid",friendid);
+        userMapper.addFriend(map);
+        String succ = (String) map.get("succ");
+        if(succ.equals("1"))
+            result = true;
+        else
+            result = false;
+        return new ResultEntity(true,"",result);
+    }
+
+    @Override
+    public ResultEntity unFollowUser(String userid, String friendid){
+        Map<String,Object>map = new HashMap<>();
+        boolean result;
+        map.put("userid",userid);
+        map.put("friendid",friendid);
+        userMapper.deleteFriend(map);
+        String succ = (String) map.get("succ");
+        if(succ.equals("1"))
+            result = true;
+        else
+            result = false;
+        return new ResultEntity(true,"",result);
+    }
+
+    @Override
+    public ResultEntity isFriendExist(String userid,String friendid){
+        Map<String,Object>map = new HashMap<>();
+        map.put("userid",userid);
+        map.put("friendid",friendid);
+        userMapper.isFriendExist(map);
+        String is = map.get("result").toString();
+        if(is.equals("1"))
+            return new ResultEntity(true,"",true);
+        return new ResultEntity(true,"",false);
     }
 }

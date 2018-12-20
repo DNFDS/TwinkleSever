@@ -29,25 +29,38 @@ public interface AlbumMapper {
     int updateByPrimaryKeySelective(Album record);
 
     int updateByPrimaryKey(Album record);
-
+    
     /**
      * @param Map
      * @IN :"albumname"
-     * @OUT: "result"> ArrayList<Album>
+     * @OUT: "albums"> ArrayList<Album>
      */
-    void getAlbumByName_part(Map<String,Object> Map);
+    void getAlbumByNamePart(Map<String,Object> Map);
 
     /**
      * @param Map
      * @IN :"albumname"
-     * @OUT: "result"> ArrayList<Album>
+     * @OUT: "albums"> ArrayList<Album>
      */
     void getAlbumByName(Map<String,Object> Map);
 
     /**
      * @param Map
-     * @IN :"SingerId"
-     * @OUT: "result"> ArrayList<Album>
+     * @IN :"singerid"
+     * @OUT: "albums"> ArrayList<Album>
      */
     void getAlbumBySingerId(Map<String,Object> Map);
+    
+    /**
+     * @param Map
+     * @IN :"albumid"
+     * @OUT: "albums"> ArrayList<Album>
+     */
+    void getAlbumById(Map<String,Object> Map);
+    
+    /**
+     * @param Map
+     * @OUT: "albums"> ArrayList<Album>
+     */
+    void getAllAlbum(Map<String,Object> Map);
 }

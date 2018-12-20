@@ -1,9 +1,8 @@
 package com.example.demo.service.Impl;
 
-import com.example.demo.dao.SongListMapper;
+import com.example.demo.dao.SongMapper;
+import com.example.demo.entity.Singer;
 import com.example.demo.entity.Song;
-import com.example.demo.entity.SongList;
-import com.example.demo.entity.User;
 import com.example.demo.entity.result.ResultEntity;
 import com.example.demo.service.SongService;
 import org.springframework.stereotype.Service;
@@ -16,14 +15,17 @@ import java.util.Map;
 @Service
 public class SongImpl implements SongService {
     @Resource
-    private SongListMapper songListMapper;
+    private SongMapper songMapper;
 
     @Override
-    public ResultEntity getSongsInSongList(SongList list){
+    public ResultEntity getSingersInSong(Song song){
         Map<String,Object> map = new HashMap<>();
-        map.put("songlistid",list.getSonglistid());
-        songListMapper.getSongsInSongList(map);
-        ArrayList<Song> songs = (ArrayList<Song>)map.get("songs");
-        return new ResultEntity(true,"",songs);
+        map.put("songid",song.getSongid());
+        songMapper.getSongSinger(map);
+        ArrayList<Singer> singers = (ArrayList<Singer>)map.get("singers");
+        if(singers == null)
+            return new ResultEntity(false,"查询"+song.getSongid()+"时出错",null);
+        else
+            return new ResultEntity(true,"",singers);
     }
 }

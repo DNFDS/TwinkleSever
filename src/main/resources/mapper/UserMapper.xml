@@ -267,7 +267,7 @@
     call USER_PKG.ADD_USER(?,?,?,?,?)
   </insert>
 
-  <select id="isUserExit" parameterType="java.util.Map" resultType="java.util.Map" statementType="CALLABLE">
+  <select id="isUserExist" parameterType="java.util.Map" resultType="java.util.Map" statementType="CALLABLE">
     call USER_PKG.IS_USER_EXIST(#{userid,jdbcType=VARCHAR,mode=IN},#{userpassword,jdbcType=VARCHAR,mode=IN},#{result,jdbcType=VARCHAR,mode=OUT})
   </select>
   <select id="isUserBanned" parameterType="java.util.HashMap" statementType="CALLABLE">
@@ -300,4 +300,13 @@
     <select id="updateUserName" statementType="CALLABLE">
         call USER_PKG.CHANGE_USER_NAME(#{userid,mode=IN,jdbcType=VARCHAR},#{username,mode=IN,jdbcType=VARCHAR},#{succ,mode=OUT,jdbcType=VARCHAR})
     </select>
+  <select id="isFriendExist" parameterType="java.util.Map" resultType="java.util.Map" statementType="CALLABLE">
+  call USER_PKG.IS_FRIEND_EXIST(#{userid,jdbcType=VARCHAR,mode=IN},#{friendid,jdbcType=VARCHAR,mode=IN},#{result,jdbcType=VARCHAR,mode=OUT})
+  </select>
+  <select id="addFriend" parameterType="java.util.HashMap" statementType="CALLABLE">
+  call USER_PKG.ADD_FRIEND(#{userid,jdbcType=VARCHAR,mode=IN},#{friendid,jdbcType=VARCHAR,mode=IN},#{succ,jdbcType=VARCHAR,mode=OUT})
+  </select>
+  <select id="deleteFriend" parameterType="java.util.HashMap" statementType="CALLABLE">
+  call USER_PKG.DELETE_FRIEND(#{userid,jdbcType=VARCHAR,mode=IN},#{friendid,jdbcType=VARCHAR,mode=IN},#{succ,jdbcType=VARCHAR,mode=OUT})
+  </select>
 </mapper>

@@ -4,6 +4,8 @@ import com.example.demo.entity.Buy;
 import com.example.demo.entity.Example.BuyExample;
 import com.example.demo.entity.BuyKey;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface BuyMapper {
@@ -28,4 +30,25 @@ public interface BuyMapper {
     int updateByPrimaryKeySelective(Buy record);
 
     int updateByPrimaryKey(Buy record);
+    
+    /**
+     * @param Map
+     * @IN :"op","money","userid"
+     * @OUT: "succ"> String
+     */
+    String moneyChange(Map<String,Object> Map);
+
+    /**
+     * @param Map
+     * @IN :"userid","songid"
+     * @OUT: "succ"> String
+     */
+    String addBuy(Map<String,Object> Map);
+    
+    /**
+     * @param Map
+     * @IN :"userid"
+     * @OUT: "buyrecord"> ArrayList<Buy>
+     */
+    void getBuyRecord(Map<String,Object> Map);
 }

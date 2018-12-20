@@ -35,7 +35,7 @@ public interface UserMapper {
      * @IN :"userid"
      * @OUT: "result"> 1:true 0:false
      */
-    void isUserExit(Map<String, Object> Map);
+    void isUserExist(Map<String, Object> Map);
 
     /**
      * @param Map
@@ -113,4 +113,24 @@ public interface UserMapper {
      * @OUT: "succ"> 1:true 0:false
      */
     void updateUserName(Map<String, Object> Map);
+    /**
+     * @param Map
+     * @IN :"userid" "friendid"
+     * @OUT: "succ"> 1:true 0:false
+     */
+    void addFriend(Map<String, Object> Map);
+
+    /**
+     * @param Map
+     * @IN :"userid" "friendid"
+     * @OUT: "succ"> 1:true 0:false
+     */
+    void deleteFriend(Map<String, Object> Map);
+
+    /**
+     * @param Map
+     * @IN :"userid" "friendid"
+     * @OUT: "result"> String
+     */
+    void isFriendExist(Map<String, Object> Map);
 }

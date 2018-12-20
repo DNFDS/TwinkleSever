@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>个人主页</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/PersonalMessage.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet">
+    <script src="../JS/jquery-3.3.1.min.js"></script>
+    <script src="../JS/bootstrap.min.js"></script>
+    <script src="../JS/main_js.js"></script>
+    <script>
+        function showAlbum_list() {
+            /*<![CDATA[*/
+            var id = [[${session.visted.getUserid()}]];
+            /*]]>*/
+            $.ajax({
+                type:"GET",
+                url:"/profile/showAlbum",
+                data:{id:id,flag:"3"},
+                dataType: "html",
+                cache:true,
+                success:function(data){
+                    $('#typeFlush_album').html(data);
+                    var list = document.getElementById('list');
+                    var form = document.getElementById('form');
+                    list.className = 'style_switch__item style_switch__item--select';
+                    form.className = 'style_switch__item_right';
+                }
+            });
+        }
+        function showAlbum_form() {
+            /*<![CDATA[*/
+            var id = [[${session.visted.getUserid()}]];
+            /*]]>*/
+            $.ajax({
+                type:"GET",
+                url:"/profile/showAlbum",
+                data:{id:id,flag:"2"},
+                dataType: "html",
+                cache:true,
+                success:function(data){
+                    $('#typeFlush_album').html(data);
+                    var list = document.getElementById('list');
+                    var form = document.getElementById('form');
+                    list.className = 'style_switch__item_right';
+                    form.className = 'style_switch__item style_switch__item--select';
+                }
+            });
+        }
+    </script>
+    <style>
+        body {
+            background-color: #fafafa;
+        }
+        .songlist__header, .songlist__list1,.songlist__list2 {
+            position: relative;
+            padding-left: 20px;
+            padding-right: 100px;
+        }
+        .songlist__header{
+            height: 50px;
+            line-height: 50px;
+            background-color: rgba(0,0,0,.01);
+            color: #999;
+        }
+        .songlist__header_name {
+            float: left;
+            width: 56%;
+            position: relative;
+            white-space: normal;
+        }
+        .songlist__header_album, .songlist__header_author {
+            float: right;
+            padding-left: 20px;
+            width: 22%;
+            box-sizing: border-box;
+        }
+        .songlist__header_time {
+            position: absolute;
+            top: 0;
+            right: 38px;
+            width: 50px;
+        }
+        .songlist__header_other{
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 38px;
+            overflow: inherit;
+        }
+        .songlistlist1 {
+            height: 70px;
+            line-height: 50px;
+            background-color:rgba(251,251,251,1.00);
+            color: #727272;
+        }
+        .songlistlist2 {
+            height: 70px;
+            line-height: 50px;
+            background-color: rgba(0,0,0,.01);
+            color: #727272;
+        }
+        .songlist__name{
+            float: left;
+            padding-top:10px;
+            width: 36%;
+            position: relative;
+            white-space: normal;
+        }
+        .songlist__btn{
+            float: left;
+            top:10px;
+            width: 20%;
+            position: relative;
+            white-space: normal;
+        }
+        .songlist_btn{
+            margin-left: 10px;
+        }
+        .songlist__album, .songlist__author {
+            float: right;
+            padding-top:10px;
+            padding-left: 20px;
+            width: 22%;
+            box-sizing: border-box;
+        }
+        .songlist__time {
+            position: absolute;
+            top: 10px;
+            right: 38px;
+            width: 50px;
+        }
+        .songlist__other{
+            position: absolute;
+            top: 10px;
+            right: 0;
+            width: 38px;
+            overflow: inherit;
+        }
+        .playlist__cover {
+            float: left;
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            overflow: hidden;
+        }
+        .style_switch {
+            position: absolute;
+            top: 30px;
+            right: 0;
+            width: 80px;
+            height: 38px;
+            border-radius: 2px;
+            border: 1px solid #c9c9c9;
+        }
+        .style_switch__item {
+            float: left;
+            width: 50%;
+            height: 38px;
+            position: relative;
+        }
+        .style_switch__item_right {
+            float: left;
+            width: 50%;
+            height: 36px;
+            position: relative;
+        }
+        .style_switch__item--select {
+            background-color: rgba(22,154,243,1.00);
+        }
+        .style_switch__item_img {
+            margin-left: 12px;
+            margin-top: 10px;
+        }
+        .mod_songlist {
+            margin-top: 50px;
+        }
+        .mod_songlist_toolbar{
+            padding-top:0px
+        }
+    </style>
+<body>
+<div class="style_switch" aria-label="排列方式">
+    <a href="#"  onclick="showAlbum_list()" class="style_switch__item style_switch__item--select " id="list" title="列表" data-type="mod_playlist_text" data-tab="like_playlist" data-stat="y_new.profile.like.playlist.list_mod"><img src="../image/Index_image/列表.png" alt="play" height="17px" width="17px" class="style_switch__item_img"/></a>
+    <a href="#" onclick="showAlbum_form()" class="style_switch__item_right" id="form" title="上图下文" data-type="mod_playlist" data-tab="like_playlist" data-stat="y_new.profile.like.playlist.pic_mod"><img src="../image/Index_image/表格active.png" alt="play" height="17px" width="17px" class="style_switch__item_img"/></a>
+</div>
+<div id="typeFlush_album">
+    <div class="mod_songlist_toolbar">
+        <a href="javascript:;" class="mod_btn_blue js_all_play"><i class="mod_btn_green__icon_play"></i><img src="../image/Index_image/mod_play.png" class="operate_btn" alt="play">播放全部</a>
+        <a href="javascript:;" class="mod_btn js_all_fav"><i class="mod_btn__icon_add"></i><img src="../image/Index_image/mod_add.png" class="operate_btn" alt="add">添加到</a>
+        <a href="javascript:;" class="mod_btn js_all_down"><i class="mod_btn__icon_down"></i><img src="../image/Index_image/mod_download.png" class="operate_btn" alt="download">下载</a>
+        <a href="javascript:;" class="mod_btn js_batch"><i class="mod_btn__icon_batch"></i><img src="../image/Index_image/mod_multoperate.png" class="operate_btn" alt="operate">批量操作</a>
+    </div>
+        <ul class="songlist__header">
+            <li class="songlist__header_name">专辑</li>
+            <li class="songlist__header_album">曲目数</li>
+            <li class="songlist__header_author">歌手</li>
+            <li class="songlist__header_time">收藏数</li>
+        </ul>
+        <ul class="songlistlist1 submeau_1">
+            <li class="songlist__name"><img src="../image/SongList_image/album1.png" alt="songlist_cover" class="playlist__cover">Tales of the Electric Romeo</li>
+            <div class="songlist__btn" id="oa_1">
+                <span><a href="#"><img src="../image/Index_image/play.png" alt="play" height="35px" width="35px" class="songlist_btn"/></a></span>
+                <span><a href="#"><img src="../image/Index_image/like.png" alt="like" height="35px" width="35px" class="songlist_btn"/></a></span>
+                <span><a href="#"><img src="../image/Index_image/add.png" alt="add" height="35px" width="35px" class="songlist_btn"/></a></span>
+                <span><a href="#"><img src="../image/Index_image/download.png" alt="download" height="35px" width="35px" class="songlist_btn"/></a></span>
+            </div>
+            <!--按钮悬停事件-->
+            <script type="text/javascript">
+
+                $("#oa_1").hide();
+                $(".submeau_1").hover(function () {
+                    $("#oa_1 ").show();
+                }, function () {
+                    $("#oa_1").hide();
+                })
+                // 鼠标移动到list的div上的时候list div不会被隐藏
+                $("#oa_1").hover(function () {
+                    $("#oa_1").show();
+                }, function () {
+                    $("#oa_1").hide();
+                })
+            </script>
+            <li class="songlist__album">Trailerhead:Triumph</li>
+            <li class="songlist__author">Immediate Music</li>
+            <li class="songlist__time">04:00</li>
+        </ul>
+        <ul class="songlistlist2 submeau_2">
+            <li class="songlist__name"><img src="../image/SongList_image/album1.png" alt="songlist_cover" class="playlist__cover">Tales of the Electric Romeo</li>
+            <li class="songlist__btn" id="oa_2">
+                <span><a href="#"><img src="../image/Index_image/play.png" alt="play" height="35px" width="35px" class="songlist_btn"/></a></span>
+                <span><a href="#"><img src="../image/Index_image/like.png" alt="like" height="35px" width="35px" class="songlist_btn"/></a></span>
+                <span><a href="#"><img src="../image/Index_image/add.png" alt="add" height="35px" width="35px" class="songlist_btn"/></a></span>
+                <span><a href="#"><img src="../image/Index_image/download.png" alt="download" height="35px" width="35px" class="songlist_btn"/></a></span>
+            </li>
+            <!--按钮悬停事件-->
+            <script type="text/javascript">
+
+                $("#oa_2").hide();
+                $(".submeau_2").hover(function () {
+                    $("#oa_2 ").show();
+                }, function () {
+                    $("#oa_2").hide();
+                })
+                // 鼠标移动到list的div上的时候list div不会被隐藏
+                $("#oa_2").hover(function () {
+                    $("#oa_2").show();
+                }, function () {
+                    $("#oa_2").hide();
+                })
+            </script>
+            <li class="songlist__album">Trailerhead:Triumph</li>
+            <li class="songlist__author">Immediate Music</li>
+            <li class="songlist__time">04:00</li>
+        </ul>
+    </div>
+</body>
+</html>

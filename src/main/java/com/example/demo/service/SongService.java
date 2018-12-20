@@ -1,7 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.SongList;
+import com.example.demo.entity.Song;
 import com.example.demo.entity.result.ResultEntity;
+
 public interface SongService {
-    ResultEntity getSongsInSongList(SongList list);
+    ResultEntity getSingersInSong(Song song);
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -11,6 +11,16 @@
     <script src="../JS/jquery-3.3.1.min.js"></script>
     <script src="../JS/bootstrap.min.js"></script>
     <script src="../JS/main_js.js"></script>
+    <script>
+        $(document).ready(function(){
+            /*<![CDATA[*/
+            var size = [[${songs.size()}]];
+            /*]]>*/
+            for (var num =0; num<size; num++) {
+                $("#oa_"+num).hide();
+            }
+        });
+    </script>
     <style>
         body {
             background-color: #fafafa;
@@ -21,66 +31,32 @@
     </style>
 </head>
 <body>
+<div class="mod_songlist_toolbar">
+    <a href="javascript:;" class="mod_btn_blue js_all_play"><i class="mod_btn_green__icon_play"></i><img src="../image/Index_image/mod_play.png" class="operate_btn" alt="play">播放全部</a>
+    <a href="javascript:;" class="mod_btn js_all_fav"><i class="mod_btn__icon_add"></i><img src="../image/Index_image/mod_add.png" class="operate_btn" alt="add">添加到</a>
+    <a href="javascript:;" class="mod_btn js_all_down"><i class="mod_btn__icon_down"></i><img src="../image/Index_image/mod_download.png" class="operate_btn" alt="download">下载</a>
+    <a href="javascript:;" class="mod_btn js_batch"><i class="mod_btn__icon_batch"></i><img src="../image/Index_image/mod_multoperate.png" class="operate_btn" alt="operate">批量操作</a>
+</div>
 <ul class="songlist__header">
     <li class="songlist__header_name">歌曲</li>
     <li class="songlist__header_album">专辑</li>
     <li class="songlist__header_author">歌手</li>
     <li class="songlist__header_time">时长</li>
 </ul>
-<ul class="songlist__list1 submeau_1">
-    <li class="songlist__name">Tales of the Electric Romeo</li>
-    <div class="songlist__btn" id="oa_1">
-        <span><a href="#"><img src="../image/Index_image/play.png" alt="play" height="35px" width="35px" class="songlist_btn"/></a></span>
-        <span><a href="#"><img src="../image/Index_image/like.png" alt="like" height="35px" width="35px" class="songlist_btn"/></a></span>
-        <span><a href="#"><img src="../image/Index_image/add.png" alt="add" height="35px" width="35px" class="songlist_btn"/></a></span>
-        <span><a href="#"><img src="../image/Index_image/download.png" alt="download" height="35px" width="35px" class="songlist_btn"/></a></span>
-    </div>
-    <!--按钮悬停事件-->
-    <script type="text/javascript">
-
-        $("#oa_1").hide();
-        $(".submeau_1").hover(function () {
-            $("#oa_1 ").show();
-        }, function () {
-            $("#oa_1").hide();
-        })
-        // 鼠标移动到list的div上的时候list div不会被隐藏
-        $("#oa_1").hover(function () {
-            $("#oa_1").show();
-        }, function () {
-            $("#oa_1").hide();
-        })
-    </script>
-    <li class="songlist__header_album">Trailerhead:Triumph</li>
-    <li class="songlist__header_author">Immediate Music</li>
-    <li class="songlist__header_time">04:00</li>
-</ul>
-<ul class="songlist__list2 submeau_2">
-    <li class="songlist__name">Tales of the Electric Romeo</li>
-    <li class="songlist__btn" id="oa_2">
-        <span><a href="#"><img src="../image/Index_image/play.png" alt="play" height="35px" width="35px" class="songlist_btn"/></a></span>
-        <span><a href="#"><img src="../image/Index_image/like.png" alt="like" height="35px" width="35px" class="songlist_btn"/></a></span>
-        <span><a href="#"><img src="../image/Index_image/add.png" alt="add" height="35px" width="35px" class="songlist_btn"/></a></span>
-        <span><a href="#"><img src="../image/Index_image/download.png" alt="download" height="35px" width="35px" class="songlist_btn"/></a></span>
-    </li>
-    <!--按钮悬停事件-->
-    <script type="text/javascript">
-        $("#oa_2").hide();
-        $(".submeau_2").hover(function () {
-            $("#oa_2 ").show();
-        }, function () {
-            $("#oa_2").hide();
-        })
-        // 鼠标移动到list的div上的时候list div不会被隐藏
-        $("#oa_2").hover(function () {
-            $("#oa_2").show();
-        }, function () {
-            $("#oa_2").hide();
-        })
-    </script>
-    <li class="songlist__header_album">Trailerhead:Triumph</li>
-    <li class="songlist__header_author">Immediate Music</li>
-    <li class="songlist__header_time">04:00</li>
-</ul>
+<!--/*@thymesVar id="songs" type="com.example.demo.entity.Song"*/-->
+<div th:each="song,iterStat:${songs}">
+    <ul th:class="${iterStat.odd}? 'songlistlist1 submeau_1' : 'songlistlist2 submeau_2'" th:onmouseover="'javascript:buttonShow(\''+${iterStat.index}+'\')'" th:onmouseout="'javascript:buttonhide(\''+${iterStat.index}+'\')'" >
+        <li class="songlist__name" th:text="${song.getSongname()}"></li>
+        <div class="songlist__btn"  th:id="'oa_'+${iterStat.index}">
+            <span><a href="#"><img src="../image/Index_image/play.png" alt="play" height="35px" width="35px" class="songlist_btn"/></a></span>
+            <span><a href="#"><img src="../image/Index_image/like.png" alt="like" height="35px" width="35px" class="songlist_btn"/></a></span>
+            <span><a href="#"><img src="../image/Index_image/add.png" alt="add" height="35px" width="35px" class="songlist_btn"/></a></span>
+            <span><a href="#"><img src="../image/Index_image/download.png" alt="download" height="35px" width="35px" class="songlist_btn"/></a></span>
+        </div>
+        <li class="songlist__header_album" th:text="${albums.get(iterStat.index).getAlbumname()}">Immediate Music</li>
+        <li class="songlist__header_author" th:text="${singername.get(iterStat.index)}">Immediate Music</li>
+        <li class="songlist__header_time" th:text="${song.getLength()}"></li>
+    </ul>
+</div>
 </body>
 </html>

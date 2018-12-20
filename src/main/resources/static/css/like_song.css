@@ -1,6 +1,6 @@
 @charset "utf-8";
 /* like_song_css */
-.songlist__header, .songlist__list1,.songlist__list2 {
+.songlist__header, .songlistlist1,.songlistlist2 {
     position: relative;
     padding-left: 20px;
     padding-right: 100px;
@@ -11,13 +11,13 @@
     background-color: rgba(0,0,0,.01);
     color: #999;
 }
-.songlist__list1 {
+.songlistlist1 {
     height: 50px;
     line-height: 50px;
     background-color:rgba(251,251,251,1.00);
     color: #727272;
 }
-.songlist__list2 {
+.songlistlist2 {
    	height: 50px;
     line-height: 50px;
     background-color: rgba(0,0,0,.01);

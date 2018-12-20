@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>个人主页</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/PersonalMessage.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet">
+    <script src="../JS/jquery-3.3.1.min.js"></script>
+    <script src="../JS/bootstrap.min.js"></script>
+    <script src="../JS/main_js.js"></script>
+    <style>
+    body {
+        background-color: #fafafa;
+    }
+    .btn_focus_fan {
+        position: absolute;
+        right: 0;
+        top: 15px;
+        margin-right: 0;
+        width: 150px;
+    }
+    .operate_btn{
+        height: 16px;
+        position: relative;
+        bottom:1px;
+        right: 3px;
+    }
+    .mod_singer_list{
+        padding-top: 50px;
+        padding-bottom: 40px;
+        overflow: hidden;
+        text-align: center;
+    }
+    .singer_list__list {
+        margin-right: -20px;
+        overflow: hidden;
+        margin-bottom: -24px;
+    }
+    .singer_list__item {
+        float: left;
+        width: 20%;
+        margin-bottom: 20px;
+        overflow: hidden;
+    }
+    .singer_list__item_box {
+        position: relative;
+        margin-right: 20px;
+        background-color: #fbfbfd;
+        min-height: 195px;
+        padding: 25px 0;
+        overflow: hidden;
+    }
+    .singer_list__cover {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .singer_list__cover, .singer_list__pic {
+        display: block;
+        width: 140px;
+        height: 140px;
+        border-radius: 126px;
+    }
+    .singer_list__title {
+        font-size: 16px;
+        font-weight: 400;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin: 20px 30px 4px;
+    }
+    .singer_list__info {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        line-height: 22px;
+        height: 22px;
+    }
+    .singer_list__info, .singer_list__info a {
+        color: #999;
+    }
+    .singer_list__focus {
+        display: block;
+    }
+    .singer_list__btn_focus {
+        width: 120px;
+        padding: 0;
+        margin-right: 0;
+    }
+    .mod_singer_list--fans .singer_list__btn_focus {
+        display: block;
+        margin: 9px auto 0;
+    }
+    </style>
+    <script>
+        function showFollowSinger() {
+            $.ajax({
+                type:"GET",
+                url:"/profile/showFollowSinger",
+                data:{
+                },
+                dataType: "html",   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
+                cache:true,
+                success:function(data){
+                    $('#followFlush').html(data);
+                    var singer_tab = document.getElementById('singer_tab');
+                    var user_tab = document.getElementById('user_tab');
+                    singer_tab.className = 'mod_tab__item mod_tab__current';
+                    user_tab.className = 'mod_tab__item';
+                }
+            });
+        }
+        function showFollowUser() {
+            $.ajax({
+                type:"GET",
+                url:"/profile/showFollowUser",
+                data:{
+                    flag:"2"
+                },
+                dataType: "html",   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
+                cache:true,
+                success:function(data){
+                    $('#followFlush').html(data);
+                    var singer_tab = document.getElementById('singer_tab');
+                    var user_tab = document.getElementById('user_tab');
+                    singer_tab.className = 'mod_tab__item';
+                    user_tab.className = 'mod_tab__item mod_tab__current';
+                }
+            });
+        }
+        function FollowUser(userid,index) {
+			var btn_id = "focus"+index;
+            $.ajax({
+                type:"GET",
+                url:"/profile/changeFollow",
+                data:{
+                    id:userid
+                },
+                dataType:"json",   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
+                cache:true,
+                success:function(dataObj) {
+                    var tab = document.getElementById(btn_id);
+                    if (dataObj.succ === '1') {
+                        if (dataObj.flag === '1') {
+                            tab.innerHTML="取消关注";
+                            alert('关注成功');
+                        } else {
+                            tab.innerHTML="关注";
+                            alert('取消关注成功');
+                        }
+                    }
+                    else
+                    alert('请求失败');
+                }
+            });
+        }
+    </script>
+</head>
+<body >
+	<!-- 主体 -->
+		<div class="mod_tab" >
+			<a class="mod_tab__item" href="#" onclick="showFollowSinger()" id="singer_tab" >歌手</a>
+			<a class="mod_tab__item mod_tab__current" href="#" onclick="showFollowUser()" id="user_tab">用户</a>
+		</div>
+		<div class="profile_cont" id="followFlush">
+			<a href="javascript:;" class="mod_btn btn_focus_fan js_focus_friends" style="display: block;"><img src="../image/Index_image/add_more.png" alt="add_more" class="operate_btn">关注更多用户</a>
+			<div class="js_sub" id="focus_singer_box" style="display: block;">
+				<div class="mod_singer_list mod_singer_list--fans">
+					<ul class="singer_list__list">
+
+						<li class="singer_list__item" th:each="list,iterStat:${Follows}">
+							<div class="singer_list__item_box">
+								<a href="https://y.qq.com/n/yqq/singer/001Y2Gbc2Xt1hU.html" class="singer_list__cover js_singer" hidefocus="true" data-mid="001Y2Gbc2Xt1hU" data-id="4712">
+									<img class="singer_list__pic" src="//y.gtimg.cn/music/photo_new/T001R150x150M000001Y2Gbc2Xt1hU.jpg?max_age=2592000" onerror="this.src='//y.gtimg.cn/mediastyle/global/img/singer_300.png?max_age=31536000';this.error=null;" alt="Michael Jackson">
+								</a>
+								<h3 class="singer_list__title"><a href="https://y.qq.com/n/yqq/singer/001Y2Gbc2Xt1hU.html" class="js_singer" title="Michael Jackson" th:text="${list.getUsername()}"></a></h3>
+								<p class="singer_list__info" th:text="${FollowNum.get(iterStat.index)}+'人已关注'"></p>
+								<div class="singer_list__focus">
+									<a href="javascript:;" class="mod_btn singer_list__btn_focus js_follow_singer" ><span class="btn_focus__cont" th:id="'focus'+${iterStat.index}" th:onclick="FollowUser([[${list.getUserid()}]],[[${iterStat.index}]]);" th:text="${isFollow.get(iterStat.index)}?'已关注':'未关注'"></span></a>
+								</div>
+							</div>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+		</div>
+
+</body>
+</html>

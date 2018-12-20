@@ -1,95 +1,154 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<div class="main main--profile" id="main" style="">
-    <div class="mod_tab profile_nav" role="nav" id="nav">
-        <span class=" mod_tab__current" >我喜欢</span>
-        <a class="mod_tab__item" href="Purchased_album_form.jsp" id="buy_tab" data-tab="buy" data-stat="y_new.profile.tab.digital_album">我的已购</a>
-        <a class="mod_tab__item" href="follow_singer.jsp" id="focus_tab" data-tab="focus" data-stat="y_new.profile.tab.focus">关注</a>
-        <a class="mod_tab__item" th:href="Fans" id="fans_tab" data-tab="fans" data-stat="y_new.profile.tab.fans">粉丝</a>
-        <a class="mod_tab__item" href="javascript:;" id="uploadmv_tab" data-tab="uploadmv" data-stat="y_new.profile.tab.uploadmv">我上传的视频</a>
-    </div>
-    <div class="mod_tab" role="nav">
 
-        <a class="mod_tab__item mod_tab__current" id="song_tab" href="javascript:;" onclick="show_song_list_details()" data-tab="like_song" data-stat="y_new.profile.like.tab.song">歌曲 <span th:text=" ${songs.size()}"></span></a>
-        <a class="mod_tab__item" id="songlist_tab" href="javascript:;" onclick="show_songlist_list_details()" data-tab="like_playlist" data-stat="y_new.profile.like.tab.playlist" >歌单 <span th:text=" ${SongListNum}"></span></a>
-        <a class="mod_tab__item" id="album_tab" href="like_album_form.jsp" data-tab="like_album" data-stat="y_new.profile.like.tab.album">专辑 0</a>
-        <a class="mod_tab__item" href="javascript:;" data-tab="like_mv" data-stat="y_new.profile.like.tab.mv">视频 0</a>
-    </div>
-    <div class="mod_songlist_toolbar">
-        <a href="javascript:;" class="mod_btn_blue js_all_play"><i class="mod_btn_green__icon_play"></i><img src="../image/Index_image/mod_play.png" class="operate_btn" alt="play">播放全部</a>
-        <a href="javascript:;" class="mod_btn js_all_fav"><i class="mod_btn__icon_add"></i><img src="../image/Index_image/mod_add.png" class="operate_btn" alt="add">添加到</a>
-        <a href="javascript:;" class="mod_btn js_all_down"><i class="mod_btn__icon_down"></i><img src="../image/Index_image/mod_download.png" class="operate_btn" alt="download">下载</a>
-        <a href="javascript:;" class="mod_btn js_batch"><i class="mod_btn__icon_batch"></i><img src="../image/Index_image/mod_multoperate.png" class="operate_btn" alt="operate">批量操作</a>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>搜索音乐</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet">
+    <link href="../css/PersonalMessage.css" rel="stylesheet">
+    <link href="../css/like_song.css" rel="stylesheet">
+    <script src="../JS/jquery-3.3.1.min.js"></script>
+    <script src="../JS/bootstrap.min.js"></script>
+    <script src="../JS/main_js.js"></script>
+    <style>
+        body {
+            background-color: #fafafa;
+        }
+        .mod_songlist_toolbar a:hover{
+            color: rgba(0,124,249,1.00);
+        }
+        .mod_songlist {
+            padding-bottom:50px;
+            min-height:400px;
+        }
+    </style>
+    <script>
+        function buttonShow(index){
+            $("#oa_"+index).show();
+        }
+        function buttonhide(index){
+            $("#oa_"+index).hide();
+        }
+        $(document).ready(function(){
+            /*<![CDATA[*/
+            var size = [[${songs.size()}]];
+            /*]]>*/
+            for (var num =0; num<size; num++) {
+                $("#oa_"+num).hide();
+            }
+        });
+        function mylike_refresh() {
+            show_song_list_details();
+        }
+        function show_song_list_details() {
+            /*<![CDATA[*/
+            var id = [[${session.visted.getUserid()}]];
+            /*]]>*/
+            $.ajax({
+                type:"GET",
+                url:"/profile/like_song_song_typeList",
+                data:{
+                    id:id,
+                    flag:"2"
+                },
+                dataType: "html",   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
+                cache:true,
+                success:function(data){
+                    $('#flushDIV').html(data);
+                    var song = document.getElementById('song_tab');
+                    var songlist = document.getElementById('songlist_tab');
+                    var album = document.getElementById('album_tab');
+                    song.className = 'mod_tab__item mod_tab__current';
+                    songlist.className = 'mod_tab__item';
+                    album.className = 'mod_tab__item';
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown){
+                    alert(XMLHttpRequest.status);
+                    alert(XMLHttpRequest.readyState);
+                    alert(textStatus);
+                }
+            });
+        }
+        function show_songlist_list_details() {
+            $.ajax({
+                type:"GET",
+                url:"/profile/like_song_songlist_typeList",
+                data:{
+                    flag:"1"
+                },
+                dataType: "html",   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
+                cache:true,
+                success:function(data){
+                    $('#flushDIV').html(data);
+                    var song = document.getElementById('song_tab');
+                    var songlist = document.getElementById('songlist_tab');
+                    var album = document.getElementById('album_tab');
+                    song.className = 'mod_tab__item';
+                    songlist.className = 'mod_tab__item mod_tab__current';
+                    album.className = 'mod_tab__item';
+                }
+            });
+        }
+        function showAlbum_list_details() {
+            $.ajax({
+                type:"GET",
+                url:"/profile/showAlbum",
+                data:{
+                    flag:"1"
+                },
+                dataType: "html",   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
+                cache:true,
+                success:function(data){
+                    $('#flushDIV').html(data);
+                    var song = document.getElementById('song_tab');
+                    var songlist = document.getElementById('songlist_tab');
+                    var album = document.getElementById('album_tab');
+                    song.className = 'mod_tab__item';
+                    songlist.className = 'mod_tab__item';
+                    album.className = 'mod_tab__item mod_tab__current';
+                }
+            });
+        }
+    </script>
+</head>
+<body onload="mylike_refresh()">
+    <div class="mod_tab" role="nav">
+        <a class="mod_tab__item mod_tab__current" id="song_tab" href="#" onclick="show_song_list_details()" data-tab="like_song" data-stat="y_new.profile.like.tab.song">歌曲 </a>
+        <a class="mod_tab__item" id="songlist_tab" href="#" onclick="show_songlist_list_details()" data-tab="like_playlist" data-stat="y_new.profile.like.tab.playlist" >歌单 </a>
+        <a class="mod_tab__item" id="album_tab" href="#" onclick="showAlbum_list_details()" data-tab="like_album" data-stat="y_new.profile.like.tab.album">专辑</a>
+        <a class="mod_tab__item" href="#" data-tab="like_mv" data-stat="y_new.profile.like.tab.mv">视频</a>
     </div>
     <div class="mod_songlist" id="flushDIV">
+        <div class="mod_songlist_toolbar">
+            <a href="javascript:;" class="mod_btn_blue js_all_play"><i class="mod_btn_green__icon_play"></i><img src="../image/Index_image/mod_play.png" class="operate_btn" alt="play">播放全部</a>
+            <a href="javascript:;" class="mod_btn js_all_fav"><i class="mod_btn__icon_add"></i><img src="../image/Index_image/mod_add.png" class="operate_btn" alt="add">添加到</a>
+            <a href="javascript:;" class="mod_btn js_all_down"><i class="mod_btn__icon_down"></i><img src="../image/Index_image/mod_download.png" class="operate_btn" alt="download">下载</a>
+            <a href="javascript:;" class="mod_btn js_batch"><i class="mod_btn__icon_batch"></i><img src="../image/Index_image/mod_multoperate.png" class="operate_btn" alt="operate">批量操作</a>
+        </div>
         <ul class="songlist__header">
             <li class="songlist__header_name">歌曲</li>
             <li class="songlist__header_album">专辑</li>
             <li class="songlist__header_author">歌手</li>
             <li class="songlist__header_time">时长</li>
         </ul>
-        <ul class="songlist__list1 submeau_1">
-            <li class="songlist__name">Tales of the Electric Romeo</li>
-            <div class="songlist__btn" id="oa_1">
-                <span><a href="#"><img src="../image/Index_image/play.png" alt="play" height="35px" width="35px" class="songlist_btn"/></a></span>
-                <span><a href="#"><img src="../image/Index_image/like.png" alt="like" height="35px" width="35px" class="songlist_btn"/></a></span>
-                <span><a href="#"><img src="../image/Index_image/add.png" alt="add" height="35px" width="35px" class="songlist_btn"/></a></span>
-                <span><a href="#"><img src="../image/Index_image/download.png" alt="download" height="35px" width="35px" class="songlist_btn"/></a></span>
-            </div>
-            <!--按钮悬停事件-->
-            <script type="text/javascript">
-
-                $("#oa_1").hide();
-                $(".submeau_1").hover(function () {
-                    $("#oa_1 ").show();
-                }, function () {
-                    $("#oa_1").hide();
-                })
-                // 鼠标移动到list的div上的时候list div不会被隐藏
-                $("#oa_1").hover(function () {
-                    $("#oa_1").show();
-                }, function () {
-                    $("#oa_1").hide();
-                })
-            </script>
-            <li class="songlist__header_album">Trailerhead:Triumph</li>
-            <li class="songlist__header_author">Immediate Music</li>
-            <li class="songlist__header_time">04:00</li>
-        </ul>
-        <ul class="songlist__list2 submeau_2">
-            <li class="songlist__name">Tales of the Electric Romeo</li>
-            <li class="songlist__btn" id="oa_2">
-                <span><a href="#"><img src="../image/Index_image/play.png" alt="play" height="35px" width="35px" class="songlist_btn"/></a></span>
-                <span><a href="#"><img src="../image/Index_image/like.png" alt="like" height="35px" width="35px" class="songlist_btn"/></a></span>
-                <span><a href="#"><img src="../image/Index_image/add.png" alt="add" height="35px" width="35px" class="songlist_btn"/></a></span>
-                <span><a href="#"><img src="../image/Index_image/download.png" alt="download" height="35px" width="35px" class="songlist_btn"/></a></span>
-            </li>
-            <!--按钮悬停事件-->
-            <script type="text/javascript">
-                $("#oa_2").hide();
-                $(".submeau_2").hover(function () {
-                    $("#oa_2 ").show();
-                }, function () {
-                    $("#oa_2").hide();
-                })
-                // 鼠标移动到list的div上的时候list div不会被隐藏
-                $("#oa_2").hover(function () {
-                    $("#oa_2").show();
-                }, function () {
-                    $("#oa_2").hide();
-                })
-            </script>
-            <li class="songlist__header_album">Trailerhead:Triumph</li>
-            <li class="songlist__header_author">Immediate Music</li>
-            <li class="songlist__header_time">04:00</li>
-        </ul>
+        <!--/*@thymesVar id="songs" type="com.example.demo.entity.Song"*/-->
+        <div th:each="song,iterStat:${songs}">
+            <ul th:class="${iterStat.odd}? 'songlistlist1 submeau_1' : 'songlistlist2 submeau_2'" th:onmouseover="'javascript:buttonShow(\''+${iterStat.index}+'\')'" th:onmouseout="'javascript:buttonhide(\''+${iterStat.index}+'\')'" >
+                <li class="songlist__name" th:text="${song.getSongname()}"></li>
+                <div class="songlist__btn"  th:id="'oa_'+${iterStat.index}">
+                    <span><a href="#"><img src="../image/Index_image/play.png" alt="play" height="35px" width="35px" class="songlist_btn"/></a></span>
+                    <span><a href="#"><img src="../image/Index_image/like.png" alt="like" height="35px" width="35px" class="songlist_btn"/></a></span>
+                    <span><a href="#"><img src="../image/Index_image/add.png" alt="add" height="35px" width="35px" class="songlist_btn"/></a></span>
+                    <span><a href="#"><img src="../image/Index_image/download.png" alt="download" height="35px" width="35px" class="songlist_btn"/></a></span>
+                </div>
+                <li class="songlist__header_album" th:text="${albums.get(iterStat.index).getAlbumname()}">Immediate Music</li>
+                <li class="songlist__header_author" th:text="${singername.get(iterStat.index)}">Immediate Music</li>
+                <li class="songlist__header_time" th:text="${song.getLength()}"></li>
+            </ul>
+        </div>
     </div>
-</div>
 
 </body>
 </html>

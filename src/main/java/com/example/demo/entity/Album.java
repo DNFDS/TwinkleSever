@@ -11,7 +11,9 @@ public class Album {
 
     private String albumage;
 
-    private String adminid;
+    private String language;
+
+    private String company;
 
     public String getAlbumid() {
         return albumid;
@@ -53,11 +55,19 @@ public class Album {
         this.albumage = albumage == null ? null : albumage.trim();
     }
 
-    public String getAdminid() {
-        return adminid;
+    public String getLanguage() {
+        return language;
     }
 
-    public void setAdminid(String adminid) {
-        this.adminid = adminid == null ? null : adminid.trim();
+    public void setLanguage(String language) {
+        this.language = language == null ? null : language.trim();
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company == null ? null : company.trim();
     }
 }

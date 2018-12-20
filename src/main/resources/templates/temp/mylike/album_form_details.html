@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>搜索音乐</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="../css/PersonalMessage.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet">
+    <script src="../JS/jquery-3.3.1.min.js"></script>
+    <script src="../JS/bootstrap.min.js"></script>
+    <script src="../JS/main_js.js"></script>
+    <style>
+        body {
+            background-color: #fafafa;
+        }
+        .style_switch {
+            position: absolute;
+            top: 30px;
+            right: 0;
+            width: 80px;
+            height: 38px;
+            border-radius: 2px;
+            border: 1px solid #c9c9c9;
+        }
+        .style_switch__item {
+            float: left;
+            width: 50%;
+            height: 38px;
+            position: relative;
+        }
+        .style_switch__item_right {
+            float: left;
+            width: 50%;
+            height: 36px;
+            position: relative;
+        }
+        .style_switch__item--select {
+            background-color: rgba(22,154,243,1.00);
+        }
+        .style_switch__item_img {
+            margin-left: 12px;
+            margin-top: 10px;
+        }
+        .mod_playlist .playlist__item_box {
+            position: relative;
+            margin-right: 20px;
+        }
+        .mod_playlist .playlist__list {
+            margin-right: -20px;
+        }
+        .mod_playlist .playlist__item {
+            display: inline-block;
+            width: 19.5%;
+            padding-bottom: 44px;
+            overflow: hidden;
+            font-size: 14px;
+            vertical-align: top;
+        }
+        .mod_playlist .he_border2 {
+            position: relative;
+            display: block;
+            overflow: hidden;
+            padding-top: 100%;
+            margin-bottom: 15px;
+        }
+        .mod_playlist .playlist__pic {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+        .mod_playlist .playlist__title {
+            overflow: hidden;
+        }
+        .mod_playlist .playlist__title_txt {
+            float: left;
+            max-width: 100%;
+            font-weight: 400;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 22px;
+            max-height: 44px;
+        }
+        .mod_playlist .playlist__author, .mod_playlist .playlist__author a, .mod_playlist .playlist__other {
+            color: #999;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: 22px;
+        }
+    </style>
+</head>
+<body>
+<div class="mod_playlist" style="display: ;">
+    <ul class="playlist__list">
+        <li class="playlist__item" data-disstid="2887580659" onmouseover="this.className=(this.className+' playlist__item--hover')" onmouseout="this.className=this.className.replace(/ playlist__item--hover/, '')">
+            <div class="playlist__item_box">
+                <div class="he_border2"><img src="//p.qpic.cn/music_cover/HictYs5zfjNDmZ6NgVbHYiapgPODicIKJiaJibj7vkYiaDZH7WH2Eb4icMg3A/300?n=1" onerror="this.src='//y.gtimg.cn/mediastyle/global/img/cover_playlist.png?max_age=31536000';this.onerror=null;" alt="1—3岁儿童歌曲集，那些带你认识世界的儿歌" class="playlist__pic"/>
+                    <div class="he_border2_caption">
+                        <p class="he_border2_caption_p">查看歌单</p>
+                        <a class="he_border2_caption_a" href="#"></a>
+                    </div>
+                </div>
+                <h4 class="playlist__title"><span class="playlist__title_txt"><a href="https://y.qq.com/n/yqq/playlist/2887580659.html" class="js_playlist" data-disstid="2887580659" title="1—3岁儿童歌曲集，那些带你认识世界的儿歌">1—3岁儿童歌曲集，那些带你认识世界的儿歌</a></span></h4>
+                <div class="playlist__author">
+                    <a title="几米" class="js_user" href="//y.qq.com/portal/profile.html?uin=oi-l7w4l7wcl7z**" data-uin="oi-l7w4l7wcl7z**">几米</a>
+                </div>
+            </div>
+        </li>
+        <li class="playlist__item" data-disstid="2887580659" onmouseover="this.className=(this.className+' playlist__item--hover')" onmouseout="this.className=this.className.replace(/ playlist__item--hover/, '')">
+            <div class="playlist__item_box">
+                <div class="he_border2"><img src="//p.qpic.cn/music_cover/HictYs5zfjNDmZ6NgVbHYiapgPODicIKJiaJibj7vkYiaDZH7WH2Eb4icMg3A/300?n=1" onerror="this.src='//y.gtimg.cn/mediastyle/global/img/cover_playlist.png?max_age=31536000';this.onerror=null;" alt="1—3岁儿童歌曲集，那些带你认识世界的儿歌" class="playlist__pic"/>
+                    <div class="he_border2_caption">
+                        <p class="he_border2_caption_p">查看歌单</p>
+                        <a class="he_border2_caption_a" href="#"></a>
+                    </div>
+                </div>
+                <h4 class="playlist__title"><span class="playlist__title_txt"><a href="https://y.qq.com/n/yqq/playlist/2887580659.html" class="js_playlist" data-disstid="2887580659" title="1—3岁儿童歌曲集，那些带你认识世界的儿歌">1—3岁儿童歌曲集，那些带你认识世界的儿歌</a></span></h4>
+                <div class="playlist__author">
+                    <a title="几米" class="js_user" href="//y.qq.com/portal/profile.html?uin=oi-l7w4l7wcl7z**" data-uin="oi-l7w4l7wcl7z**">几米</a>
+                </div>
+            </div>
+        </li>
+        <li class="playlist__item" data-disstid="2887580659" onmouseover="this.className=(this.className+' playlist__item--hover')" onmouseout="this.className=this.className.replace(/ playlist__item--hover/, '')">
+            <div class="playlist__item_box">
+                <div class="he_border2"><img src="//p.qpic.cn/music_cover/HictYs5zfjNDmZ6NgVbHYiapgPODicIKJiaJibj7vkYiaDZH7WH2Eb4icMg3A/300?n=1" onerror="this.src='//y.gtimg.cn/mediastyle/global/img/cover_playlist.png?max_age=31536000';this.onerror=null;" alt="1—3岁儿童歌曲集，那些带你认识世界的儿歌" class="playlist__pic"/>
+                    <div class="he_border2_caption">
+                        <p class="he_border2_caption_p">查看歌单</p>
+                        <a class="he_border2_caption_a" href="#"></a>
+                    </div>
+                </div>
+                <h4 class="playlist__title"><span class="playlist__title_txt"><a href="https://y.qq.com/n/yqq/playlist/2887580659.html" class="js_playlist" data-disstid="2887580659" title="1—3岁儿童歌曲集，那些带你认识世界的儿歌">1—3岁儿童歌曲集，那些带你认识世界的儿歌</a></span></h4>
+                <div class="playlist__author">
+                    <a title="几米" class="js_user" href="//y.qq.com/portal/profile.html?uin=oi-l7w4l7wcl7z**" data-uin="oi-l7w4l7wcl7z**">几米</a>
+                </div>
+            </div>
+        </li>
+        <li class="playlist__item" data-disstid="2887580659" onmouseover="this.className=(this.className+' playlist__item--hover')" onmouseout="this.className=this.className.replace(/ playlist__item--hover/, '')">
+            <div class="playlist__item_box">
+                <div class="he_border2"><img src="//p.qpic.cn/music_cover/HictYs5zfjNDmZ6NgVbHYiapgPODicIKJiaJibj7vkYiaDZH7WH2Eb4icMg3A/300?n=1" onerror="this.src='//y.gtimg.cn/mediastyle/global/img/cover_playlist.png?max_age=31536000';this.onerror=null;" alt="1—3岁儿童歌曲集，那些带你认识世界的儿歌" class="playlist__pic"/>
+                    <div class="he_border2_caption">
+                        <p class="he_border2_caption_p">查看歌单</p>
+                        <a class="he_border2_caption_a" href="#"></a>
+                    </div>
+                </div>
+                <h4 class="playlist__title"><span class="playlist__title_txt"><a href="https://y.qq.com/n/yqq/playlist/2887580659.html" class="js_playlist" data-disstid="2887580659" title="1—3岁儿童歌曲集，那些带你认识世界的儿歌">1—3岁儿童歌曲集，那些带你认识世界的儿歌</a></span></h4>
+                <div class="playlist__author">
+                    <a title="几米" class="js_user" href="//y.qq.com/portal/profile.html?uin=oi-l7w4l7wcl7z**" data-uin="oi-l7w4l7wcl7z**">几米</a>
+                </div>
+            </div>
+        </li>
+        <li class="playlist__item" data-disstid="2887580659" onmouseover="this.className=(this.className+' playlist__item--hover')" onmouseout="this.className=this.className.replace(/ playlist__item--hover/, '')">
+            <div class="playlist__item_box">
+                <div class="he_border2"><img src="//p.qpic.cn/music_cover/HictYs5zfjNDmZ6NgVbHYiapgPODicIKJiaJibj7vkYiaDZH7WH2Eb4icMg3A/300?n=1" onerror="this.src='//y.gtimg.cn/mediastyle/global/img/cover_playlist.png?max_age=31536000';this.onerror=null;" alt="1—3岁儿童歌曲集，那些带你认识世界的儿歌" class="playlist__pic"/>
+                    <div class="he_border2_caption">
+                        <p class="he_border2_caption_p">查看歌单</p>
+                        <a class="he_border2_caption_a" href="#"></a>
+                    </div>
+                </div>
+                <h4 class="playlist__title"><span class="playlist__title_txt"><a href="https://y.qq.com/n/yqq/playlist/2887580659.html" class="js_playlist" data-disstid="2887580659" title="1—3岁儿童歌曲集，那些带你认识世界的儿歌">1—3岁儿童歌曲集，那些带你认识世界的儿歌</a></span></h4>
+                <div class="playlist__author">
+                    <a title="几米" class="js_user" href="//y.qq.com/portal/profile.html?uin=oi-l7w4l7wcl7z**" data-uin="oi-l7w4l7wcl7z**">几米</a>
+                </div>
+            </div>
+        </li>
+        <li class="playlist__item" data-disstid="2887580659" onmouseover="this.className=(this.className+' playlist__item--hover')" onmouseout="this.className=this.className.replace(/ playlist__item--hover/, '')">
+            <div class="playlist__item_box">
+                <div class="he_border2"><img src="//p.qpic.cn/music_cover/HictYs5zfjNDmZ6NgVbHYiapgPODicIKJiaJibj7vkYiaDZH7WH2Eb4icMg3A/300?n=1" onerror="this.src='//y.gtimg.cn/mediastyle/global/img/cover_playlist.png?max_age=31536000';this.onerror=null;" alt="1—3岁儿童歌曲集，那些带你认识世界的儿歌" class="playlist__pic"/>
+                    <div class="he_border2_caption">
+                        <p class="he_border2_caption_p">查看歌单</p>
+                        <a class="he_border2_caption_a" href="#"></a>
+                    </div>
+                </div>
+                <h4 class="playlist__title"><span class="playlist__title_txt"><a href="https://y.qq.com/n/yqq/playlist/2887580659.html" class="js_playlist" data-disstid="2887580659" title="1—3岁儿童歌曲集，那些带你认识世界的儿歌">1—3岁儿童歌曲集，那些带你认识世界的儿歌</a></span></h4>
+                <div class="playlist__author">
+                    <a title="几米" class="js_user" href="//y.qq.com/portal/profile.html?uin=oi-l7w4l7wcl7z**" data-uin="oi-l7w4l7wcl7z**">几米</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

@@ -178,4 +178,14 @@
     where SONGID = #{songid,jdbcType=VARCHAR}
       and USERID = #{userid,jdbcType=VARCHAR}
   </update>
+   <select id="moneyChange" statementType="CALLABLE">
+    call USER_PKG.money_change(#{op,mode=IN,jdbcType=INTEGER},#{money,mode=IN,jdbcType=NUMERIC},#{userid,mode=IN,jdbcType=VARCHAR},#{succ,mode=OUT,jdbcType=VARCHAR})
+  </select>
+  <select id="addBuy" statementType="CALLABLE">
+    call USER_PKG.add_buy(#{userid,mode=IN,jdbcType=VARCHAR},#{songid,mode=IN,jdbcType=VARCHAR},#{succ,mode=OUT,jdbcType=VARCHAR})
+  </select>
+  <select id="getBuyRecord" parameterType="java.util.HashMap" statementType="CALLABLE">
+    call USER_PKG.get_buy_record(#{userid,mode=IN,jdbcType=VARCHAR},#{buyrecord,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=BuyResultMap})
+  </select>
+  
 </mapper>
