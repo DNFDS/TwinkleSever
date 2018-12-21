@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -36,10 +39,10 @@ public class DetailController {
         Song song = songService.getSongById(songid);
         ResultEntity e = songService.getSingersInSong(songid);
         ArrayList<Singer> singers = (ArrayList<Singer>)e.getObject();
-        ArrayList<Comment> comments = songService.getCommentsInSong(songid);
+        ArrayList<comments> comments = songService.getCommentsInSong(songid);
         ArrayList<User> users = new ArrayList<>();
-        for(Comment comment:comments){
-            e = userService.getUserById(comment.getUserID());
+        for(com.example.demo.entity.comments comment:comments){
+            e = userService.getUserById(comment.getUserid());
             users.add((User) e.getObject());
         }
         Album album = albumService.getAlbumByAlbumId(song.getAlbumid());
@@ -86,8 +89,34 @@ public class DetailController {
        //"songs" "albums" "follownum"
     }
     @RequestMapping(value ="/Album",method = RequestMethod.GET)
-    public String albumDetail(@RequestParam("albumid") String songlistid, Map<String, Object> map,HttpServletRequest request){
+    public String albumDetail(@RequestParam("albumid") String albumid, Map<String, Object> map,HttpServletRequest request){
+        Album album = albumService.getAlbumByAlbumId(albumid);
+        ArrayList<Song> songs = albumService.getSongsInAlbum(albumid);
+        ResultEntity e;
+        e = songListService.getSingerInSongList(songs);
+        map.put("singers",e.getObject());
+        ArrayList<String>singername = showUtil.unionSingers((ArrayList<ArrayList<Singer>>)e.getObject());
+        map.put("singername",singername);
+        Singer author = singerService.getSingerById(album.getSingerid());
+        String style = showUtil.getSongListStyle(songs);
+        map.put("style",style);
+        map.put("author",author);
+        map.put("songs",songs);
+        map.put("album",album);
         return "/Details/album_detail";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getMySongList", method = RequestMethod.GET)
+    public ModelAndView getMySongList(HttpServletRequest request, @RequestParam("songid") String songid){
+        User user = (User) request.getSession(false).getAttribute("visted");
+        ResultEntity e = userService.getSongLists(user);
+        Map<String,Object>e_map = (Map<String, Object>) e.getObject();
+        ArrayList<SongList> createdsonglist = (ArrayList<SongList>)e_map.get("createdsonglist");
+        Map<String,Object>map = new HashMap<>();
+        map.put("songlists",createdsonglist);
+        map.put("toAdd",songid);
+        return new ModelAndView("/temp/songListChooser",map);
     }
 
 }

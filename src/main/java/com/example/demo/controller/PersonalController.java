@@ -100,7 +100,7 @@ public class PersonalController {
 
     @ResponseBody
     @RequestMapping(value = "/profile/changeFollow", method = RequestMethod.GET)
-    public String changeFollow(HttpServletRequest request, HttpServletResponse response){
+    public Map<String, String> changeFollow(HttpServletRequest request, HttpServletResponse response){
         User my =(User) request.getSession(false).getAttribute("user");
         String id = request.getParameter("id");
         return showUtil.changeFollow(my.getUserid(),id);

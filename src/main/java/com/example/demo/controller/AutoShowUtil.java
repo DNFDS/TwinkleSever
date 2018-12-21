@@ -85,7 +85,7 @@ public class AutoShowUtil {
      * @param friendid
      * @return "succ" "flag"
      */
-    public String changeFollow(String userid,String friendid){
+    public Map<String,String> changeFollow(String userid,String friendid){
         //先判断用户关注这个人没有
         Map<String,String> map = new HashMap<>();
         ResultEntity e = userService.isFriendExist(userid,friendid);
@@ -104,7 +104,7 @@ public class AutoShowUtil {
             map.put("succ","1");
         else
             map.put("succ","0");
-        return JSON.toJSONString(map);
+        return map;
     }
 
     /**public String changeFollowSinger(String userid,String singerid){

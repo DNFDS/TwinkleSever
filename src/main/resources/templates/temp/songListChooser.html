@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        .mod_operate_menu {
+            position: absolute;
+            top: auto;
+            left: auto;
+            z-index: 100;
+            color: #4F4F4F;
+            font-size: 14px;
+        }
+        .operate_menu__cont, .operate_menu__sub {
+
+            width: 128px;
+            padding: 5px 0;
+            background-color: #fff;
+            box-shadow: 0 0 10px 0 rgba(183,183,183,.65);
+            border: 1px solid #bfbfbf;
+
+        }
+        .operate_menu__link {
+
+            display: block;
+            height: 36px;
+            line-height: 36px;
+            padding-left: 30px;
+            padding-right: 15px;
+            margin-bottom: 1px;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+
+        }
+        .operate_menu__top_line {
+
+            padding-top: 5px;
+            border-top: 1px solid #f0f0f0;
+            margin-top: 5px;
+
+        }
+        .operate_menu__list {
+
+            overflow-y: auto;
+
+        }
+        .operate_menu__link {
+
+            display: block;
+            height: 36px;
+            line-height: 36px;
+            padding-left: 30px;
+            padding-right: 15px;
+            margin-bottom: 1px;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+
+        }
+    </style>
+    <script>
+        function addSongToSongList(songlistid,songid) {
+
+        }
+    </script>
+</head>
+<body>
+<div class="operate_menu__cont">
+    <a href="javascript:;" class="operate_menu__link js_addto_playlist">歌单列表</a>
+    <ul role="menu" class="operate_menu__list operate_menu__top_line">
+        <li class="operate_menu__item" th:each="songlist:${songlists}">
+            <a href="javascript:;" class="operate_menu__link js_addto_taogelist" th:onclick="addSongToSongList([[${songlist.getSonglistid()}]],[[${toAdd}]])"><i class="operate_menu__icon_like"></i>[[songlist.getSonglistname()]] </a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

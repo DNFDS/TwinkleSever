@@ -36,11 +36,6 @@
             <optional>true</optional>
             <scope>true</scope>
         </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.46</version>
-        </dependency>
 
         <!--<dependency>
             <groupId>mysql</groupId>

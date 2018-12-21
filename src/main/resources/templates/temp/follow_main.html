@@ -131,6 +131,7 @@
         }
         function FollowUser(userid,index) {
 			var btn_id = "focus"+index;
+			var word_id = "word"+index;
             $.ajax({
                 type:"GET",
                 url:"/profile/changeFollow",
@@ -141,14 +142,21 @@
                 cache:true,
                 success:function(dataObj) {
                     var tab = document.getElementById(btn_id);
+                    var word = document.getElementById(word_id);
+                    var follownum = word.getAttribute('data-focusnum')
+                    var num = parseInt(follownum);
                     if (dataObj.succ === '1') {
                         if (dataObj.flag === '1') {
+                            num = num +1;
+                            word.innerHTML=""
                             tab.innerHTML="取消关注";
                             alert('关注成功');
                         } else {
+                            follownum = follownum-1;
                             tab.innerHTML="关注";
                             alert('取消关注成功');
                         }
+                        word.innerHTML=follownum+"人已关注"
                     }
                     else
                     alert('请求失败');
@@ -175,7 +183,7 @@
 									<img class="singer_list__pic" src="//y.gtimg.cn/music/photo_new/T001R150x150M000001Y2Gbc2Xt1hU.jpg?max_age=2592000" onerror="this.src='//y.gtimg.cn/mediastyle/global/img/singer_300.png?max_age=31536000';this.error=null;" alt="Michael Jackson">
 								</a>
 								<h3 class="singer_list__title"><a href="https://y.qq.com/n/yqq/singer/001Y2Gbc2Xt1hU.html" class="js_singer" title="Michael Jackson" th:text="${list.getUsername()}"></a></h3>
-								<p class="singer_list__info" th:text="${FollowNum.get(iterStat.index)}+'人已关注'"></p>
+								<p class="singer_list__info" th:dada-focusnum="${FollowNum.get(iterStat.index)}" th:id="'word'+${iterStat.index}" th:text="${FollowNum.get(iterStat.index)}+'人已关注'"></p>
 								<div class="singer_list__focus">
 									<a href="javascript:;" class="mod_btn singer_list__btn_focus js_follow_singer" ><span class="btn_focus__cont" th:id="'focus'+${iterStat.index}" th:onclick="FollowUser([[${list.getUserid()}]],[[${iterStat.index}]]);" th:text="${isFollow.get(iterStat.index)}?'已关注':'未关注'"></span></a>
 								</div>

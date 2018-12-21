@@ -13,6 +13,63 @@
     <script src="../JS/main_js.js"></script>
     <script src="../JS/play.js"></script>
     <style>
+        .mod_operate_menu {
+            position: absolute;
+            top: auto;
+            left: auto;
+            z-index: 100;
+            color: #4F4F4F;
+            font-size: 14px;
+        }
+        .operate_menu__cont, .operate_menu__sub {
+
+            width: 128px;
+            padding: 5px 0;
+            background-color: #fff;
+            box-shadow: 0 0 10px 0 rgba(183,183,183,.65);
+            border: 1px solid #bfbfbf;
+
+        }
+        .operate_menu__link {
+
+            display: block;
+            height: 36px;
+            line-height: 36px;
+            padding-left: 30px;
+            padding-right: 15px;
+            margin-bottom: 1px;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+
+        }
+        .operate_menu__top_line {
+
+            padding-top: 5px;
+            border-top: 1px solid #f0f0f0;
+            margin-top: 5px;
+
+        }
+        .operate_menu__list {
+
+            overflow-y: auto;
+
+        }
+        .operate_menu__link {
+
+            display: block;
+            height: 36px;
+            line-height: 36px;
+            padding-left: 30px;
+            padding-right: 15px;
+            margin-bottom: 1px;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+
+        }
         body {
             background-color: #fafafa;
         }
@@ -25,13 +82,46 @@
         }
     </style>
     <script>
-        function buttonShow(index){
-            $("#oa_"+index).show();
+        document.onclick = function (event)  {
+            var e = event || window.event;
+            var istrue="false";
+            var elem = e.srcElement||e.target;
+            var styleVal1 = document.getElementById('popwindow').getAttribute("style");
+            var len= styleVal1.length;
+            var xx= styleVal1.substring(0,14);
+            var yy= styleVal1.substring(14,len);
+            if(xx=="display:block;"){
+                while(elem)
+                {
+                    if(elem.id == "popwindow"||elem.id =="add")
+                    {
+                        istrue="true";
+                        break;
+                    }
+                    elem = elem.parentNode;
+                }
+                if(istrue!="true"){
+                    styleVal1="display:none;"+yy;
+                    document.getElementById("popwindow").setAttribute("style",styleVal1);
+                }
+            }
         }
-        function buttonhide(index){
-            $("#oa_"+index).hide();
+
+        function popwindowup(i){
+            var styleVal1 = document.getElementById('popwindow').getAttribute("style");
+            var len= styleVal1.length;
+            var xx= styleVal1.substring(0,14);
+            var yy= styleVal1.substring(14,len);
+            var zz="display:block;position:absolute;";
+            var top=228+i*50;
+            styleVal1=zz+"left:548px;top:"+top+"px;";
+            document.getElementById("popwindow").setAttribute("style",styleVal1);
         }
-        $(document).ready(function(){
+        function choseSongList(){}
+
+
+
+    $(document).ready(function(){
             /*<![CDATA[*/
             var size = [[${songs.size()}]];
             /*]]>*/
@@ -141,15 +231,19 @@
                 <div class="songlist__btn"  th:id="'oa_'+${iterStat.index}">
                     <span><a href="#"><img src="../image/Index_image/play.png"  th:onclick="playSong([[${song.getSongid()}]])" alt="play" height="35px" width="35px" class="songlist_btn"/></a></span>
                     <span><a href="#"><img src="../image/Index_image/like.png" alt="like" height="35px" width="35px" class="songlist_btn"/></a></span>
-                    <span><a href="#"><img src="../image/Index_image/add.png" alt="add" height="35px" width="35px" class="songlist_btn"/></a></span>
+                    <span><a id="add" href="javascript:;" th:onclick="popwindowup([[${iterStat.index}]])"><img src="../image/Index_image/add.png" alt="add" height="35px" width="35px" class="songlist_btn"/></a></span>
                     <span><a href="#"><img src="../image/Index_image/download.png" alt="download" height="35px" width="35px" class="songlist_btn"/></a></span>
                 </div>
-                <li class="songlist__header_album" th:text="${albums.get(iterStat.index).getAlbumname()}">Immediate Music</li>
+                <li class="songlist__header_album" ><a th:text="${albums.get(iterStat.index).getAlbumname()}" th:href="@{'/Album?albumid='+${albums.get(iterStat.index).getAlbumid()}}" ></a></li>
                 <li class="songlist__header_author" th:text="${singername.get(iterStat.index)}">Immediate Music</li>
                 <li class="songlist__header_time" th:text="${song.getLength()}"></li>
             </ul>
         </div>
-    </div>
 
+        <div class="mod_operate_menu" id="popwindow" style="display:none;position:absolute;left:697px;top:669px;" >
+
+        </div>
+
+    </div>
 </body>
 </html>

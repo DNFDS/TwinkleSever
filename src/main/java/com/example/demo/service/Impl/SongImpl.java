@@ -69,11 +69,11 @@ public class SongImpl implements SongService {
     }
 
     @Override
-    public ArrayList<Comment> getCommentsInSong(String songid){
+    public ArrayList<comments> getCommentsInSong(String songid){
         Map<String,Object> map = new HashMap<>();
         map.put("songid",songid);
         commentsMapper.getComment(map);
-        ArrayList<Comment> comments = (ArrayList<Comment>)map.get("comments");
+        ArrayList<comments> comments = (ArrayList<comments>)map.get("comments");
         if(comments == null){
             comments = new ArrayList<>();
         }

@@ -23,6 +23,12 @@ function disc_over(id)
 		}
 	}
 }
+function buttonShow(index){
+    $("#oa_"+index).show();
+}
+function buttonhide(index){
+    $("#oa_"+index).hide();
+}
 function disc_out(id)
 {
 	var classVal = document.getElementById(id).getAttribute("class");

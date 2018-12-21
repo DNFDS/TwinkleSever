@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
 <title>专辑详情</title>
@@ -10,6 +10,7 @@
 <script src="../JS/jquery-3.3.1.min.js"></script>
 <script src="../JS/bootstrap.min.js"></script>
 <script src="../JS/main_js.js"></script>
+	<script src="../JS/play.js"></script>
 <style>
 .main, .section_inner {
     max-width: 900px;
@@ -127,7 +128,7 @@
     width: 100%;
     padding-bottom: 20px;
 }
-.songlist__header, .songlist__list1,.songlist__list2 {
+.songlist__header, .songlistlist1,.songlistlist2 {
     position: relative;
     padding-left: 45px;
     padding-right: 100px;
@@ -138,13 +139,13 @@
     background-color: #fbfbfd;;
     color: #999;
 }
-.songlist__list1 {
+.songlistlist1 {
     height: 50px;
     line-height: 50px;
     background-color:rgba(255,255,255,1.00);
     color: #727272;
 }
-.songlist__list2 {
+.songlistlist2 {
    	height: 50px;
     line-height: 50px;
     background-color: #fbfbfd;;
@@ -392,89 +393,103 @@ body {
 }
 </style>
 <script>
-function on_input(){
-	var styleVal1 = document.getElementById('reply_text_blur').getAttribute("style");
-	styleVal1=styleVal1.replace("display: block;","display: none;");
-	document.getElementById("reply_text_blur").setAttribute("style",styleVal1);
-	var styleVal2 = document.getElementById('reply_text').getAttribute("style");
-	styleVal2=styleVal2.replace("display: none;","display: block;");
-	document.getElementById("reply_text").setAttribute("style",styleVal2);
-}
-function out_input(){
-	var styleVal1 = document.getElementById('reply_text').getAttribute("style");
-	styleVal1=styleVal1.replace("display: block;","display: none;");
-	document.getElementById("reply_text").setAttribute("style",styleVal1);
-	var styleVal2 = document.getElementById('reply_text_blur').getAttribute("style");
-	styleVal2=styleVal2.replace("display: none;","display: block;");
-	document.getElementById("reply_text_blur").setAttribute("style",styleVal2);
-}
-function on_reply(){
-	var styleVal1 = document.getElementById('replyed_text_blur').getAttribute("style");
-	styleVal1=styleVal1.replace("display: block;","display: none;");
-	document.getElementById("replyed_text_blur").setAttribute("style",styleVal1);
-	var styleVal2 = document.getElementById('replyed_text').getAttribute("style");
-	styleVal2=styleVal2.replace("display: none;","display: block;");
-	document.getElementById("replyed_text").setAttribute("style",styleVal2);
-}
-function out_reply(){
-	var styleVal1 = document.getElementById('replyed_text').getAttribute("style");
-	styleVal1=styleVal1.replace("display: block;","display: none;");
-	document.getElementById("replyed_text").setAttribute("style",styleVal1);
-	var styleVal2 = document.getElementById('replyed_text_blur').getAttribute("style");
-	styleVal2=styleVal2.replace("display: none;","display: block;");
-	document.getElementById("replyed_text_blur").setAttribute("style",styleVal2);
-}
-document.onclick = function (event)  {     
-	var e = event || window.event;
-	var istrue="false";
-	var isout="false";
-	var elem = e.srcElement||e.target;  
-	var styleVal1 = document.getElementById('replyed_text').getAttribute("style");
-	var styleVal2 = document.getElementById('reply_text').getAttribute("style");
-	if(styleVal1=="display: block;"){
-		while(elem)  
-		{   
-			if(elem.id == "replyed_text"||elem.id == "replyed_text_blur")  
-			{  
-				istrue="true";
-				break;
-			}  
-			elem = elem.parentNode;       
-		}
-		if(istrue!="true"){
-			out_reply();
-			isout="true";
-		}
-	}
-	if(styleVal2=="display: block;"){
-		while(elem)  
-		{   
-			if(elem.id == "reply_text"||elem.id == "reply_text_blur")  
-			{  
-					return;  
-			}  
-			elem = elem.parentNode;       
-		}
-		if(isout!="true")
-			out_input();
-	}
-}
-function open_reply(){
-	var classVal = document.getElementById('reply_box').getAttribute("class");
-	if(classVal =="js_reply_container")
-	{
-		classVal=classVal.concat(" drop");
-		document.getElementById("reply_box").setAttribute("class",classVal);	
-	}
-}
-function close_reply(){
-	var classVal = document.getElementById('reply_box').getAttribute("class");
-	if(classVal =="js_reply_container drop")
-	{
-		classVal=classVal.replace("js_reply_container drop","js_reply_container");
-		document.getElementById("reply_box").setAttribute("class",classVal);
-	}
-}
+    function buttonShow(index){
+        $("#oa_"+index).show();
+    }
+    function buttonhide(index){
+        $("#oa_"+index).hide();
+    }
+    $(document).ready(function(){
+        /*<![CDATA[*/
+        var size = [[${songs.size()}]];
+        /*]]>*/
+        for (var num =0; num<size; num++) {
+            $("#oa_"+num).hide();
+        }
+    });
+    function on_input(){
+        var styleVal1 = document.getElementById('reply_text_blur').getAttribute("style");
+        styleVal1=styleVal1.replace("display: block;","display: none;");
+        document.getElementById("reply_text_blur").setAttribute("style",styleVal1);
+        var styleVal2 = document.getElementById('reply_text').getAttribute("style");
+        styleVal2=styleVal2.replace("display: none;","display: block;");
+        document.getElementById("reply_text").setAttribute("style",styleVal2);
+    }
+    function out_input(){
+        var styleVal1 = document.getElementById('reply_text').getAttribute("style");
+        styleVal1=styleVal1.replace("display: block;","display: none;");
+        document.getElementById("reply_text").setAttribute("style",styleVal1);
+        var styleVal2 = document.getElementById('reply_text_blur').getAttribute("style");
+        styleVal2=styleVal2.replace("display: none;","display: block;");
+        document.getElementById("reply_text_blur").setAttribute("style",styleVal2);
+    }
+    function on_reply(){
+        var styleVal1 = document.getElementById('replyed_text_blur').getAttribute("style");
+        styleVal1=styleVal1.replace("display: block;","display: none;");
+        document.getElementById("replyed_text_blur").setAttribute("style",styleVal1);
+        var styleVal2 = document.getElementById('replyed_text').getAttribute("style");
+        styleVal2=styleVal2.replace("display: none;","display: block;");
+        document.getElementById("replyed_text").setAttribute("style",styleVal2);
+    }
+    function out_reply(){
+        var styleVal1 = document.getElementById('replyed_text').getAttribute("style");
+        styleVal1=styleVal1.replace("display: block;","display: none;");
+        document.getElementById("replyed_text").setAttribute("style",styleVal1);
+        var styleVal2 = document.getElementById('replyed_text_blur').getAttribute("style");
+        styleVal2=styleVal2.replace("display: none;","display: block;");
+        document.getElementById("replyed_text_blur").setAttribute("style",styleVal2);
+    }
+    document.onclick = function (event)  {
+        var e = event || window.event;
+        var istrue="false";
+        var isout="false";
+        var elem = e.srcElement||e.target;
+        var styleVal1 = document.getElementById('replyed_text').getAttribute("style");
+        var styleVal2 = document.getElementById('reply_text').getAttribute("style");
+        if(styleVal1=="display: block;"){
+            while(elem)
+            {
+                if(elem.id == "replyed_text"||elem.id == "replyed_text_blur")
+                {
+                    istrue="true";
+                    break;
+                }
+                elem = elem.parentNode;
+            }
+            if(istrue!="true"){
+                out_reply();
+                isout="true";
+            }
+        }
+        if(styleVal2=="display: block;"){
+            while(elem)
+            {
+                if(elem.id == "reply_text"||elem.id == "reply_text_blur")
+                {
+                        return;
+                }
+                elem = elem.parentNode;
+            }
+            if(isout!="true")
+                out_input();
+        }
+    }
+    function open_reply(){
+        var classVal = document.getElementById('reply_box').getAttribute("class");
+        if(classVal =="js_reply_container")
+        {
+            classVal=classVal.concat(" drop");
+            document.getElementById("reply_box").setAttribute("class",classVal);
+        }
+    }
+    function close_reply(){
+        var classVal = document.getElementById('reply_box').getAttribute("class");
+        if(classVal =="js_reply_container drop")
+        {
+            classVal=classVal.replace("js_reply_container drop","js_reply_container");
+            document.getElementById("reply_box").setAttribute("class",classVal);
+        }
+    }
 </script>
 </head>
 <body>
@@ -490,16 +505,16 @@ function close_reply(){
             </span>
             <div class="data__cont">
                 <div class="data__name">
-                    <h1 class="data__name_txt" title="Showboat">Showboat</h1>
+                    <h1 class="data__name_txt" title="Showboat" th:text="${album.getAlbumname()}">Showboat</h1>
                 </div>
                 <div class="data__singer">
-                    <i class="icon_singer sprite"></i><a href="//y.qq.com/n/yqq/singer/001l3qAV0e446K.html" class="js_singer data__singer_txt" itemprop="byArtist" data-id="1535498" data-stat="y_new.album.header.singername" data-mid="001l3qAV0e446K" title="Brian Newman">Brian Newman</a>
+                    <i class="icon_singer sprite"></i><a th:href="@{'/Singer?singerid='+${author.getSingerid()}}" class="js_singer data__singer_txt" th:text="${author.getSingername()}">Brian Newman</a>
                 </div>
                 <ul class="data__info">
-					<li class="data_info__item">流派：Jazz 爵士</li>
-					<li class="data_info__item data_info__item--even">语种：英语</li>
-					<li class="data_info__item">发行时间：2018-11-16</li>
-					<li class="data_info__item data_info__item--even">唱片公司：<a href="//y.qq.com/portal/company_detail.html?id=35">环球唱片</a></li>
+					<li class="data_info__item">流派：[[${style}]]</li>
+					<li class="data_info__item data_info__item--even" >语种：[[${album.getLanguage()}]]</li>
+					<li class="data_info__item" >发行时间：[[${album.getAlbumage()}]]</li>
+					<li class="data_info__item data_info__item--even">唱片公司：<a href="//y.qq.com/portal/company_detail.html?id=35">[[${album.getCompany()}]]</a></li>
 					<li class="data_info__item">类型：录音室专辑</li>	
                 </ul>
                 <div class="data__actions" role="toolbar">
@@ -517,139 +532,20 @@ function close_reply(){
 				<li class="songlist__header_author">歌手</li>
 				<li class="songlist__header_time">时长</li>
 			</ul>
-			<ul class="songlist__list1 submeau_1">
-				<li class="songlist__number">1</li>
-			  	<li class="songlist__name">Tales of the Electric Romeo</li>
-				<li class="songlist__btn" id="oa_1">
-					<span><a href="#"><img src="image/Index_image/play.png" alt="play" height="40px" width="40px" class="songlist_btn"/></a></span>
-					<span><a href="#"><img src="image/Index_image/like.png" alt="like" height="40px" width="40px" class="songlist_btn"/></a></span>
-					<span><a href="#"><img src="image/Index_image/add.png" alt="add" height="40px" width="40px" class="songlist_btn"/></a></span>
-					<span><a href="#"><img src="image/Index_image/download.png" alt="download" height="40px" width="40px" class="songlist_btn"/></a></span>
-				</li>
-				<!--按钮悬停事件-->
-			  	<script type="text/javascript"> 
-
-				  $("#oa_1").hide();
-				  $(".submeau_1").hover(function () {
-					  $("#oa_1 ").show();
-				  }, function () {
-					  $("#oa_1").hide();
-				  })
-				  // 鼠标移动到list的div上的时候list div不会被隐藏
-				  $("#oa_1").hover(function () {
-					  $("#oa_1").show();
-				  }, function () {
-					  $("#oa_1").hide();
-				  })
-				</script>
-				<li class="songlist__header_author">Immediate Music</li>
-				<li class="songlist__header_time">04:00</li>
-			</ul>
-			<ul class="songlist__list2 submeau_2">
-				<li class="songlist__number">2</li>
-			  	<li class="songlist__name">Tales of the Electric Romeo</li>
-				<li class="songlist__btn" id="oa_2">
-					<span><a href="#"><img src="image/Index_image/play.png" alt="play" height="40px" width="40px" class="songlist_btn"/></a></span>
-					<span><a href="#"><img src="image/Index_image/like.png" alt="like" height="40px" width="40px" class="songlist_btn"/></a></span>
-					<span><a href="#"><img src="image/Index_image/add.png" alt="add" height="40px" width="40px" class="songlist_btn"/></a></span>
-					<span><a href="#"><img src="image/Index_image/download.png" alt="download" height="40px" width="40px" class="songlist_btn"/></a></span>
-				</li>
-				<!--按钮悬停事件-->
-			  	<script type="text/javascript"> 
-
-				  $("#oa_2").hide();
-				  $(".submeau_2").hover(function () {
-					  $("#oa_2 ").show();
-				  }, function () {
-					  $("#oa_2").hide();
-				  })
-				  // 鼠标移动到list的div上的时候list div不会被隐藏
-				  $("#oa_2").hover(function () {
-					  $("#oa_2").show();
-				  }, function () {
-					  $("#oa_2").hide();
-				  })
-				</script>
-				<li class="songlist__header_author">Immediate Music</li>
-				<li class="songlist__header_time">04:00</li>
-			</ul>
+				<!--/*@thymesVar id="songs" type="com.example.demo.entity.Song"*/-->
+				<ul th:each="song,iterStat:${songs}" th:class="${iterStat.odd}? 'songlistlist1 submeau_1' : 'songlistlist2 submeau_2'" th:onmouseover="'javascript:buttonShow(\''+${iterStat.index}+'\')'" th:onmouseout="'javascript:buttonhide(\''+${iterStat.index}+'\')'" >
+					<li class="songlist__number">1</li>
+					<li class="songlist__name"  ><a th:href="@{'/Song?songid='+${song.getSongid()}}" th:text="${song.getSongname()}"></a></li>
+					<li class="songlist__btn"  th:id="'oa_'+${iterStat.index}">
+						<span><a href="#"><img src="../image/Index_image/play.png" th:onclick="playSong([[${song.getSongid()}]])" alt="play" height="40px" width="40px" class="songlist_btn"/></a></span>
+						<span><a href="#"><img src="../image/Index_image/like.png" alt="like" height="40px" width="40px" class="songlist_btn"/></a></span>
+						<span><a href="#"><img src="../image/Index_image/add.png" alt="add" height="40px" width="40px" class="songlist_btn"/></a></span>
+						<span><a href="#"><img src="../image/Index_image/download.png" alt="download" height="40px" width="40px" class="songlist_btn"/></a></span>
+					</li>
+					<li class="songlist__header_author" th:text="${singername.get(iterStat.index)}">Immediate Music</li>
+					<li class="songlist__header_time" th:text="${song.getLength()}"></li>
+				</ul>
 	  	 </div>
-			<div class="mod_comment" id="comment_box">
-				<div class="part__hd">
-        			<h2 class="part__tit">评论<span class="c_tx_thin part__tit_desc js_all_comment_num">共7条评论</span></h2>
-    			</div>
-				<div class="mod_comment js_cmt_input">
-					<div class="comment__input">
-						<div class="comment__textarea js_comment__textarea  c_bg_normal">
-							<div class="comment__textarea_inner">
-								<div class="comment__textarea_default c_tx_thin js_reply_text_blur" name="" id="reply_text_blur" style="display: block;" onClick="on_input()" contenteditable="true">期待你的神评论……
-								</div>
-								<div class="js_reply_text comment__textarea_input c_tx_normal" name="" id="reply_text" style="display: none;" contenteditable="true"></div>
-							</div>
-							<div class="comment__tips js_comment_tips c_tx_thin" data-max="300">剩余<span class="c_tx_highlight">300</span>字</div>
-						</div>
-						<a class="comment__face js_cmt_face" href="javascript:;" data-type="reply"><i class="icon_comment icon_comment_face"></i></a>
-						<div class="comment__tool"><a href="javascript:;" class="mod_btn_green comment__tool_btn js_send_reply">发表评论</a></div>
-					</div>
-				</div>
-				<div class="mod_all_comment js_mod_all">
-					<div class="comment_type__title c_b_normal">
-	    				<h2>最新评论(7)</h2>
-					</div>
-    				<ul class="comment__list js_all_list">
-						<li class="comment__list_item c_b_normal js_cmt_li" style="visibility: visible;">
-    						<a href="javascript:;" class="comment__avatar js_nick" data-uin="1195278174">
-								<img class="js_lazy_comment_pic" data-original="//y.gtimg.cn/music/photo_new/T001R300x300M000002RaR8P3WLVH5.jpg?max_age=2592000" alt="徐潮城" onerror="this.src='//y.gtimg.cn/mediastyle/global/img/person_300.png?max_age=2592000';this.onerror=null" title="徐潮城" style="display: block; visibility: visible;" src="//y.gtimg.cn/music/photo_new/T001R300x300M000002RaR8P3WLVH5.jpg?max_age=2592000">
-   						 	</a>
-							<h4 class="comment__title">
-								<a href="javascript:;" class="c_tx_thin js_nick js_nick_only" data-uin="1195278174">徐潮城</a>
-    						</h4>
-							<p class="c_tx_normal comment__text js_hot_text">支持<br><br>支持<br><br>支持<img src="//y.gtimg.cn/mediastyle/global/emoji/img/e400825.png">
-							</p>
-							<div class="comment__opt js_comment_opt" data-commentid="album_5127601_1195278174_1542716434">
-    							<span class="comment__date c_tx_thin">20:20</span>
-								<a class="comment__zan js_cmt_praise " data-commentid="album_5127601_1195278174_1542716434" href="javascript:;"><i class="icon_comment icon_comment_like"></i><img src="image/Index_image/zan.png" class="icon_comment_like" alt="赞"><span class="js_praise_num">0</span></a>
-								<a onClick="open_reply()" class="comment__feedback js_feedback icon_comment icon_comment_feedback" href="javascript:;" data-nick="徐潮城" data-uin="1195278174" data-cmtid="album_5127601_1195278174_1542716434"><img src="image/Index_image/reply.png" class="icon_comment_feedback" alt="回复">回复</a>
-							</div>
-							<div class="js_reply_container" id="reply_box">
-								<div class="comment_repeat js_cmt_replyed" data-uin="2889902617" data-cmtid="album_2088269_2889902617_1531317202">
-									<div class="comment__input">		
-		    							<div class="comment__textarea js_comment__textarea c_bg_normal">
-											<div class="comment__textarea_inner">
-			    							<!--focus评论框的时候将.comment__textarea_default模块隐藏，同时显示.comment__textarea_input-->
-			   									 <div class="comment__textarea_default c_tx_thin js_replyed_text_blur" name="" id="replyed_text_blur" style="display: block;" onClick="on_reply()" contenteditable="true">回复@Connor</div>
-			    								 <div id="replyed_text" class="js_replyed_text comment__textarea_input c_tx_normal" style="display: none;" contenteditable="true"></div>
-											</div>
-											<div class="comment__tips c_tx_thin js_replyed_comment_tips" data-max="300">剩余<span class="c_tx_highlight">300</span>字</div>
-		    							</div>
-										<a class="comment__face js_cmt_face" href="javascript:;" data-type="replyed"><i class="icon_comment icon_comment_face"></i></a>
-										<div class="comment__tool">
-											<a class="comment__tool_btn mod_btn_green js_send_replyed" href="javascript:;">回复</a>
-											<a onClick="close_reply()" class="mod_btn comment__tool_btn js_send_cancel" href="javascript:;">取消</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						 </li>
-						<li class="comment__list_item c_b_normal js_cmt_li" style="visibility: visible;">
-    						<a href="javascript:;" class="comment__avatar js_nick" data-uin="1195278174">
-								<img class="js_lazy_comment_pic" data-original="//y.gtimg.cn/music/photo_new/T001R300x300M000002RaR8P3WLVH5.jpg?max_age=2592000" alt="徐潮城" onerror="this.src='//y.gtimg.cn/mediastyle/global/img/person_300.png?max_age=2592000';this.onerror=null" title="徐潮城" style="display: block; visibility: visible;" src="//y.gtimg.cn/music/photo_new/T001R300x300M000002RaR8P3WLVH5.jpg?max_age=2592000">
-   						 	</a>
-							<h4 class="comment__title">
-								<a href="javascript:;" class="c_tx_thin js_nick js_nick_only" data-uin="1195278174">徐潮城</a>
-    						</h4>
-							<p class="c_tx_normal comment__text js_hot_text">支持<br><br>支持<br><br>支持<img src="//y.gtimg.cn/mediastyle/global/emoji/img/e400825.png">
-							</p>
-							<div class="comment__opt js_comment_opt" data-commentid="album_5127601_1195278174_1542716434">
-    							<span class="comment__date c_tx_thin">20:20</span>
-								<a class="comment__zan js_cmt_praise " data-commentid="album_5127601_1195278174_1542716434" href="javascript:;"><i class="icon_comment icon_comment_like"></i><img src="image/Index_image/zan.png" class="icon_comment_like" alt="赞"><span class="js_praise_num">0</span></a>
-								<a class="comment__feedback js_feedback icon_comment icon_comment_feedback" href="javascript:;" data-nick="徐潮城" data-uin="1195278174" data-cmtid="album_5127601_1195278174_1542716434"><img src="image/Index_image/reply.png" class="icon_comment_feedback" alt="回复">回复</a>
-							</div>
-						 </li>
-					</ul>
-					<div class="comment__show_all"><span class="comment__show_all_link c_tx_thin">—— 以上为全部评论 ——</span></div>
-				</div>
-			</div>
 		</div>
 	</div>
 	<!--footer-->
