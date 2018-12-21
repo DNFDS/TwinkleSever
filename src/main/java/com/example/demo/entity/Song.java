@@ -1,15 +1,13 @@
 package com.example.demo.entity;
 
+import java.math.BigDecimal;
+
 public class Song {
     private String songid;
 
     private String songpath;
 
     private String songname;
-
-    private String writername;
-
-    private String producername;
 
     private String songimage;
 
@@ -22,6 +20,12 @@ public class Song {
     private String songschool;
 
     private String songage;
+
+    private String company;
+
+    private String language;
+
+    private BigDecimal savenum;
 
     public String getSongid() {
         return songid;
@@ -45,22 +49,6 @@ public class Song {
 
     public void setSongname(String songname) {
         this.songname = songname == null ? null : songname.trim();
-    }
-
-    public String getWritername() {
-        return writername;
-    }
-
-    public void setWritername(String writername) {
-        this.writername = writername == null ? null : writername.trim();
-    }
-
-    public String getProducername() {
-        return producername;
-    }
-
-    public void setProducername(String producername) {
-        this.producername = producername == null ? null : producername.trim();
     }
 
     public String getSongimage() {
@@ -109,5 +97,29 @@ public class Song {
 
     public void setSongage(String songage) {
         this.songage = songage == null ? null : songage.trim();
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company == null ? null : company.trim();
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language == null ? null : language.trim();
+    }
+
+    public BigDecimal getSavenum() {
+        return savenum;
+    }
+
+    public void setSavenum(BigDecimal savenum) {
+        this.savenum = savenum;
     }
 }

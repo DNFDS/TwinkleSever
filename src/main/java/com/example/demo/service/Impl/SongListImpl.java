@@ -3,10 +3,7 @@ package com.example.demo.service.Impl;
 import com.example.demo.dao.AlbumMapper;
 import com.example.demo.dao.SongListMapper;
 import com.example.demo.dao.SongMapper;
-import com.example.demo.entity.Album;
-import com.example.demo.entity.Singer;
-import com.example.demo.entity.Song;
-import com.example.demo.entity.SongList;
+import com.example.demo.entity.*;
 import com.example.demo.entity.result.ResultEntity;
 import com.example.demo.service.SongListService;
 import com.example.demo.service.SongService;
@@ -27,6 +24,20 @@ public class SongListImpl implements SongListService {
     @Resource
     private AlbumMapper albumMapper;
 
+    @Override
+    public SongList getSongListById(String songlistid){
+        Map<String,Object> map = new HashMap<>();
+        map.put("songlistid",songlistid);
+        songListMapper.getSongListById(map);
+        ArrayList<SongList> songLists = (ArrayList<SongList>)map.get("songlist");
+        SongList songList;
+        if(songLists.size()==0){
+            songList = new SongList();
+        }else {
+            songList = songLists.get(0);
+        }
+        return songList;
+    }
     @Override
     public ResultEntity getSongsInSongList(SongList list){
         Map<String,Object> map = new HashMap<>();
@@ -79,5 +90,6 @@ public class SongListImpl implements SongListService {
         int num = (int)map.get("savednum");
         return new ResultEntity(true,"",num);
     }
+
 
 }

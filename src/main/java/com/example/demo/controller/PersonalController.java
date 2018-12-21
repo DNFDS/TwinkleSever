@@ -7,6 +7,7 @@ import com.example.demo.entity.SongList;
 import com.example.demo.entity.User;
 import com.example.demo.entity.result.ResultEntity;
 import com.example.demo.service.SongListService;
+import com.example.demo.service.SongService;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,8 @@ public class PersonalController {
     private UserService userService;
     @Autowired
     private SongListService songListService;
+    @Autowired
+    private SongService songService;
     @Autowired
     private AutoShowUtil showUtil;
 
@@ -47,9 +50,8 @@ public class PersonalController {
     public ModelAndView showFans(HttpServletRequest request, HttpServletResponse response){
         User user = (User) request.getSession(false).getAttribute("visted");
         User my =(User) request.getSession(false).getAttribute("user");
-        ResultEntity e;
         Map<String,Object>map ;
-        e = userService.getFans(user);
+        ResultEntity e = userService.getFans(user);
         ArrayList<User> Follows = (ArrayList<User>)e.getObject();
         //"Follows"关注的用户 "FollowNum"关注的人数 "isFollow"是否关注
         map = showUtil.showFollow(my.getUserid(),Follows);
@@ -59,7 +61,11 @@ public class PersonalController {
     @ResponseBody
     @RequestMapping(value = "/profile/showMyBought", method = RequestMethod.GET)
     public ModelAndView showMyBought(HttpServletRequest request, HttpServletResponse response){
-        return new ModelAndView("/temp/fans_main");
+        User user = (User) request.getSession(false).getAttribute("visted");
+        ResultEntity e = songService.getBoughtSongByUserId(user.getUserid());
+        ArrayList<SongList>boughtSongList = (ArrayList<SongList>)e.getObject();
+        Map<String,Object>map = showUtil.showSongList(boughtSongList);
+        return new ModelAndView("/temp/mybought_main",map);
     }
 
     @ResponseBody
@@ -146,18 +152,12 @@ public class PersonalController {
     @ResponseBody
     @RequestMapping(value = "/profile/showAlbum", method = RequestMethod.GET)
     public ModelAndView showAlbum(HttpServletRequest request, HttpServletResponse response){
-        User user = (User) request.getSession(false).getAttribute("visted");
         String flag = request.getParameter("flag");
-        ResultEntity e;
-        Map<String,Object>map = new HashMap<>();
-        e = userService.getFavoriteAlbum(user);
-        ArrayList<SongList>list = (ArrayList<SongList>)e.getObject();
-        map.put("Album",list);
         if(flag.equals("1"))
-            return new ModelAndView("/temp/mylike/album_details",map);
+            return new ModelAndView("/temp/mylike/album_details");
         if(flag.equals("2"))
-            return new ModelAndView("/temp/mylike/album_form_details",map);
-        return new ModelAndView("/temp/mylike/album_list_details",map);
+            return new ModelAndView("/temp/mylike/album_form_details");
+        return new ModelAndView("/temp/mylike/album_list_details");
     }
 
     private void getFavoriteList(Map<String,Object> map,ArrayList<SongList> createdsonglist){

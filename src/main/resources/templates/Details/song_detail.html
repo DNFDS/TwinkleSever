@@ -1,10 +1,8 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%> 
-<%@ page contentType="text/html;charset=utf-8"%>
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
-<title>歌单详情</title>
+<title>歌曲详情</title>
 <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/PersonalMessage.css" rel="stylesheet">
@@ -49,6 +47,7 @@
     top: 0;
     width: 300px;
     height: 266px;
+    background: url(/image/Index_image/album_cover.png) 0 0 no-repeat;
     pointer-events: none;
 }
 .data__cont {
@@ -83,13 +82,18 @@
     padding-top: 8px;
 }
 .data_info__item {
-    height: 27px;
+    float: left;
     line-height: 27px;
-    width: 400px;
+    width: 200px;
+    margin-right: 30px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 14px;
+}
+.data_info__item--even {
+    width: 300px;
+    margin-right: 0;
 }
 .data__actions {
     position: absolute;
@@ -125,15 +129,8 @@
 }
 .songlist__header, .songlist__list1,.songlist__list2 {
     position: relative;
-    padding-left: 45px;
+    padding-left: 20px;
     padding-right: 100px;
-}
-.songlist__number {
-    position: absolute;
-    top: 0;
-    left: 15px;
-    color: #999;
-    width: 36px;
 }
 .songlist__header{
     height: 50px;
@@ -161,13 +158,13 @@
 }
 .songlist__name{
 	float: left;
-    width: 40%;
+    width: 45%;
     position: relative;
     white-space: normal;
 }
 .songlist__btn{
 	float: left;
-    width: 30%;
+    width: 25%;
     position: relative;
     white-space: normal;
 }
@@ -483,91 +480,31 @@ function close_reply(){
             </span>
             <div class="data__cont">
                 <div class="data__name">
-                    <h1 class="data__name_txt" title="Showboat">Showboat</h1>
+                    <!--/*@thymesVar id="song" type="com.example.demo.entity.Song"*/-->
+                    <h1 class="data__name_txt" title="Showboat" th:text="${song.getSongname()}">Showboat</h1>
                 </div>
                 <div class="data__singer">
-                    <i class="icon_singer sprite"></i><a href="//y.qq.com/n/yqq/singer/001l3qAV0e446K.html" class="js_singer data__singer_txt" itemprop="byArtist" data-id="1535498" data-stat="y_new.album.header.singername" data-mid="001l3qAV0e446K" title="Brian Newman">Brian Newman</a>
+                    <i class="icon_singer sprite" th:each="list: ${singers}"><a href="//y.qq.com/n/yqq/singer/001l3qAV0e446K.html" class="js_singer data__singer_txt"  th:text="${list.getSingername()}+' '">Brian Newman</a></i>
                 </div>
                 <ul class="data__info">
-					<li class="data_info__item">标签：Jazz 爵士</li>
-					<li class="data_info__item">创建时间：2018-11-16</li>
-					<li class="data_info__item">收藏量：1.2万</li>	
+					<li class="data_info__item" >专辑：[[${album.getAlbumname()}]]</li>
+					<li class="data_info__item data_info__item--even" >语种：[[${song.getSongschool()}]]</li>
+					<li class="data_info__item" >流派：[[${song.getSongschool()}]]</li>
+					<li class="data_info__item data_info__item--even" >唱片公司：环球唱片</li>
+					<li class="data_info__item" >发行时间：[[${song.getSongage()}]]</li>
                 </ul>
                 <div class="data__actions" role="toolbar">
-                    <a href="//y.qq.com/portal/player.html" class="mod_btn_green js_all_play" data-stat="y_new.album.header.playall"><i class="mod_btn_green__icon_play"></i><img src="image/Index_image/mod_play.png" class="operate_btn" alt="play">播放全部</a>
-                    <a href="javascript:;" class="mod_btn js_fav_album" data-stat="y_new.album.header.love" data-status="0"><i class="mod_btn__icon_like"></i><img src="image/Index_image/mod_like.png" class="operate_btn" alt="download">收藏</a>
-		    		<a class="mod_btn js_into_comment" data-stat="y_new.album.gotocomment" href="#comment_box"><i class="mod_btn__icon_comment"></i><img src="image/Index_image/mod_download.png" class="operate_btn" alt="download">下载</a>
-                    <a href="javascript:;" class="mod_btn js_more" data-mid="002HspDd0Z48SD" data-id="5127601" data-stat="y_new.album.header.more"><i class="mod_btn__icon_menu"></i><img src="image/Index_image/mod_add.png" class="operate_btn" alt="add">添加到</a>
+                    <a href="//y.qq.com/portal/player.html" class="mod_btn_green js_all_play" data-stat="y_new.album.header.playall"><i class="mod_btn_green__icon_play"></i><img src="../image/Index_image/mod_play.png" class="operate_btn" alt="play">播放全部</a>
+                    <a href="javascript:;" class="mod_btn js_fav_album" data-stat="y_new.album.header.love" data-status="0"><i class="mod_btn__icon_like"></i><img src="../image/Index_image/mod_like.png" class="operate_btn" alt="download">收藏</a>
+		    		<a class="mod_btn js_into_comment" data-stat="y_new.album.gotocomment" href="#comment_box"><i class="mod_btn__icon_comment"></i><img src="../image/Index_image/mod_download.png" class="operate_btn" alt="download">下载</a>
+                    <a href="javascript:;" class="mod_btn js_more" data-mid="002HspDd0Z48SD" data-id="5127601" data-stat="y_new.album.header.more"><i class="mod_btn__icon_menu"></i><img src="../image/Index_image/mod_add.png" class="operate_btn" alt="add">添加到</a>
                 </div>
             </div>
         </div>
 		<div class="detail_layout__main">
-			<div class="mod_songlist">
-	    	<ul class="songlist__header">
-				<li class="songlist__header_name">歌曲</li>
-				<li class="songlist__header_author">歌手</li>
-				<li class="songlist__header_time">时长</li>
-			</ul>
-			<ul class="songlist__list1 submeau_1">
-				<li class="songlist__number">1</li>
-			  	<li class="songlist__name">Tales of the Electric Romeo</li>
-				<li class="songlist__btn" id="oa_1">
-					<span><a href="#"><img src="image/Index_image/play.png" alt="play" height="40px" width="40px" class="songlist_btn"/></a></span>
-					<span><a href="#"><img src="image/Index_image/like.png" alt="like" height="40px" width="40px" class="songlist_btn"/></a></span>
-					<span><a href="#"><img src="image/Index_image/add.png" alt="add" height="40px" width="40px" class="songlist_btn"/></a></span>
-					<span><a href="#"><img src="image/Index_image/download.png" alt="download" height="40px" width="40px" class="songlist_btn"/></a></span>
-				</li>
-				<!--按钮悬停事件-->
-			  	<script type="text/javascript"> 
-
-				  $("#oa_1").hide();
-				  $(".submeau_1").hover(function () {
-					  $("#oa_1 ").show();
-				  }, function () {
-					  $("#oa_1").hide();
-				  })
-				  // 鼠标移动到list的div上的时候list div不会被隐藏
-				  $("#oa_1").hover(function () {
-					  $("#oa_1").show();
-				  }, function () {
-					  $("#oa_1").hide();
-				  })
-				</script>
-				<li class="songlist__header_author">Immediate Music</li>
-				<li class="songlist__header_time">04:00</li>
-			</ul>
-			<ul class="songlist__list2 submeau_2">
-				<li class="songlist__number">2</li>
-			  	<li class="songlist__name">Tales of the Electric Romeo</li>
-				<li class="songlist__btn" id="oa_2">
-					<span><a href="#"><img src="image/Index_image/play.png" alt="play" height="40px" width="40px" class="songlist_btn"/></a></span>
-					<span><a href="#"><img src="image/Index_image/like.png" alt="like" height="40px" width="40px" class="songlist_btn"/></a></span>
-					<span><a href="#"><img src="image/Index_image/add.png" alt="add" height="40px" width="40px" class="songlist_btn"/></a></span>
-					<span><a href="#"><img src="image/Index_image/download.png" alt="download" height="40px" width="40px" class="songlist_btn"/></a></span>
-				</li>
-				<!--按钮悬停事件-->
-			  	<script type="text/javascript"> 
-
-				  $("#oa_2").hide();
-				  $(".submeau_2").hover(function () {
-					  $("#oa_2 ").show();
-				  }, function () {
-					  $("#oa_2").hide();
-				  })
-				  // 鼠标移动到list的div上的时候list div不会被隐藏
-				  $("#oa_2").hover(function () {
-					  $("#oa_2").show();
-				  }, function () {
-					  $("#oa_2").hide();
-				  })
-				</script>
-				<li class="songlist__header_author">Immediate Music</li>
-				<li class="songlist__header_time">04:00</li>
-			</ul>
-	  	 </div>
 			<div class="mod_comment" id="comment_box">
 				<div class="part__hd">
-        			<h2 class="part__tit">评论<span class="c_tx_thin part__tit_desc js_all_comment_num">共7条评论</span></h2>
+        			<h2 class="part__tit">评论<span class="c_tx_thin part__tit_desc js_all_comment_num">共[[${comments.size()}]]条评论</span></h2>
     			</div>
 				<div class="mod_comment js_cmt_input">
 					<div class="comment__input">
@@ -588,17 +525,16 @@ function close_reply(){
 	    				<h2>最新评论(7)</h2>
 					</div>
     				<ul class="comment__list js_all_list">
-						<li class="comment__list_item c_b_normal js_cmt_li" style="visibility: visible;">
-    						<a href="javascript:;" class="comment__avatar js_nick" data-uin="1195278174">
-								<img class="js_lazy_comment_pic" data-original="//y.gtimg.cn/music/photo_new/T001R300x300M000002RaR8P3WLVH5.jpg?max_age=2592000" alt="徐潮城" onerror="this.src='//y.gtimg.cn/mediastyle/global/img/person_300.png?max_age=2592000';this.onerror=null" title="徐潮城" style="display: block; visibility: visible;" src="//y.gtimg.cn/music/photo_new/T001R300x300M000002RaR8P3WLVH5.jpg?max_age=2592000">
+						<li class="comment__list_item c_b_normal js_cmt_li" style="visibility: visible;" th:each="comment,iterator:${comments}">
+    						<a href="javascript:;" class="comment__avatar js_nick" >
+								<img class="js_lazy_comment_pic" data-original="//y.gtimg.cn/music/photo_new/T001R300x300M000002RaR8P3WLVH5.jpg?max_age=2592000"  onerror="this.src='//y.gtimg.cn/mediastyle/global/img/person_300.png?max_age=2592000';this.onerror=null"  style="display: block; visibility: visible;" src="//y.gtimg.cn/music/photo_new/T001R300x300M000002RaR8P3WLVH5.jpg?max_age=2592000">
    						 	</a>
 							<h4 class="comment__title">
-								<a href="javascript:;" class="c_tx_thin js_nick js_nick_only" data-uin="1195278174">徐潮城</a>
+								<a href="javascript:;" class="c_tx_thin js_nick js_nick_only" th:text="${commentsUser.getUsername()}">徐潮城</a>
     						</h4>
-							<p class="c_tx_normal comment__text js_hot_text">支持<br><br>支持<br><br>支持<img src="//y.gtimg.cn/mediastyle/global/emoji/img/e400825.png">
-							</p>
+							<p class="c_tx_normal comment__text js_hot_text" th:text="${comment.getCommenttext()}"></p>
 							<div class="comment__opt js_comment_opt" data-commentid="album_5127601_1195278174_1542716434">
-    							<span class="comment__date c_tx_thin">20:20</span>
+    							<span class="comment__date c_tx_thin" th:text="${comment.getCommenttime()}">20:20</span>
 								<a class="comment__zan js_cmt_praise " data-commentid="album_5127601_1195278174_1542716434" href="javascript:;"><i class="icon_comment icon_comment_like"></i><img src="image/Index_image/zan.png" class="icon_comment_like" alt="赞"><span class="js_praise_num">0</span></a>
 								<a onClick="open_reply()" class="comment__feedback js_feedback icon_comment icon_comment_feedback" href="javascript:;" data-nick="徐潮城" data-uin="1195278174" data-cmtid="album_5127601_1195278174_1542716434"><img src="image/Index_image/reply.png" class="icon_comment_feedback" alt="回复">回复</a>
 							</div>
@@ -675,7 +611,7 @@ function close_reply(){
 	</div>
 	<!--disk导航-->
 	<nav class="top-right">
-	<a href="find_music.jsp" class="disc l1" onMouseOver="disc1_over()" onMouseOut="disc1_out()">
+	<a href="../find_music.jsp" class="disc l1" onMouseOver="disc1_over()" onMouseOut="disc1_out()">
 	<div id="disc1" class="">发现音乐</div>
 	</a>
 	<a href="my_music.jsp" class="disc l2" onMouseOver="disc2_over()" onMouseOut="disc2_out()">
@@ -684,7 +620,7 @@ function close_reply(){
 	<a href="like_song.jsp" class="disc l3" onMouseOver="disc3_over()" onMouseOut="disc3_out()">
 	<div id="disc3" class="">个人主页</div>
 	</a>
-	<a href="VIP_index.jsp" class="disc l4" onMouseOver="disc4_over()" onMouseOut="disc4_out()">
+	<a href="../VIP_index.jsp" class="disc l4" onMouseOver="disc4_over()" onMouseOut="disc4_out()">
 	<div id="disc4" class="">成为会员</div>
 	</a>
 	<a class="disc l5 toggle">

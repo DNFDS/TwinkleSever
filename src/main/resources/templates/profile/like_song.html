@@ -85,9 +85,25 @@
             });
         }
         function showMyBought() {
-            /*<![CDATA[*/
-            var id = [[${session.visted.getUserid()}]];
-            /*]]>*/
+            $.ajax({
+                type:"GET",
+                url:"/profile/showMyBought",
+                dataType: "html",   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
+                cache:false,
+                data:{
+                },
+                success:function(data){
+                    $('#main').html(data);
+                    var mylike_tab = document.getElementById('mylike_tab');
+                    var buy_tab = document.getElementById('buy_tab');
+                    var focus_tab = document.getElementById('focus_tab');
+                    var fans_tab = document.getElementById('fans_tab');
+                    mylike_tab.className = 'mod_tab__item';
+                    buy_tab.className = 'mod_tab__item mod_tab__current';
+                    focus_tab.className = 'mod_tab__item ';
+                    fans_tab.className = 'mod_tab__item'
+                }
+            });
 
         }
     </script>

@@ -1,18 +1,14 @@
 package com.example.demo.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.example.demo.entity.Singer;
-import com.example.demo.entity.Song;
-import com.example.demo.entity.SongList;
-import com.example.demo.entity.User;
+import com.example.demo.entity.*;
 import com.example.demo.entity.result.ResultEntity;
 import com.example.demo.service.SongListService;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+
+import java.util.*;
 
 @Component
 public class AutoShowUtil {
@@ -59,6 +55,7 @@ public class AutoShowUtil {
         map.put("username",username);
         return map;
     }
+
 
     /**
      *
@@ -110,7 +107,59 @@ public class AutoShowUtil {
         return JSON.toJSONString(map);
     }
 
-    private ArrayList<String> unionSingers(ArrayList<ArrayList<Singer>> singer){
+    /**public String changeFollowSinger(String userid,String singerid){
+
+    }
+     */
+
+    public String getSongListStyle(ArrayList<Song> songs){
+        class Group{
+            String index;
+            int num;
+        }
+        class Sort implements Comparator {
+            public int compare(Object o1, Object o2) {
+                Group s1 = (Group) o1;
+                Group s2 = (Group) o2;
+                if (s1.num > s2.num)
+                    return -1;
+                return 1;
+            }
+        }
+        Map<String, Group> resultMap = new LinkedHashMap<>();
+        int countIndex = 0;
+        for(Song song:songs){
+            //如果这个值运算过 不再运算
+            if (resultMap.get(song.getSongname()) != null) {
+                countIndex++;
+                continue;
+            }
+            Group group = new Group();
+            group.index = song.getSongschool();
+            for (int i = countIndex; i < songs.size(); i++) {
+                if (song.getSongname().equals(group.index)) {
+                    group.num++;
+                }
+            }
+            resultMap.put(group.index, group);
+            countIndex++;
+        }
+        ArrayList<Group> total = new ArrayList<>(resultMap.values());
+        Collections.sort(total, new Sort());
+        int i = 0;
+        StringBuilder sb = new StringBuilder();
+        for(Group cur:total){
+            if(i>2){
+                break;
+            }
+            sb.append(cur.index);
+            sb.append(" ");
+            i++;
+        }
+        return sb.toString();
+    }
+
+    public ArrayList<String> unionSingers(ArrayList<ArrayList<Singer>> singer){
         ArrayList<String>singername = new ArrayList<>(singer.size());
         for(ArrayList<Singer> arr:singer){
             StringBuilder sb = new StringBuilder();

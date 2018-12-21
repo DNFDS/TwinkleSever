@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.example.demo.dao.commentsMapper" >
-  <resultMap id="BaseResultMap" type="com.example.demo.entity.comments" >
+<mapper namespace="com.example.demo.dao.CommentsMapper" >
+  <resultMap id="commentsResultMap" type="com.example.demo.entity.comments" >
     <id column="USERID" property="userid" jdbcType="VARCHAR" />
     <id column="SONGID" property="songid" jdbcType="VARCHAR" />
     <id column="COMMENTTIME" property="commenttime" jdbcType="TIMESTAMP" />
@@ -68,7 +68,7 @@
   <sql id="Base_Column_List" >
     USERID, SONGID, COMMENTTIME, COMMENTTEXT
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.demo.entity.Example.commentsExample" >
+  <select id="selectByExample" resultMap="commentsResultMap" parameterType="com.example.demo.entity.Example.commentsExample" >
     select
     <if test="distinct" >
       distinct
@@ -82,7 +82,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.example.demo.entity.commentsKey" >
+  <select id="selectByPrimaryKey" resultMap="commentsResultMap" parameterType="com.example.demo.entity.commentsKey" >
     select 
     <include refid="Base_Column_List" />
     from USERCOMMENTS

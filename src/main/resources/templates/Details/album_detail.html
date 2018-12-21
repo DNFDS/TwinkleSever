@@ -4,14 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
-<title>歌曲详情</title>
+<title>专辑详情</title>
 <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/PersonalMessage.css" rel="stylesheet">
-<link href="css/main.css" rel="stylesheet">
-<script src="JS/jquery-3.3.1.min.js"></script>
-<script src="JS/bootstrap.min.js"></script>	
-<script src="JS/main_js.js"></script>	
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/PersonalMessage.css" rel="stylesheet">
+<link href="../css/main.css" rel="stylesheet">
+<script src="../JS/jquery-3.3.1.min.js"></script>
+<script src="../JS/bootstrap.min.js"></script>
+<script src="../JS/main_js.js"></script>
 <style>
 .main, .section_inner {
     max-width: 900px;
@@ -49,7 +49,7 @@
     top: 0;
     width: 300px;
     height: 266px;
-    background: url(image/Index_image/album_cover.png) 0 0 no-repeat;
+    background: url(../image/Index_image/album_cover.png) 0 0 no-repeat;
     pointer-events: none;
 }
 .data__cont {
@@ -131,13 +131,13 @@
 }
 .songlist__header, .songlist__list1,.songlist__list2 {
     position: relative;
-    padding-left: 20px;
+    padding-left: 45px;
     padding-right: 100px;
 }
 .songlist__header{
     height: 50px;
     line-height: 50px;
-    background-color: rgba(0,0,0,.01);
+    background-color: #fbfbfd;;
     color: #999;
 }
 .songlist__list1 {
@@ -149,7 +149,7 @@
 .songlist__list2 {
    	height: 50px;
     line-height: 50px;
-    background-color: rgba(0,0,0,.01);
+    background-color: #fbfbfd;;
     color: #727272;
 }
 .songlist__header_name {
@@ -158,15 +158,22 @@
     position: relative;
     white-space: normal;
 }
+.songlist__number {
+    position: absolute;
+    top: 0;
+    left: 15px;
+    color: #999;
+    width: 36px;
+}
 .songlist__name{
 	float: left;
-    width: 45%;
+    width: 40%;
     position: relative;
     white-space: normal;
 }
 .songlist__btn{
 	float: left;
-    width: 25%;
+    width: 30%;
     position: relative;
     white-space: normal;
 }
@@ -382,6 +389,9 @@
 body {
     background: url(image/Index_image/body_bg.jpg) 50% 60px repeat-x;
 }
+.data__actions a:hover{
+	color: rgba(22,154,243,1.00);
+}
 </style>
 <script>
 function on_input(){
@@ -488,11 +498,11 @@ function close_reply(){
                     <i class="icon_singer sprite"></i><a href="//y.qq.com/n/yqq/singer/001l3qAV0e446K.html" class="js_singer data__singer_txt" itemprop="byArtist" data-id="1535498" data-stat="y_new.album.header.singername" data-mid="001l3qAV0e446K" title="Brian Newman">Brian Newman</a>
                 </div>
                 <ul class="data__info">
-					<li class="data_info__item">专辑：百听不腻</li>
-					<li class="data_info__item data_info__item--even">语种：英语</li>
 					<li class="data_info__item">流派：Jazz 爵士</li>
-					<li class="data_info__item data_info__item--even">唱片公司：环球唱片</li>
-					<li class="data_info__item">发行时间：2018-11-16</li>	
+					<li class="data_info__item data_info__item--even">语种：英语</li>
+					<li class="data_info__item">发行时间：2018-11-16</li>
+					<li class="data_info__item data_info__item--even">唱片公司：<a href="//y.qq.com/portal/company_detail.html?id=35">环球唱片</a></li>
+					<li class="data_info__item">类型：录音室专辑</li>	
                 </ul>
                 <div class="data__actions" role="toolbar">
                     <a href="//y.qq.com/portal/player.html" class="mod_btn_green js_all_play" data-stat="y_new.album.header.playall"><i class="mod_btn_green__icon_play"></i><img src="image/Index_image/mod_play.png" class="operate_btn" alt="play">播放全部</a>
@@ -503,6 +513,69 @@ function close_reply(){
             </div>
         </div>
 		<div class="detail_layout__main">
+			<div class="mod_songlist">
+	    	<ul class="songlist__header">
+				<li class="songlist__header_name">歌曲</li>
+				<li class="songlist__header_author">歌手</li>
+				<li class="songlist__header_time">时长</li>
+			</ul>
+			<ul class="songlist__list1 submeau_1">
+				<li class="songlist__number">1</li>
+			  	<li class="songlist__name">Tales of the Electric Romeo</li>
+				<li class="songlist__btn" id="oa_1">
+					<span><a href="#"><img src="image/Index_image/play.png" alt="play" height="40px" width="40px" class="songlist_btn"/></a></span>
+					<span><a href="#"><img src="image/Index_image/like.png" alt="like" height="40px" width="40px" class="songlist_btn"/></a></span>
+					<span><a href="#"><img src="image/Index_image/add.png" alt="add" height="40px" width="40px" class="songlist_btn"/></a></span>
+					<span><a href="#"><img src="image/Index_image/download.png" alt="download" height="40px" width="40px" class="songlist_btn"/></a></span>
+				</li>
+				<!--按钮悬停事件-->
+			  	<script type="text/javascript"> 
+
+				  $("#oa_1").hide();
+				  $(".submeau_1").hover(function () {
+					  $("#oa_1 ").show();
+				  }, function () {
+					  $("#oa_1").hide();
+				  })
+				  // 鼠标移动到list的div上的时候list div不会被隐藏
+				  $("#oa_1").hover(function () {
+					  $("#oa_1").show();
+				  }, function () {
+					  $("#oa_1").hide();
+				  })
+				</script>
+				<li class="songlist__header_author">Immediate Music</li>
+				<li class="songlist__header_time">04:00</li>
+			</ul>
+			<ul class="songlist__list2 submeau_2">
+				<li class="songlist__number">2</li>
+			  	<li class="songlist__name">Tales of the Electric Romeo</li>
+				<li class="songlist__btn" id="oa_2">
+					<span><a href="#"><img src="image/Index_image/play.png" alt="play" height="40px" width="40px" class="songlist_btn"/></a></span>
+					<span><a href="#"><img src="image/Index_image/like.png" alt="like" height="40px" width="40px" class="songlist_btn"/></a></span>
+					<span><a href="#"><img src="image/Index_image/add.png" alt="add" height="40px" width="40px" class="songlist_btn"/></a></span>
+					<span><a href="#"><img src="image/Index_image/download.png" alt="download" height="40px" width="40px" class="songlist_btn"/></a></span>
+				</li>
+				<!--按钮悬停事件-->
+			  	<script type="text/javascript"> 
+
+				  $("#oa_2").hide();
+				  $(".submeau_2").hover(function () {
+					  $("#oa_2 ").show();
+				  }, function () {
+					  $("#oa_2").hide();
+				  })
+				  // 鼠标移动到list的div上的时候list div不会被隐藏
+				  $("#oa_2").hover(function () {
+					  $("#oa_2").show();
+				  }, function () {
+					  $("#oa_2").hide();
+				  })
+				</script>
+				<li class="songlist__header_author">Immediate Music</li>
+				<li class="songlist__header_time">04:00</li>
+			</ul>
+	  	 </div>
 			<div class="mod_comment" id="comment_box">
 				<div class="part__hd">
         			<h2 class="part__tit">评论<span class="c_tx_thin part__tit_desc js_all_comment_num">共7条评论</span></h2>
@@ -613,7 +686,7 @@ function close_reply(){
 	</div>
 	<!--disk导航-->
 	<nav class="top-right">
-	<a href="find_music.jsp" class="disc l1" onMouseOver="disc1_over()" onMouseOut="disc1_out()">
+	<a href="../find_music.jsp" class="disc l1" onMouseOver="disc1_over()" onMouseOut="disc1_out()">
 	<div id="disc1" class="">发现音乐</div>
 	</a>
 	<a href="my_music.jsp" class="disc l2" onMouseOver="disc2_over()" onMouseOut="disc2_out()">
@@ -622,7 +695,7 @@ function close_reply(){
 	<a href="like_song.jsp" class="disc l3" onMouseOver="disc3_over()" onMouseOut="disc3_out()">
 	<div id="disc3" class="">个人主页</div>
 	</a>
-	<a href="VIP_index.jsp" class="disc l4" onMouseOver="disc4_over()" onMouseOut="disc4_out()">
+	<a href="../VIP_index.jsp" class="disc l4" onMouseOver="disc4_over()" onMouseOut="disc4_out()">
 	<div id="disc4" class="">成为会员</div>
 	</a>
 	<a class="disc l5 toggle">

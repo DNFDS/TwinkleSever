@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.dao.SongMapper">
-  <resultMap id="SongResultMap" type="com.example.demo.entity.Song">
-    <id column="SONGID" jdbcType="VARCHAR" property="songid" />
-    <result column="SONGPATH" jdbcType="VARCHAR" property="songpath" />
-    <result column="SONGNAME" jdbcType="VARCHAR" property="songname" />
-    <result column="WRITERNAME" jdbcType="VARCHAR" property="writername" />
-    <result column="PRODUCERNAME" jdbcType="VARCHAR" property="producername" />
-    <result column="SONGIMAGE" jdbcType="VARCHAR" property="songimage" />
-    <result column="LENGTH" jdbcType="VARCHAR" property="length" />
-    <result column="PLAYTIMES" jdbcType="NUMERIC" property="playtimes" />
-    <result column="ALBUMID" jdbcType="VARCHAR" property="albumid" />
-    <result column="SONGSCHOOL" jdbcType="VARCHAR" property="songschool" />
-    <result column="SONGAGE" jdbcType="VARCHAR" property="songage" />
+  <resultMap id="SongResultMap" type="com.example.demo.entity.Song" >
+    <id column="SONGID" property="songid" jdbcType="VARCHAR" />
+    <result column="SONGPATH" property="songpath" jdbcType="VARCHAR" />
+    <result column="SONGNAME" property="songname" jdbcType="VARCHAR" />
+    <result column="SONGIMAGE" property="songimage" jdbcType="VARCHAR" />
+    <result column="LENGTH" property="length" jdbcType="VARCHAR" />
+    <result column="PLAYTIMES" property="playtimes" jdbcType="NUMERIC" />
+    <result column="ALBUMID" property="albumid" jdbcType="VARCHAR" />
+    <result column="SONGSCHOOL" property="songschool" jdbcType="VARCHAR" />
+    <result column="SONGAGE" property="songage" jdbcType="VARCHAR" />
+    <result column="COMPANY" property="company" jdbcType="VARCHAR" />
+    <result column="LANGUAGE" property="language" jdbcType="VARCHAR" />
+    <result column="SAVENUM" property="savenum" jdbcType="NUMERIC" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -303,9 +304,9 @@
       SONGAGE = #{songage,jdbcType=VARCHAR}
     where SONGID = #{songid,jdbcType=VARCHAR}
   </update>
-  
+
   <select id="getSongById" parameterType="java.util.HashMap" statementType="CALLABLE">
-    call SONG_PKG.search_song_by_id(#{songid,mode=IN,jdbcType=VARCHAR},#{songs,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SongResultMap})
+    call SONG_PKG.search_song_by_song_id(#{songid,mode=IN,jdbcType=VARCHAR},#{songs,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SongResultMap})
   </select>
   <select id="getSongByNamePart" parameterType="java.util.HashMap" statementType="CALLABLE">
     call SONG_PKG.search_song_by_name_part(#{songname,mode=IN,jdbcType=VARCHAR},#{songs,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SongResultMap})

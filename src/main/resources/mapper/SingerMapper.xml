@@ -237,4 +237,14 @@
     <select id="getAllSinger" parameterType="java.util.HashMap" statementType="CALLABLE">
         call SINGER_PKG.view_all_singer(#{singers,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SingerResultMap})
     </select>
+
+  <select id="getSingerFansNum" statementType="CALLABLE">
+  call SINGER_PKG.get_singer_fans_num(#{singerid,jdbcType=VARCHAR,mode=IN},#{fansnum,mode=OUT,jdbcType=INTEGER})
+  </select>
+  <select id="likeSinger" statementType="CALLABLE">
+  call USER_PKG.like_singer(#{userid,jdbcType=VARCHAR,mode=IN},#{singerid,jdbcType=VARCHAR,mode=IN},#{succ,jdbcType=VARCHAR,mode=OUT})
+  </select>
+  <select id="unlikeSinger" statementType="CALLABLE">
+  call USER_PKG.unlike_singer(#{userid,jdbcType=VARCHAR,mode=IN},#{singerid,jdbcType=VARCHAR,mode=IN},#{succ,jdbcType=VARCHAR,mode=OUT})
+  </select>
 </mapper>

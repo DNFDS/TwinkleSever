@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.dao.SongListMapper">
-  <resultMap id="SongListResultMap" type="com.example.demo.entity.SongList">
-    <id column="SONGLISTID" jdbcType="VARCHAR" property="songlistid" />
-    <result column="SONGLISTNAME" jdbcType="VARCHAR" property="songlistname" />
-    <result column="SONGLISTIMAGE" jdbcType="VARCHAR" property="songlistimage" />
-    <result column="ISPRIVATE" jdbcType="CHAR" property="isprivate" />
-    <result column="USERID" jdbcType="VARCHAR" property="userid" />
+  <resultMap id="SongListResultMap" type="com.example.demo.entity.SongList" >
+    <id column="SONGLISTID" property="songlistid" jdbcType="VARCHAR" />
+    <result column="SONGLISTNAME" property="songlistname" jdbcType="VARCHAR" />
+    <result column="SONGLISTIMAGE" property="songlistimage" jdbcType="VARCHAR" />
+    <result column="ISPRIVATE" property="isprivate" jdbcType="CHAR" />
+    <result column="USERID" property="userid" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
