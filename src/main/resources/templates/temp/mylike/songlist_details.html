@@ -221,7 +221,7 @@
         <!--/*@thymesVar id="keepedsonglist" type="java.util.HashMap"*/-->
         <div th:each="list,iterStat:${keepedsonglist['songlist']}">
             <ul th:class="${iterStat.odd}? 'songlistlist1 submeau_1' : 'songlistlist2 submeau_2'" th:onmouseover="'javascript:buttonShow(\''+${iterStat.index + createdsonglist['songlist'].size()}+'\')'" th:onmouseout="'javascript:buttonhide(\''+${iterStat.index+ createdsonglist['songlist'].size()}+'\')'" >
-                <li class="songlist__name" ><img src="../image/SongList_image/album1.png" alt="songlist_cover" class="playlist__cover"><a th:text="${list.getSonglistname()}"></a></li>
+                <li class="songlist__name" ><img src="../image/SongList_image/album1.png" alt="songlist_cover" class="playlist__cover"><a th:text="${list.getSonglistname()}" th:href="@{'/SongList?songlistid='+${list.getSonglistid()}}"></a></li>
                 <div class="songlist__btn" th:id="'oa_'+${iterStat.index + createdsonglist['songlist'].size()}">
                     <span><a href="#"><img src="../image/Index_image/play.png" alt="play" height="35px" width="35px" class="songlist_btn"/></a></span>
                     <span><a href="#"><img src="../image/Index_image/like.png" alt="like" height="35px" width="35px" class="songlist_btn"/></a></span>

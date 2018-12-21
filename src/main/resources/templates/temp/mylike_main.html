@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -12,6 +11,7 @@
     <script src="../JS/jquery-3.3.1.min.js"></script>
     <script src="../JS/bootstrap.min.js"></script>
     <script src="../JS/main_js.js"></script>
+    <script src="../JS/play.js"></script>
     <style>
         body {
             background-color: #fafafa;
@@ -72,6 +72,7 @@
             });
         }
         function show_songlist_list_details() {
+
             $.ajax({
                 type:"GET",
                 url:"/profile/like_song_songlist_typeList",
@@ -138,7 +139,7 @@
             <ul th:class="${iterStat.odd}? 'songlistlist1 submeau_1' : 'songlistlist2 submeau_2'" th:onmouseover="'javascript:buttonShow(\''+${iterStat.index}+'\')'" th:onmouseout="'javascript:buttonhide(\''+${iterStat.index}+'\')'" >
                 <li class="songlist__name"  ><a th:href="@{'/Song?songid='+${song.getSongid()}}" th:text="${song.getSongname()}"></li>
                 <div class="songlist__btn"  th:id="'oa_'+${iterStat.index}">
-                    <span><a href="#"><img src="../image/Index_image/play.png" alt="play" height="35px" width="35px" class="songlist_btn"/></a></span>
+                    <span><a href="#"><img src="../image/Index_image/play.png"  th:onclick="playSong([[${song.getSongid()}]])" alt="play" height="35px" width="35px" class="songlist_btn"/></a></span>
                     <span><a href="#"><img src="../image/Index_image/like.png" alt="like" height="35px" width="35px" class="songlist_btn"/></a></span>
                     <span><a href="#"><img src="../image/Index_image/add.png" alt="add" height="35px" width="35px" class="songlist_btn"/></a></span>
                     <span><a href="#"><img src="../image/Index_image/download.png" alt="download" height="35px" width="35px" class="songlist_btn"/></a></span>

@@ -33,6 +33,7 @@ public class PlayerController
     {
         return "Player";
     }
+    @ResponseBody
     @RequestMapping(value = "/addSongToList",method = RequestMethod.POST)
     public ResultEntity addSongToList(@Param("songID")Integer songID, HttpServletRequest request)
     {
@@ -46,6 +47,8 @@ public class PlayerController
         arrayList.add(songID);
         return new ResultEntity(true,"",null);
     }
+
+    @ResponseBody
     @RequestMapping(value = "/addAlbumToList",method = RequestMethod.POST)
     public ResultEntity addAlbumToList(@Param("albumID")Integer albumID,HttpServletRequest request)
     {
@@ -72,6 +75,8 @@ public class PlayerController
         return new ResultEntity(true,"",null);
 
     }
+
+    @ResponseBody
     @RequestMapping(value = "/addSongListToList",method = RequestMethod.POST)
     public ResultEntity addSongListToList(@Param("songListID")Integer songListID,HttpServletRequest request)
     {

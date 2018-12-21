@@ -1,5 +1,6 @@
 package com.example.demo.service.Impl;
 
+import com.example.demo.dao.AlbumMapper;
 import com.example.demo.dao.SongListMapper;
 import com.example.demo.dao.UserMapper;
 import com.example.demo.entity.SongList;
@@ -19,6 +20,8 @@ public class UserImpl implements UserService {
     private UserMapper userMapper;
     @Resource
     private SongListMapper songListMapper;
+    @Resource
+    private AlbumMapper albumMapper;
 
     @Override
     public ResultEntity SignIn(User user) {
