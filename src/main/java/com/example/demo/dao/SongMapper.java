@@ -35,7 +35,7 @@ public interface SongMapper {
      * @IN :"songid"
      * @OUT: "songs"> Song
      */
-    void getSongById(Map<String, Object> Map);
+    Song getSongById(Map<String, Object> Map);
 
     /**
      * @param Map

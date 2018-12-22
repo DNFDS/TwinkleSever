@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>播放器</title>
@@ -50,7 +50,7 @@
             height: 16px;
             width: 16px;
             border-radius: 8px;
-            background-color: #44BFA3;
+            background-color: #bf1d1f;
             position: absolute;
             pointer-events: all;
             box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.32);
@@ -153,14 +153,13 @@
         }
     </style>
 </head>
-<body>
+<body onbeforeunload="">
 <div class="audio green-audio-player">
     <div class="loading">
         <div class="spinner"></div>
     </div>
     <div class="play-pause-btn">
-            <img width="20" height="20" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNTQ1MTUzODczMjEzIiBjbGFzcz0iaWNvbiIgc3R5bGU9IiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjY5NyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwvc3R5bGU+PC9kZWZzPjxwYXRoIGQ9Ik0xMDIuNDI1NzQyIDEwMi4zOTM1NjV2ODE5LjE0ODUxNmw2MTQuMzYxMzg3LTQwOS41NzQyNTh6IiBmaWxsPSIiIHAtaWQ9IjY5OCI+PC9wYXRoPjxwYXRoIGQ9Ik0xNTMuNjIyNTI0IDEwMi4zOTM1NjV2ODE5LjE0ODUxNmw2MTQuMzYxMzg3LTQwOS41NzQyNTh6IiBmaWxsPSIiIHAtaWQ9IjY5OSI+PC9wYXRoPjxwYXRoIGQ9Ik0yNTkuNTk5ODYzIDE1Ljg3MTAwM1Y4MzQuNTA3NTUxbDYxOS40ODEwNjYtNDA1LjQ3ODUxNXoiIGZpbGw9IiIgcC1pZD0iNzAwIj48L3BhdGg+PHBhdGggZD0iTTI2MS4xMzU3NjcgMTg5LjQyODA5NGwtMS41MzU5MDQgODE4LjYzNjU0OUw4NzUuNDk3MTU0IDU5OS4wMDIzNTN6IiBmaWxsPSIiIHAtaWQ9IjcwMSI+PC9wYXRoPjxwYXRoIGQ9Ik0yMDQuODE5MzA2IDEwMi4zOTM1NjVtLTEwMi4zOTM1NjQgMGExMDIuMzkzNTY1IDEwMi4zOTM1NjUgMCAxIDAgMjA0Ljc4NzEyOSAwIDEwMi4zOTM1NjUgMTAyLjM5MzU2NSAwIDEgMC0yMDQuNzg3MTI5IDBaIiBmaWxsPSIiIHAtaWQ9IjcwMiI+PC9wYXRoPjxwYXRoIGQ9Ik04MTkuMTgwNjk0IDQwOS41NzQyNThjLTU2LjMxNjQ2MSAwLTEwMi4zOTM1NjUgNDYuMDc3MTA0LTEwMi4zOTM1NjUgMTAyLjM5MzU2NXM0Ni4wNzcxMDQgMTAwLjM0NTY5MyAxMDIuMzkzNTY1IDEwMi4zOTM1NjRjNTcuODUyMzY0IDIuMDQ3ODcxIDEwMi45MDU1MzItNDUuMDUzMTY4IDEwMi4zOTM1NjQtMTAyLjM5MzU2NC0wLjUxMTk2OC01Ni4zMTY0NjEtNDYuMDc3MTA0LTEwMi4zOTM1NjUtMTAyLjM5MzU2NC0xMDIuMzkzNTY1ek0yMDQuODE5MzA2IDgxOS4xNDg1MTdjLTU2LjMxNjQ2MSAwLTEwMi4zOTM1NjUgNDYuMDc3MTA0LTEwMi4zOTM1NjQgMTAyLjM5MzU2NHM0Ni4wNzcxMDQgMTAwLjM0NTY5MyAxMDIuMzkzNTY0IDEwMi4zOTM1NjVjNTMuNzU2NjIxIDIuMDQ3ODcxIDEwMC44NTc2NjEtNDUuMDUzMTY4IDEwMi4zOTM1NjUtMTAyLjM5MzU2NSAxLjUzNTkwMy01Ni4zMTY0NjEtNDYuMDc3MTA0LTEwMi4zOTM1NjUtMTAyLjM5MzU2NS0xMDIuMzkzNTY0eiIgZmlsbD0iIiBwLWlkPSI3MDMiPjwvcGF0aD48L3N2Zz4="
-                 fill="#566574" fill-rule="evenodd" d="M18 12L0 24V0" class="play-pause-icon" id="playPause">
+            <img width="20" height="20" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNTQ1MTUzODczMjEzIiBjbGFzcz0iaWNvbiIgc3R5bGU9IiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjY5NyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwvc3R5bGU+PC9kZWZzPjxwYXRoIGQ9Ik0xMDIuNDI1NzQyIDEwMi4zOTM1NjV2ODE5LjE0ODUxNmw2MTQuMzYxMzg3LTQwOS41NzQyNTh6IiBmaWxsPSIiIHAtaWQ9IjY5OCI+PC9wYXRoPjxwYXRoIGQ9Ik0xNTMuNjIyNTI0IDEwMi4zOTM1NjV2ODE5LjE0ODUxNmw2MTQuMzYxMzg3LTQwOS41NzQyNTh6IiBmaWxsPSIiIHAtaWQ9IjY5OSI+PC9wYXRoPjxwYXRoIGQ9Ik0yNTkuNTk5ODYzIDE1Ljg3MTAwM1Y4MzQuNTA3NTUxbDYxOS40ODEwNjYtNDA1LjQ3ODUxNXoiIGZpbGw9IiIgcC1pZD0iNzAwIj48L3BhdGg+PHBhdGggZD0iTTI2MS4xMzU3NjcgMTg5LjQyODA5NGwtMS41MzU5MDQgODE4LjYzNjU0OUw4NzUuNDk3MTU0IDU5OS4wMDIzNTN6IiBmaWxsPSIiIHAtaWQ9IjcwMSI+PC9wYXRoPjxwYXRoIGQ9Ik0yMDQuODE5MzA2IDEwMi4zOTM1NjVtLTEwMi4zOTM1NjQgMGExMDIuMzkzNTY1IDEwMi4zOTM1NjUgMCAxIDAgMjA0Ljc4NzEyOSAwIDEwMi4zOTM1NjUgMTAyLjM5MzU2NSAwIDEgMC0yMDQuNzg3MTI5IDBaIiBmaWxsPSIiIHAtaWQ9IjcwMiI+PC9wYXRoPjxwYXRoIGQ9Ik04MTkuMTgwNjk0IDQwOS41NzQyNThjLTU2LjMxNjQ2MSAwLTEwMi4zOTM1NjUgNDYuMDc3MTA0LTEwMi4zOTM1NjUgMTAyLjM5MzU2NXM0Ni4wNzcxMDQgMTAwLjM0NTY5MyAxMDIuMzkzNTY1IDEwMi4zOTM1NjRjNTcuODUyMzY0IDIuMDQ3ODcxIDEwMi45MDU1MzItNDUuMDUzMTY4IDEwMi4zOTM1NjQtMTAyLjM5MzU2NC0wLjUxMTk2OC01Ni4zMTY0NjEtNDYuMDc3MTA0LTEwMi4zOTM1NjUtMTAyLjM5MzU2NC0xMDIuMzkzNTY1ek0yMDQuODE5MzA2IDgxOS4xNDg1MTdjLTU2LjMxNjQ2MSAwLTEwMi4zOTM1NjUgNDYuMDc3MTA0LTEwMi4zOTM1NjQgMTAyLjM5MzU2NHM0Ni4wNzcxMDQgMTAwLjM0NTY5MyAxMDIuMzkzNTY0IDEwMi4zOTM1NjVjNTMuNzU2NjIxIDIuMDQ3ODcxIDEwMC44NTc2NjEtNDUuMDUzMTY4IDEwMi4zOTM1NjUtMTAyLjM5MzU2NSAxLjUzNTkwMy01Ni4zMTY0NjEtNDYuMDc3MTA0LTEwMi4zOTM1NjUtMTAyLjM5MzU2NS0xMDIuMzkzNTY0eiIgZmlsbD0iIiBwLWlkPSI3MDMiPjwvcGF0aD48L3N2Zz4=" fill="#566574" fill-rule="evenodd" d="M18 12L0 24V0" class="play-pause-icon" id="playPause">
     </div>
 
     <div class="controls">
@@ -188,31 +187,44 @@
         </div>
     </div>
 
-    <audio crossorigin>
-        <source src="../m.mp3" type="audio/mpeg">
+    <audio crossorigin th:data-id="${song.songid}" th:src="${song.songpath}">
+        <source  src="" type="audio/mpeg" id="source">
     </audio>
 </div>
 
 <script>
     'use strict';
 
-    var audioPlayer = document.querySelector('.green-audio-player');
-    var playPause = audioPlayer.querySelector('#playPause');
-    var playpauseBtn = audioPlayer.querySelector('.play-pause-btn');
-    var loading = audioPlayer.querySelector('.loading');
-    var progress = audioPlayer.querySelector('.progress');
-    var sliders = audioPlayer.querySelectorAll('.slider');
-    var volumeBtn = audioPlayer.querySelector('.volume-btn');
-    var volumeControls = audioPlayer.querySelector('.volume-controls');
-    var volumeProgress = volumeControls.querySelector('.slider .progress');
-    var player = audioPlayer.querySelector('audio');
-    var currentTime = audioPlayer.querySelector('.current-time');
-    var totalTime = audioPlayer.querySelector('.total-time');
-    var speaker = audioPlayer.querySelector('#speaker');
+    var audioPlayer = document.querySelector('.green-audio-player');//播放器
+    var playPause = audioPlayer.querySelector('#playPause');//播放按钮
+    var playpauseBtn = audioPlayer.querySelector('.play-pause-btn');//播放按钮的父层div
+    var loading = audioPlayer.querySelector('.loading');//等待图标
+    var progress = audioPlayer.querySelector('.progress');//绿色进度
+    var sliders = audioPlayer.querySelectorAll('.slider');//播放进度条
+    var volumeBtn = audioPlayer.querySelector('.volume-btn');//音量按钮
+    var volumeControls = audioPlayer.querySelector('.volume-controls');//音量调节菜单
+    var volumeProgress = volumeControls.querySelector('.slider .progress');//音量绿色条
+    var player = audioPlayer.querySelector('audio');//歌曲源
+    var currentTime = audioPlayer.querySelector('.current-time');//当前播放到哪
+    var totalTime = audioPlayer.querySelector('.total-time');//总时间
+    var speaker = audioPlayer.querySelector('#speaker');//音量调节点
 
     var draggableClasses = ['pin'];
     var currentlyDragged = null;
 
+    window.onbeforeunload=function leave()
+    {
+        $.ajax({
+            url: "/closePlayer",
+            type: 'get',
+            dataType: 'json',
+            success: function(){
+            },
+            error: function(){
+                alert("关闭事件没执行");
+            }
+        })
+    }
     window.addEventListener('mousedown', function (event) {
 
         if (!isDraggable(event.target)) return false;
@@ -228,25 +240,48 @@
         }, false);
     });
 
-    playpauseBtn.addEventListener('click', togglePlay);
-    player.addEventListener('timeupdate', updateProgress);
-    player.addEventListener('volumechange', updateVolume);
+    playpauseBtn.addEventListener('click', togglePlay);//播放按钮点击监听
+    player.addEventListener('timeupdate', updateProgress);//更新时间
+    player.addEventListener('volumechange', updateVolume);//改变音量
     player.addEventListener('loadedmetadata', function () {
         totalTime.textContent = formatTime(player.duration);
+        if(player.paused)
+        {
+            player.play();
+        }
+        else
+            alert("在播放？");
     });
-    player.addEventListener('canplay', makePlay);
+    player.addEventListener('canplay', makePlay);//显示播放按钮而不是转圈
+
+    //歌曲结束 播放下一首
     player.addEventListener('ended', function () {
-        playPause.attributes.d.value = "M18 12L0 24V0";
         player.currentTime = 0;
+        $.ajax({
+            url: "/getNextSong",
+            type: 'post',
+            dataType: 'json',
+            data: {
+                "songID":player.dataset.id
+            },
+            success: function(data){
+                player.dataset.id=data.songid;
+                player.src=data.songpath;
+            },
+            error: function(){
+                alert("???");
+            }
+        })
     });
 
     volumeBtn.addEventListener('click', function () {
-        volumeBtn.classList.toggle('open');
+        volumeBtn.classList.toggle('open');//在类名中移除 若不存在则添加
         volumeControls.classList.toggle('hidden');
     });
 
     window.addEventListener('resize', directionAware);
 
+    //进度条的点击事件
     sliders.forEach(function (slider) {
         var pin = slider.querySelector('.pin');
         slider.addEventListener('click', window[pin.dataset.method]);
@@ -256,9 +291,9 @@
 
     function isDraggable(el) {
         var canDrag = false;
-        var classes = Array.from(el.classList);
+        var classes = Array.from(el.classList);//获取传入的元素类名
         draggableClasses.forEach(function (draggable) {
-            if (classes.indexOf(draggable) !== -1) canDrag = true;
+            if (classes.indexOf(draggable) !== -1) canDrag = true;//检查标签列表是否包含可拖动标签
         });
         return canDrag;
     }
@@ -279,12 +314,14 @@
         return true;
     }
 
+    //更细绿色进度条
     function updateProgress() {
         var current = player.currentTime;
         var percent = current / player.duration * 100;
         progress.style.width = percent + '%';
 
         currentTime.textContent = formatTime(current);
+        totalTime.textContent=formatTime(player.duration-current);
     }
 
     function updateVolume() {
@@ -301,9 +338,11 @@
     function getRangeBox(event) {
         var rangeBox = event.target;
         var el = currentlyDragged;
+        //点击进度条 获取其范围
         if (event.type == 'click' && isDraggable(event.target)) {
             rangeBox = event.target.parentElement.parentElement;
         }
+        //拖动进度条的范围
         if (event.type == 'mousemove') {
             rangeBox = el.parentElement.parentElement;
         }
@@ -329,6 +368,7 @@
     }
 
     function rewind(event) {
+        //判断是否在进度条可点击范围
         if (inRange(event)) {
             player.currentTime = player.duration * getCoefficient(event);
         }
@@ -348,10 +388,10 @@
 
     function togglePlay() {
         if (player.paused) {
-            playPause.attributes.d.value = "M0 0h6v24H0zM12 0h6v24h-6z";
+            playPause.src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNTQ1MzIzMDYyNTc5IiBjbGFzcz0iaWNvbiIgc3R5bGU9IiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjcwOSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwvc3R5bGU+PC9kZWZzPjxwYXRoIGQ9Ik0yMDkuNDE3IDYyaDE1MC4wMDh2OTAwaC0xNTAuMDA4di05MDB6IiBwLWlkPSI3MTAiPjwvcGF0aD48cGF0aCBkPSJNNjU5LjQxNyA2MmgxNDkuOTg1djkwMGgtMTQ5Ljk4NXYtOTAweiIgcC1pZD0iNzExIj48L3BhdGg+PC9zdmc+";
             player.play();
         } else {
-            playPause.attributes.d.value = "M18 12L0 24V0";
+            playPause.src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNTQ1MTUzODczMjEzIiBjbGFzcz0iaWNvbiIgc3R5bGU9IiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjY5NyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwvc3R5bGU+PC9kZWZzPjxwYXRoIGQ9Ik0xMDIuNDI1NzQyIDEwMi4zOTM1NjV2ODE5LjE0ODUxNmw2MTQuMzYxMzg3LTQwOS41NzQyNTh6IiBmaWxsPSIiIHAtaWQ9IjY5OCI+PC9wYXRoPjxwYXRoIGQ9Ik0xNTMuNjIyNTI0IDEwMi4zOTM1NjV2ODE5LjE0ODUxNmw2MTQuMzYxMzg3LTQwOS41NzQyNTh6IiBmaWxsPSIiIHAtaWQ9IjY5OSI+PC9wYXRoPjxwYXRoIGQ9Ik0yNTkuNTk5ODYzIDE1Ljg3MTAwM1Y4MzQuNTA3NTUxbDYxOS40ODEwNjYtNDA1LjQ3ODUxNXoiIGZpbGw9IiIgcC1pZD0iNzAwIj48L3BhdGg+PHBhdGggZD0iTTI2MS4xMzU3NjcgMTg5LjQyODA5NGwtMS41MzU5MDQgODE4LjYzNjU0OUw4NzUuNDk3MTU0IDU5OS4wMDIzNTN6IiBmaWxsPSIiIHAtaWQ9IjcwMSI+PC9wYXRoPjxwYXRoIGQ9Ik0yMDQuODE5MzA2IDEwMi4zOTM1NjVtLTEwMi4zOTM1NjQgMGExMDIuMzkzNTY1IDEwMi4zOTM1NjUgMCAxIDAgMjA0Ljc4NzEyOSAwIDEwMi4zOTM1NjUgMTAyLjM5MzU2NSAwIDEgMC0yMDQuNzg3MTI5IDBaIiBmaWxsPSIiIHAtaWQ9IjcwMiI+PC9wYXRoPjxwYXRoIGQ9Ik04MTkuMTgwNjk0IDQwOS41NzQyNThjLTU2LjMxNjQ2MSAwLTEwMi4zOTM1NjUgNDYuMDc3MTA0LTEwMi4zOTM1NjUgMTAyLjM5MzU2NXM0Ni4wNzcxMDQgMTAwLjM0NTY5MyAxMDIuMzkzNTY1IDEwMi4zOTM1NjRjNTcuODUyMzY0IDIuMDQ3ODcxIDEwMi45MDU1MzItNDUuMDUzMTY4IDEwMi4zOTM1NjQtMTAyLjM5MzU2NC0wLjUxMTk2OC01Ni4zMTY0NjEtNDYuMDc3MTA0LTEwMi4zOTM1NjUtMTAyLjM5MzU2NC0xMDIuMzkzNTY1ek0yMDQuODE5MzA2IDgxOS4xNDg1MTdjLTU2LjMxNjQ2MSAwLTEwMi4zOTM1NjUgNDYuMDc3MTA0LTEwMi4zOTM1NjQgMTAyLjM5MzU2NHM0Ni4wNzcxMDQgMTAwLjM0NTY5MyAxMDIuMzkzNTY0IDEwMi4zOTM1NjVjNTMuNzU2NjIxIDIuMDQ3ODcxIDEwMC44NTc2NjEtNDUuMDUzMTY4IDEwMi4zOTM1NjUtMTAyLjM5MzU2NSAxLjUzNTkwMy01Ni4zMTY0NjEtNDYuMDc3MTA0LTEwMi4zOTM1NjUtMTAyLjM5MzU2NS0xMDIuMzkzNTY0eiIgZmlsbD0iIiBwLWlkPSI3MDMiPjwvcGF0aD48L3N2Zz4=";
             player.pause();
         }
     }

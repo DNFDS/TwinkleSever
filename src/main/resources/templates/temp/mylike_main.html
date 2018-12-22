@@ -232,6 +232,78 @@
                 }
             });
         }
+        function showTips( content, height, time ){
+            //窗口的宽度
+            var windowWidth  = $(window).width();
+            var tipsDiv = '<div class="tipsClass">' + content + '</div>';
+            $( 'body' ).append( tipsDiv );
+            $( 'div.tipsClass' ).css({
+                'top'       : height + 'px',
+                'left'      : ( windowWidth / 2 ) - 350/2 + 'px',
+                'position'  : 'absolute',
+                'padding'   : '3px 5px',
+                'background': '#8FBC8F',
+                'font-size' : 12 + 'px',
+                'margin'    : '0 auto',
+                'text-align': 'center',
+                'width'     : '350px',
+                'height'    : 'auto',
+                'color'     : '#fff',
+                'opacity'   : '0.8'
+            }).show();
+            setTimeout( function(){$( 'div.tipsClass' ).fadeOut();}, ( time * 1000 ) );
+        }
+        function playSong(songid) {
+            var songid = parseInt(songid);
+            $.ajax({
+                type: 'post',
+                url: "/addSongToList",
+                data: {
+                    songID: songid
+                },
+                dataType: 'json',   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
+                success: function (data) {
+                    window.open(data.urllink);
+                },
+                error: function () {
+                    showTips( "添加成功！", 50, 1 );
+                }
+            });
+        }
+        function playSongList(songListID) {
+            $.ajax({
+                type:'post',
+                url:"/addSongListToList",
+                data:{
+                    songListID:songListID
+                },
+                dataType: 'json',   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
+                success:function(data){
+                    window.open(data.urllink);
+                },
+                error: function () {
+                    showTips( "添加成功！", 50, 1 );
+                }
+            });
+        }
+
+        function playAlbum(albumID) {
+            $.ajax({
+                type:'post',
+                url:"/addAlbumToList",
+                data:{
+                    albumID:albumID
+                },
+                dataType: 'json',   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
+                success:function(data){
+                    window.open(data.urllink);
+                },
+                error: function () {
+                    showTips( "添加成功！", 50, 1 );
+                }
+            });
+        }
+
     </script>
 </head>
 <body onload="mylike_refresh()">

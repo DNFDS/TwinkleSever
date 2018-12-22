@@ -22,11 +22,12 @@ public class PlayerImpl implements PlayerService
     private SongListMapper songListMapper;
 
     @Override
-    public Integer getSongByID(Map<String, Object> Map)
+    public Song getSongByID(Map<String, Object> Map)
     {
         songMapper.getSongById(Map);
-        Song temp=(Song) Map.get("songs");
-        return Integer.parseInt(temp.getSongid());
+        ArrayList<Song> temp=(ArrayList<Song>) Map.get("songs");
+
+        return temp.get(0);
     }
 
     @Override
