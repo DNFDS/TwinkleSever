@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
-<title>歌手详情</title>
-<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link href="../css/bootstrap.min.css" rel="stylesheet">
-<link href="../css/PersonalMessage.css" rel="stylesheet">
-<link href="../css/main.css" rel="stylesheet">
-<script src="../JS/jquery-3.3.1.min.js"></script>
-<script src="JS/bootstrap.min.js"></script>	
-<script src="JS/main_js.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>歌手详情</title>
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="../css/bootstrap.min.css" rel="stylesheet">
+	<link href="../css/PersonalMessage.css" rel="stylesheet">
+	<link href="../css/main.css" rel="stylesheet">
+	<script src="JS/jquery-3.3.1.min.js"></script>
+	<script src="JS/bootstrap.min.js"></script>
+	<script src="JS/main_js.js"></script>
     <script src="JS/showChooser.js"></script>
     <script>
         function popwindowup(i){
@@ -22,12 +22,6 @@
             styleVal1=zz+"left:548px;top:"+top+"px;";
             document.getElementById("popwindow").setAttribute("style",styleVal1);
         }
-        function buttonShow(index){
-            $("#oa_"+index).show();
-        }
-        function buttonhide(index){
-            $("#oa_"+index).hide();
-        }
         $(document).ready(function(){
             /*<![CDATA[*/
             var size = [[${songs.size()}]];
@@ -37,7 +31,6 @@
             }
         });
         function FollowSinger(singerid) {
-            alert(singerid);
             var word_id = "focus"
             $.ajax({
                 type:"GET",
@@ -61,6 +54,7 @@
                             word.innerHTML="关注"+num;
                             alert('取消关注成功');
                         }
+                        word.setAttribute('data-focusnum',num);
                     }
                     else
                         alert('请求失败');
@@ -407,7 +401,7 @@ body {
             </ul>
             <div class="data__actions" role="toolbar">			
                 <a href="#" class="mod_btn_blue2 js_singer_radio"><i class="mod_btn_blue__icon_play"></i><img src="../image/Index_image/mod_play.png" class="operate_btn" alt="play">播放歌手热门歌曲</a>
-                <a href="javascript:;" class="mod_btn js_follow" th:onclick="FollowSinger([[${singer.getSingerid()}]]);" th:data-focusnum="${follownum}" id="focus"><i class="mod_btn__icon_more" ></i><img src="../image/Index_image/more.png" class="operate_btn"  >关注 [[${follownum}]]</a>
+                <a href="javascript:;" class="mod_btn js_follow" th:onclick="FollowSinger([[${singer.getSingerid()}]]);" th:data-focusnum="${follownum}" id="focus" th:text="${isfollow} ? '取消关注 '+${follownum}:'关注'+${follownum}"><i class="mod_btn__icon_more" ></i><img src="../image/Index_image/more.png" class="operate_btn"  ></a>
             </div>
             </div>
         </div>
@@ -429,10 +423,10 @@ body {
                             <li class="songlist__number" th:text="${iterStat.count}"></li>
                             <li class="songlist__name"  ><a th:href="@{'/Song?songid='+${song.getSongid()}}" th:text="${song.getSongname()}"></a></li>
                             <li class="songlist__btn"  th:id="'oa_'+${iterStat.index}">
-                                <span><a href="#"><img src="../image/Index_image/play.png" alt="play" height="40px" width="40px" class="songlist_btn"/></a></span>
-                                <span><a href="#"><img src="../image/Index_image/like.png" alt="like" height="40px" width="40px" class="songlist_btn"/></a></span>
-                                <span><a href="#"><img src="../image/Index_image/add.png" id="add" href="javascript:;" th:onclick="choseSongList([[${iterStat.index}]],[[${song.getSongid()}]])" height="40px" width="40px" class="songlist_btn"/></a></span>
-                                <span><a href="#"><img src="../image/Index_image/download.png" alt="download" height="40px" width="40px" class="songlist_btn"/></a></span>
+								<span><a href="javascript:;" th:onclick="playSong([[${song.getSongid()}]])"><img src="../image/Index_image/play.png"  alt="play" height="40px" width="40px" class="songlist_btn"/></a></span>
+								<span><a href="javascript:;" th:onclick="favoriteSong([[${song.getSongid()}]])"><img src="../image/Index_image/like.png" alt="like" height="40px" width="40px" class="songlist_btn"/></a></span>
+								<span><a href="javascript:;" id="add"  th:onclick="choseSongList([[${iterStat.index}]],[[${song.getSongid()}]])"><img src="../image/Index_image/add.png" alt="add" height="40px" width="40px" class="songlist_btn"/></a></span>
+								<span><a href="javascript:;"><img src="../image/Index_image/download.png" alt="download" height="40px" width="40px" class="songlist_btn"/></a></span>
                             </li>
                             <li class="songlist__header_author"> <a th:each="singer:${singers.get(iterStat.index)}" th:text="${singer.getSingername()}+' '" th:href="@{'/Singer?singerid='+${singer.getSingerid()}}"></a></li>
                             <li class="songlist__header_time" th:text="${song.getLength()}"></li>
@@ -443,19 +437,19 @@ body {
         	<div class="mod_part">
         		<div class="part__hd">
                 	<h2 class="part__tit">专辑</h2>
-                	<a href="//y.qq.com/n/yqq/singer/004Qq6qC03P6Pb.html#tab=song&amp;" class="part__more js_goto_tab" data-stat="y_new.singer.index.song_all" data-tab="song">全部<i class="icon_part_arrow sprite"></i></a>		
+                	<a href="#" class="part__more js_goto_tab" >全部<i class="icon_part_arrow sprite"></i></a>
             	</div>
             	<div class="mod_playlist" style="display: ;">
-					<ul class="playlist__list" th:each="album, iterState2:${albums}">
-						<li class="playlist__item"  onmouseover="this.className=(this.className+' playlist__item--hover')" onmouseout="this.className=this.className.replace(/ playlist__item--hover/, '')">
+					<ul class="playlist__list" >
+						<li class="playlist__item"  th:each="album, iterState2:${albums}" onmouseover="this.className=(this.className+' playlist__item--hover')" onmouseout="this.className=this.className.replace(/ playlist__item--hover/, '')">
 							<div class="playlist__item_box">
 							<div class="he_border2"><img src="//p.qpic.cn/music_cover/HictYs5zfjNDmZ6NgVbHYiapgPODicIKJiaJibj7vkYiaDZH7WH2Eb4icMg3A/300?n=1" onerror="this.src='//y.gtimg.cn/mediastyle/global/img/cover_playlist.png?max_age=31536000';this.onerror=null;" alt="1—3岁儿童歌曲集，那些带你认识世界的儿歌" class="playlist__pic">
 							<div class="he_border2_caption">
 							<p class="he_border2_caption_p">查看专辑</p>
-							<a class="he_border2_caption_a" href="#"></a>
+							<a class="he_border2_caption_a" th:href="@{'/Album?albumid='+ ${album.getAlbumid()}}"></a>
 							</div>
 							</div>
-							<h4 class="playlist__title"><span class="playlist__title_txt"><a href="https://y.qq.com/n/yqq/playlist/2887580659.html" class="js_playlist" th:text="${album.getAlbumname()}"></a></span></h4>
+							<h4 class="playlist__title"><span class="playlist__title_txt"><a th:href="@{'/Album?albumid='+ ${album.getAlbumid()}}" class="js_playlist" th:text="${album.getAlbumname()}"></a></span></h4>
 							<div class="playlist__author">
 								<a class="js_user" href="//y.qq.com/portal/profile.html?uin=oi-l7w4l7wcl7z**" th:text="${singer.getSingername()}"></a>
 							</div>

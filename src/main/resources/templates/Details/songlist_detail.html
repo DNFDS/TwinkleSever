@@ -1,488 +1,425 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
-<title>歌单详情</title>
-<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link href="../css/bootstrap.min.css" rel="stylesheet">
-<link href="../css/PersonalMessage.css" rel="stylesheet">
-<link href="../css/main.css" rel="stylesheet">
-<script src="../JS/jquery-3.3.1.min.js"></script>
-<script src="../JS/bootstrap.min.js"></script>
-<script src="../JS/main_js.js"></script>
-	<script src="../JS/play.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>歌单详情</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/PersonalMessage.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet">
+    <script src="/JS/jquery-3.3.1.min.js"></script>
+    <script src="/JS/bootstrap.min.js"></script>
+    <script src="/JS/main_js.js"></script>
+	<script src="/JS/play.js"></script>
 	<script src="JS/showChooser.js"></script>
-<style>
-.main, .section_inner {
-    max-width: 900px;
-    margin: 0 auto;
-    position: relative;
-}
-.main {
-	min-height: 1300px;
-}
-.mod_data {
-    position: relative;
-    height: 250px;
-    padding-left: 305px;
-    margin-top: 40px;
-    margin-bottom: 35px;
-}
-.mod_data {
-    padding-left: 340px;
-}
-.data__cover {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 250px;
-    height: 250px;
-}
-.data__photo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-.data__cover_mask {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 300px;
-    height: 266px;
-    pointer-events: none;
-}
-.data__cont {
-    padding-top: 13px;
-}
-.data__name {
-    overflow: hidden;
-    height: 50px;
-    line-height: 50px;
-}
-.data__name_txt {
-    float: left;
-    font-size: 31px;
-    line-height: 50px;
-    font-weight: 400;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 70%;
-    margin-right: 10px;
-}
-.data__singer {
-    white-space: nowrap;
-}
-.data__singer_txt {
-    font-size: 16px;
-    color: #333;
-}
-.data__info {
-    width: 550px;
-    overflow: hidden;
-    padding-top: 8px;
-}
-.data_info__item {
-    height: 27px;
-    line-height: 27px;
-    width: 400px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: 14px;
-}
-.data__actions {
-    position: absolute;
-    bottom: 23px;
-    font-size: 0;
-}
-.mod_btn, .mod_btn_green {
-    border-radius: 2px;
-    font-size: 14px;
-    margin-right: 6px;
-    padding: 0 23px;
-    height: 38px;
-    line-height: 38px;
-    display: inline-block;
-    white-space: nowrap;
-    box-sizing: border-box;
-    overflow: hidden;
-}
-.mod_btn_green {
-    border: 1px solid rgba(22,154,243,1.00);
-    background-color: rgba(22,154,243,1.00);
-    color: #fff;
-}
-.data__actions .mod_btn, .data__actions .mod_btn_green {
-    min-width: 122px;
-    text-align: center;
-    padding: 0 18px;
-    font-family: 微软雅黑;
-}
-.detail_layout__main {
-    width: 100%;
-    padding-bottom: 20px;
-}
-.songlist__header, .songlistlist1,.songlistlist2 {
-    position: relative;
-    padding-left: 45px;
-    padding-right: 100px;
-}
-.songlist__number {
-    position: absolute;
-    top: 0;
-    left: 15px;
-    color: #999;
-    width: 36px;
-}
-.songlist__header{
-    height: 50px;
-    line-height: 50px;
-    background-color: rgba(0,0,0,.01);
-    color: #999;
-}
-.songlistlist1 {
-    height: 50px;
-    line-height: 50px;
-    background-color:rgba(255,255,255,1.00);
-    color: #727272;
-}
-.songlistlist2 {
-   	height: 50px;
-    line-height: 50px;
-    background-color: rgba(0,0,0,.01);
-    color: #727272;
-}
-.songlist__header_name {
-    float: left;
-    width: 70%;
-    position: relative;
-    white-space: normal;
-}
-.songlist__name{
-	float: left;
-    width: 40%;
-    position: relative;
-    white-space: normal;
-}
-.songlist__btn{
-	float: left;
-    width: 30%;
-    position: relative;
-    white-space: normal;
-}
-.songlist_btn{
-	margin-left: 4px;
-}	
-.songlist__header_album, .songlist__header_author {
-    float: right;
-    padding-left: 20px;
-    width: 30%;
-    box-sizing: border-box;
-}
-.songlist__header_time {
-    position: absolute;
-    top: 0;
-    right: 38px;
-    width: 50px;
-}
-.songlist__header_other {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 38px;
-    overflow: inherit;
-}
-.part__hd, .part_detail__hd {
-    overflow: hidden;
-    height: 60px;
-}
-.part__tit, .part_detail__tit {
-    float: left;
-    font-size: 24px;
-    font-weight: 400;
-    line-height: 58px;
-    font-family: 微软雅黑;
-}
-.part__tit_desc {
-    font-size: 14px;
-    margin-left: 12px;
-}
-.c_tx_thin {
-    color: #999;
-}
-.comment__input {
-    position: relative;
-    padding-bottom: 60px;
-}
-.comment__textarea {
-    position: relative;
-    overflow: hidden;
-    height: 102px;
-    border: solid 1px #ececec;
-    background-color: #f5f5f5;
-}
-.comment__textarea_inner {
-    margin: 10px 14px 0 14px;
-}
-.comment__textarea_default, .comment__textarea_input {
-    width: 100%;
-    border: none;
-    height: 66px;
-    resize: none;
-    overflow: auto;
-    outline: 0;
-    background: 0 0;
-}
-.comment__tips {
-    position: absolute;
-    bottom: 3px;
-    right: 14px;
-    text-align: right;
-}
-.c_tx_current, .c_tx_highlight {
-    color: rgba(22,154,243,1.00);
-}
-.comment__tool {
-    position: absolute;
-    bottom: 10px;
-    right: -5px;
-}
-.comment__tool_btn {
-    width: 80px;
-    line-height: 27px;
-    height: 27px;
-    text-align: center;
-    padding: 0;
-}
-.comment__tool a {
-    margin-right: 5px;
-}
-.mod_songlist {
-    padding-bottom: 60px;
-}
-.mod_all_comment {
-    margin-bottom: 46px;
-}
-.comment_type__title {
-    position: relative;
-    height: 34px;
-    line-height: 34px;
-    padding-bottom: 10px;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-color: #ededed;
-}
-.comment_type__title h2 {
-    font-weight: 400;
-    font-size: 16px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-.comment__list {
-    padding-bottom: 14px;
-}
-.comment__list_item {
-    position: relative;
-    padding: 15px 0 15px 56px;
-    zoom: 1;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-color: #ededed;
-}
-.comment__avatar {
-    position: absolute;
-    left: 0;
-    top: 20px;
-    width: 38px;
-    height: 38px;
-}
-.comment__avatar img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    border-radius: 999px;
-}
-.comment__title {
-    font-weight: 400;
-    margin-bottom: 6px;
-    overflow: hidden;
-    height: 20px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-.comment__title a, .comment__title span {
-    float: left;
-}
-.comment__text {
-    overflow: hidden;
-    word-break: break-all;
-    word-wrap: break-word;
-    line-height: 24px;
-    text-align: justify;
-}
-.comment__opt {
-    line-height: 24px;
-    text-align: right;
-    overflow: hidden;
-}
-.comment__date {
-    float: left;
-    line-height: 28px;
-}
-.comment__zan {
-    vertical-align: -1px;
-}
-.comment__delete, .comment__good, .comment__link, .comment__report, .comment__zan {
-    margin-right: 22px;
-}
-.icon_comment {
-    background-image: url(image/Index_image/赞.png);
-    background-repeat: no-repeat;
-}
-.icon_comment_like, .icon_comment_liked {
-    display: inline-block;
-    margin-right: 5px;
-    width: 21px;
-    height: 21px;
-    overflow: hidden;
-    vertical-align: -3px;
-}
-.icon_comment_like {
-    background-position: -25px -25px;
-}
-.icon_comment_feedback {
-    display: inline-block;
-    width: 21px;
-    height: 21px;
-    background-position: -25px -60px;
-    font-size: 0;
-    vertical-align: -2px;
-}
-.comment__show_all {
-    padding-top: 3px;
-    text-align: center;
-}
-.comment__opt a:hover img{
-	background:url(image/Index_image/zan_active.png) no-repeat 21px 21px;
-}
-.comment_repeat {
+    <style>
+    .main, .section_inner {
+        max-width: 900px;
+        margin: 0 auto;
+        position: relative;
+    }
+    .main {
+        min-height: 1300px;
+    }
+    .mod_data {
+        position: relative;
+        height: 250px;
+        padding-left: 305px;
+        margin-top: 40px;
+        margin-bottom: 35px;
+    }
+    .mod_data {
+        padding-left: 340px;
+    }
+    .data__cover {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 250px;
+        height: 250px;
+    }
+    .data__photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .data__cover_mask {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 300px;
+        height: 266px;
+        pointer-events: none;
+    }
+    .data__cont {
+        padding-top: 13px;
+    }
+    .data__name {
+        overflow: hidden;
+        height: 50px;
+        line-height: 50px;
+    }
+    .data__name_txt {
+        float: left;
+        font-size: 31px;
+        line-height: 50px;
+        font-weight: 400;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 70%;
+        margin-right: 10px;
+    }
+    .data__singer {
+        white-space: nowrap;
+    }
+    .data__singer_txt {
+        font-size: 16px;
+        color: #333;
+    }
+    .data__info {
+        width: 550px;
+        overflow: hidden;
+        padding-top: 8px;
+    }
+    .data_info__item {
+        height: 27px;
+        line-height: 27px;
+        width: 400px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 14px;
+    }
+    .data__actions {
+        position: absolute;
+        bottom: 23px;
+        font-size: 0;
+    }
+    .mod_btn, .mod_btn_green {
+        border-radius: 2px;
+        font-size: 14px;
+        margin-right: 6px;
+        padding: 0 23px;
+        height: 38px;
+        line-height: 38px;
+        display: inline-block;
+        white-space: nowrap;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+    .mod_btn_green {
+        border: 1px solid rgba(22,154,243,1.00);
+        background-color: rgba(22,154,243,1.00);
+        color: #fff;
+    }
+    .data__actions .mod_btn, .data__actions .mod_btn_green {
+        min-width: 122px;
+        text-align: center;
+        padding: 0 18px;
+        font-family: 微软雅黑;
+    }
+    .detail_layout__main {
+        width: 100%;
+        padding-bottom: 20px;
+    }
+    .songlist__header, .songlistlist1,.songlistlist2 {
+        position: relative;
+        padding-left: 45px;
+        padding-right: 100px;
+    }
+    .songlist__number {
+        position: absolute;
+        top: 0;
+        left: 15px;
+        color: #999;
+        width: 36px;
+    }
+    .songlist__header{
+        height: 50px;
+        line-height: 50px;
+        background-color: rgba(0,0,0,.01);
+        color: #999;
+    }
+    .songlistlist1 {
+        height: 50px;
+        line-height: 50px;
+        background-color:rgba(255,255,255,1.00);
+        color: #727272;
+    }
+    .songlistlist2 {
+        height: 50px;
+        line-height: 50px;
+        background-color: rgba(0,0,0,.01);
+        color: #727272;
+    }
+    .songlist__header_name {
+        float: left;
+        width: 70%;
+        position: relative;
+        white-space: normal;
+    }
+    .songlist__name{
+        float: left;
+        width: 40%;
+        position: relative;
+        white-space: normal;
+    }
+    .songlist__btn{
+        float: left;
+        width: 30%;
+        position: relative;
+        white-space: normal;
+    }
+    .songlist_btn{
+        margin-left: 4px;
+    }
+    .songlist__header_album, .songlist__header_author {
+        float: right;
+        padding-left: 20px;
+        width: 30%;
+        box-sizing: border-box;
+    }
+    .songlist__header_time {
+        position: absolute;
+        top: 0;
+        right: 38px;
+        width: 50px;
+    }
+    .songlist__header_other {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 38px;
+        overflow: inherit;
+    }
+    .part__hd, .part_detail__hd {
+        overflow: hidden;
+        height: 60px;
+    }
+    .part__tit, .part_detail__tit {
+        float: left;
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 58px;
+        font-family: 微软雅黑;
+    }
+    .part__tit_desc {
+        font-size: 14px;
+        margin-left: 12px;
+    }
+    .c_tx_thin {
+        color: #999;
+    }
+    .comment__input {
+        position: relative;
+        padding-bottom: 60px;
+    }
+    .comment__textarea {
+        position: relative;
+        overflow: hidden;
+        height: 102px;
+        border: solid 1px #ececec;
+        background-color: #f5f5f5;
+    }
+    .comment__textarea_inner {
+        margin: 10px 14px 0 14px;
+    }
+    .comment__textarea_default, .comment__textarea_input {
+        width: 100%;
+        border: none;
+        height: 66px;
+        resize: none;
+        overflow: auto;
+        outline: 0;
+        background: 0 0;
+    }
+    .comment__tips {
+        position: absolute;
+        bottom: 3px;
+        right: 14px;
+        text-align: right;
+    }
+    .c_tx_current, .c_tx_highlight {
+        color: rgba(22,154,243,1.00);
+    }
+    .comment__tool {
+        position: absolute;
+        bottom: 10px;
+        right: -5px;
+    }
+    .comment__tool_btn {
+        width: 80px;
+        line-height: 27px;
+        height: 27px;
+        text-align: center;
+        padding: 0;
+    }
+    .comment__tool a {
+        margin-right: 5px;
+    }
+    .mod_songlist {
+        padding-bottom: 60px;
+    }
+    .mod_all_comment {
+        margin-bottom: 46px;
+    }
+    .comment_type__title {
+        position: relative;
+        height: 34px;
+        line-height: 34px;
+        padding-bottom: 10px;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-color: #ededed;
+    }
+    .comment_type__title h2 {
+        font-weight: 400;
+        font-size: 16px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .comment__list {
+        padding-bottom: 14px;
+    }
+    .comment__list_item {
+        position: relative;
+        padding: 15px 0 15px 56px;
+        zoom: 1;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-color: #ededed;
+    }
+    .comment__avatar {
+        position: absolute;
+        left: 0;
+        top: 20px;
+        width: 38px;
+        height: 38px;
+    }
+    .comment__avatar img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 999px;
+    }
+    .comment__title {
+        font-weight: 400;
+        margin-bottom: 6px;
+        overflow: hidden;
+        height: 20px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .comment__title a, .comment__title span {
+        float: left;
+    }
+    .comment__text {
+        overflow: hidden;
+        word-break: break-all;
+        word-wrap: break-word;
+        line-height: 24px;
+        text-align: justify;
+    }
+    .comment__opt {
+        line-height: 24px;
+        text-align: right;
+        overflow: hidden;
+    }
+    .comment__date {
+        float: left;
+        line-height: 28px;
+    }
+    .comment__zan {
+        vertical-align: -1px;
+    }
+    .comment__delete, .comment__good, .comment__link, .comment__report, .comment__zan {
+        margin-right: 22px;
+    }
+    .icon_comment {
+        background-image: url(image/Index_image/赞.png);
+        background-repeat: no-repeat;
+    }
+    .icon_comment_like, .icon_comment_liked {
+        display: inline-block;
+        margin-right: 5px;
+        width: 21px;
+        height: 21px;
+        overflow: hidden;
+        vertical-align: -3px;
+    }
+    .icon_comment_like {
+        background-position: -25px -25px;
+    }
+    .icon_comment_feedback {
+        display: inline-block;
+        width: 21px;
+        height: 21px;
+        background-position: -25px -60px;
+        font-size: 0;
+        vertical-align: -2px;
+    }
+    .comment__show_all {
+        padding-top: 3px;
+        text-align: center;
+    }
+    .comment__opt a:hover img{
+        background:url(image/Index_image/zan_active.png) no-repeat 21px 21px;
+    }
+    .comment_repeat {
 
-    padding-top: 16px;
+        padding-top: 16px;
 
-}
-.js_reply_container{
-	visibility: hidden;
-	max-height: 0;
-}
-.drop{
-	visibility: visible;
-	max-height: 180px;
-}
-body {
-    background: url(image/Index_image/body_bg.jpg) 50% 60px repeat-x;
-}
-</style>
-<script>
-    function popwindowup(i){
-        var styleVal1 = document.getElementById('popwindow').getAttribute("style");
-        var len= styleVal1.length;
-        var xx= styleVal1.substring(0,14);
-        var yy= styleVal1.substring(14,len);
-        var zz="display:block;position:absolute;";
-        var top=228+i*50;
-        styleVal1=zz+"left:548px;top:"+top+"px;";
-        document.getElementById("popwindow").setAttribute("style",styleVal1);
     }
-    function buttonShow(index){
-        $("#oa_"+index).show();
+    .js_reply_container{
+        visibility: hidden;
+        max-height: 0;
     }
-    function buttonhide(index){
-        $("#oa_"+index).hide();
+    .drop{
+        visibility: visible;
+        max-height: 180px;
     }
-    $(document).ready(function(){
-        /*<![CDATA[*/
-        var size = [[${songs.size()}]];
-        /*]]>*/
-        for (var num =0; num<size; num++) {
-            $("#oa_"+num).hide();
+    body {
+        background: url(image/Index_image/body_bg.jpg) 50% 60px repeat-x;
+    }
+    </style>
+    <script>
+        function popwindowup(i){
+            var styleVal1 = document.getElementById('popwindow').getAttribute("style");
+            var len= styleVal1.length;
+            var xx= styleVal1.substring(0,14);
+            var yy= styleVal1.substring(14,len);
+            var zz="display:block;position:absolute;";
+            var top=228+i*50;
+            styleVal1=zz+"left:548px;top:"+top+"px;";
+            document.getElementById("popwindow").setAttribute("style",styleVal1);
         }
-    });
-function out_input(){
-	var styleVal1 = document.getElementById('reply_text').getAttribute("style");
-	styleVal1=styleVal1.replace("display: block;","display: none;");
-	document.getElementById("reply_text").setAttribute("style",styleVal1);
-	var styleVal2 = document.getElementById('reply_text_blur').getAttribute("style");
-	styleVal2=styleVal2.replace("display: none;","display: block;");
-	document.getElementById("reply_text_blur").setAttribute("style",styleVal2);
-}
-function out_reply(){
-	var styleVal1 = document.getElementById('replyed_text').getAttribute("style");
-	styleVal1=styleVal1.replace("display: block;","display: none;");
-	document.getElementById("replyed_text").setAttribute("style",styleVal1);
-	var styleVal2 = document.getElementById('replyed_text_blur').getAttribute("style");
-	styleVal2=styleVal2.replace("display: none;","display: block;");
-	document.getElementById("replyed_text_blur").setAttribute("style",styleVal2);
-}
-    document.onclick = function (event)  {
-        var e = event || window.event;
-        var istrue="false";
-        var elem = e.srcElement||e.target;
-        var styleVal1 = document.getElementById('popwindow').getAttribute("style");
-        var len= styleVal1.length;
-        var xx= styleVal1.substring(0,14);
-        var yy= styleVal1.substring(14,len);
-        if(xx=="display:block;"){
-            while(elem)
-            {
-                if(elem.id == "popwindow"||elem.id =="add")
-                {
-                    istrue="true";
-                    break;
-                }
-                elem = elem.parentNode;
+        $(document).ready(function(){
+            /*<![CDATA[*/
+            var size = [[${songs.size()}]];
+            /*]]>*/
+            for (var num =0; num<size; num++) {
+                $("#oa_"+num).hide();
             }
-            if(istrue!="true"){
-                styleVal1="display:none;"+yy;
-                document.getElementById("popwindow").setAttribute("style",styleVal1);
-            }
-        }
-        var e = event || window.event;
-        var istrue="false";
-        var isout="false";
-        var elem = e.srcElement||e.target;
+        });
+        function out_input(){
+        var styleVal1 = document.getElementById('reply_text').getAttribute("style");
+        styleVal1=styleVal1.replace("display: block;","display: none;");
+        document.getElementById("reply_text").setAttribute("style",styleVal1);
+        var styleVal2 = document.getElementById('reply_text_blur').getAttribute("style");
+        styleVal2=styleVal2.replace("display: none;","display: block;");
+        document.getElementById("reply_text_blur").setAttribute("style",styleVal2);
+    }
+        function out_reply(){
         var styleVal1 = document.getElementById('replyed_text').getAttribute("style");
-        var styleVal2 = document.getElementById('reply_text').getAttribute("style");
-        if(styleVal1=="display: block;"){
-            while(elem)
-            {
-                if(elem.id == "replyed_text"||elem.id == "replyed_text_blur")
-                {
-                    istrue="true";
-                    break;
-                }
-                elem = elem.parentNode;
-            }
-            if(istrue!="true"){
-                out_reply();
-                isout="true";
-            }
-        }
-        if(styleVal2=="display: block;"){
-            while(elem)
-            {
-                if(elem.id == "reply_text"||elem.id == "reply_text_blur")
-                {
-                    return;
-                }
-                elem = elem.parentNode;
-            }
-            if(isout!="true")
-                out_input();
-        }
+        styleVal1=styleVal1.replace("display: block;","display: none;");
+        document.getElementById("replyed_text").setAttribute("style",styleVal1);
+        var styleVal2 = document.getElementById('replyed_text_blur').getAttribute("style");
+        styleVal2=styleVal2.replace("display: none;","display: block;");
+        document.getElementById("replyed_text_blur").setAttribute("style",styleVal2);
     }
-</script>
+    </script>
 </head>
 <body>
 	<div class="container-fluid">
@@ -500,17 +437,17 @@ function out_reply(){
                     <h1 class="data__name_txt" title="Showboat" th:text="${songlist.getSonglistname()}">Showboat</h1>
                 </div>
                 <div class="data__singer">
-                    <i class="icon_singer sprite"></i><a href="//y.qq.com/n/yqq/singer/001l3qAV0e446K.html" class="js_singer data__singer_txt" th:text="${creater.getUsername()}">Brian Newman</a>
+                    <i class="icon_singer sprite"></i><a th:href="" class="js_singer data__singer_txt" th:text="${creater.getUsername()}">Brian Newman</a>
                 </div>
                 <ul class="data__info">
 					<li class="data_info__item">标签：[[${style}]]</li>
 					<li class="data_info__item">创建时间：</li>
-					<li class="data_info__item">收藏量：[[savenum]]</li>
+					<li class="data_info__item">收藏量：[[${savenum}]]</li>
                 </ul>
                 <div class="data__actions" role="toolbar">
-                    <a href="//y.qq.com/portal/player.html" class="mod_btn_green js_all_play" data-stat="y_new.album.header.playall"><i class="mod_btn_green__icon_play"></i><img src="image/Index_image/mod_play.png" class="operate_btn" alt="play">播放全部</a>
-                    <a href="javascript:;" class="mod_btn js_fav_album" data-stat="y_new.album.header.love" data-status="0"><i class="mod_btn__icon_like"></i><img src="image/Index_image/mod_like.png" class="operate_btn" alt="download">收藏</a>
-		    		<a class="mod_btn js_into_comment" data-stat="y_new.album.gotocomment" href="#comment_box"><i class="mod_btn__icon_comment"></i><img src="image/Index_image/mod_download.png" class="operate_btn" alt="download">下载</a>
+                    <a href="javascript:;" th:onclick="playSongList([[${songlist.getSonglistid()}]])" class="mod_btn_green js_all_play" data-stat="y_new.album.header.playall"><i class="mod_btn_green__icon_play"></i><img src="image/Index_image/mod_play.png" class="operate_btn" alt="play">播放全部</a>
+                    <a href="javascript:;" th:onclick="KeepSonglist([[${songlist.getSonglistid()}]])" class="mod_btn js_fav_album" ><i class="mod_btn__icon_like"></i><img src="image/Index_image/mod_like.png" class="operate_btn" alt="download">收藏</a>
+                    <a href="javascript:;" class="mod_btn js_into_comment"  ><i class="mod_btn__icon_comment"></i><img src="image/Index_image/mod_download.png" class="operate_btn" alt="download">下载</a>
                     <a href="javascript:;" class="mod_btn js_more"  ><i class="mod_btn__icon_menu"></i><img src="image/Index_image/mod_add.png" class="operate_btn" alt="add">添加到</a>
                 </div>
             </div>
@@ -527,12 +464,12 @@ function out_reply(){
                     <li class="songlist__number">1</li>
                     <li class="songlist__name"  ><a th:href="@{'/Song?songid='+${song.getSongid()}}" th:text="${song.getSongname()}"></a></li>
                     <li class="songlist__btn"  th:id="'oa_'+${iterStat.index}">
-                        <span><a href="#"><img src="../image/Index_image/play.png" th:onclick="playSong([[${song.getSongid()}]])" alt="play" height="40px" width="40px" class="songlist_btn"/></a></span>
-                        <span><a href="#" th:onclick="favoriteSong([[${song.getSongid()}]])"><img src="../image/Index_image/like.png" alt="like" height="40px" width="40px" class="songlist_btn"/></a></span>
-                        <span><a href="#" id="add" href="#" th:onclick="choseSongList([[${iterStat.index}]],[[${song.getSongid()}]])"><img src="../image/Index_image/add.png" alt="add" height="40px" width="40px" class="songlist_btn"/></a></span>
-                        <span><a href="#"><img src="../image/Index_image/download.png" alt="download" height="40px" width="40px" class="songlist_btn"/></a></span>
+                        <span><a href="javascript:;"><img src="../image/Index_image/play.png" th:onclick="playSong([[${song.getSongid()}]])" alt="play" height="40px" width="40px" class="songlist_btn"/></a></span>
+                        <span><a href="javascript:;" th:onclick="favoriteSong([[${song.getSongid()}]])"><img src="../image/Index_image/like.png" alt="like" height="40px" width="40px" class="songlist_btn"/></a></span>
+                        <span><a href="javascript:;" id="add"  th:onclick="choseSongList([[${iterStat.index}]],[[${song.getSongid()}]])"><img src="../image/Index_image/add.png" alt="add" height="40px" width="40px" class="songlist_btn"/></a></span>
+                        <span><a href="javascript:;"><img src="../image/Index_image/download.png" alt="download" height="40px" width="40px" class="songlist_btn"/></a></span>
                     </li>
-                    <li class="songlist__header_author" th:text="${singername.get(iterStat.index)}">Immediate Music</li>
+                    <li class="songlist__header_author" ><a th:each="singer:${singers.get(iterStat.index)}" th:text="${singer.getSingername()}+' '" th:href="@{'/Singer?singerid='+${singer.getSingerid()}}"></a></li>
                     <li class="songlist__header_time" th:text="${song.getLength()}"></li>
                 </ul>
 	  	    </div>

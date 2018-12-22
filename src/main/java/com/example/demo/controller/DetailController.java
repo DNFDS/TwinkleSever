@@ -73,6 +73,7 @@ public class DetailController {
     }
     @RequestMapping(value ="/Singer",method = RequestMethod.GET)
     public String singerDetail(@RequestParam("singerid") String singerid, Map<String, Object> map,HttpServletRequest request){
+        User user = (User) request.getSession(false).getAttribute("user");
         Singer singer = singerService.getSingerById(singerid);
         ArrayList<Song> songs = singerService.getSingerSong(singerid);
         if(songs.size()>5){
@@ -81,6 +82,8 @@ public class DetailController {
             map.put("songs",songs);
         }
         ArrayList<Album> albums = singerService.getSingerAlbum(singerid);
+        Boolean isfollow = singerService.isUserLikeSinger(singerid,user.getUserid());
+        map.put("isfollow",isfollow);
         int follownum = singerService.getFansNum(singerid);
         ResultEntity e = songListService.getSingerInSongList(songs);
         ArrayList<ArrayList<Singer>> singers = (ArrayList<ArrayList<Singer>>)e.getObject();
