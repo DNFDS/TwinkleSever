@@ -4,13 +4,24 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
 <title>歌手详情</title>
 <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/PersonalMessage.css" rel="stylesheet">
-<link href="css/main.css" rel="stylesheet">
-<script src="JS/jquery-3.3.1.min.js"></script>
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/PersonalMessage.css" rel="stylesheet">
+<link href="../css/main.css" rel="stylesheet">
+<script src="../JS/jquery-3.3.1.min.js"></script>
 <script src="JS/bootstrap.min.js"></script>	
 <script src="JS/main_js.js"></script>
+    <script src="JS/showChooser.js"></script>
     <script>
+        function popwindowup(i){
+            var styleVal1 = document.getElementById('popwindow').getAttribute("style");
+            var len= styleVal1.length;
+            var xx= styleVal1.substring(0,14);
+            var yy= styleVal1.substring(14,len);
+            var zz="display:block;position:absolute;";
+            var top=228+i*50;
+            styleVal1=zz+"left:548px;top:"+top+"px;";
+            document.getElementById("popwindow").setAttribute("style",styleVal1);
+        }
         function buttonShow(index){
             $("#oa_"+index).show();
         }
@@ -25,24 +36,29 @@
                 $("#oa_"+num).hide();
             }
         });
-        function FollowUser(userid,index) {
-            var btn_id = "focus"+index;
+        function FollowSinger(singerid) {
+            alert(singerid);
+            var word_id = "focus"
             $.ajax({
                 type:"GET",
-                url:"/profile/changeFollow",
+                url:"/profile/changeFollowSinger",
                 data:{
-                    id:userid
+                    id:singerid
                 },
                 dataType:"json",   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
                 cache:true,
                 success:function(dataObj) {
-                    var tab = document.getElementById(btn_id);
+                    var word = document.getElementById(word_id);
+                    var follownum = word.getAttribute('data-focusnum');
+                    var num = parseInt(follownum);
                     if (dataObj.succ === '1') {
                         if (dataObj.flag === '1') {
-                            tab.innerHTML="取消关注";
+                            num ++;
+                            word.innerHTML="取消关注 "+num;
                             alert('关注成功');
                         } else {
-                            tab.innerHTML="关注";
+                            num --;
+                            word.innerHTML="关注"+num;
                             alert('取消关注成功');
                         }
                     }
@@ -375,23 +391,23 @@ body {
             </span>
             <div class="data__cont">
             <div class="data__name">
-            	<h1 class="data__name_txt js_none_index" style="display:none;"><a class="js_goto_tab" th:href="@{'/Singer?singerid='+${singer.getSingerid()}}" th:text="${singer.getSingername()}">Bodybangers</a></h1>
-		    	<h1 class="data__name_txt js_index" title="Bodybangers" th:text="${singer.getSingername()}"> Bodybangers</h1>
+            	<h1 class="data__name_txt js_none_index" style="display:none;"><a class="js_goto_tab" th:href="@{'/Singer?singerid='+${singer.getSingerid()}}" th:text="${singer.getSingername()}"></a></h1>
+		    	<h1 class="data__name_txt js_index" title="Bodybangers" th:text="${singer.getSingername()}"> </h1>
             </div>
             <div class="data__desc" id="singer_desc">
 	           <div class="data__desc_txt" id="short_desc" >简介：[[${singer.getIntroduction()}]] </div>
             </div>
             <ul class="mod_data_statistic">		               				
                 <li class="data_statistic__item">
-                    <a href="#" class="js_goto_tab" data-stat="y_new.singer.header.album_tab" data-tab="album"><span class="data_statistic__tit">单曲</span><strong class="data_statistic__number">[[${songs.size()}]]</strong></a>
+                    <a href="#" class="js_goto_tab" ><span class="data_statistic__tit">单曲</span><strong class="data_statistic__number">[[${songs.size()}]]</strong></a>
                 </li>
                 <li class="data_statistic__item data_statistic__item--last">
-                    <a href="#" class="js_goto_tab" data-stat="y_new.singer.header.mv_tab" data-tab="mv"><span class="data_statistic__tit">专辑</span><strong class="data_statistic__number">[[${albums.size()}]]</strong></a>
+                    <a href="#" class="js_goto_tab" ><span class="data_statistic__tit">专辑</span><strong class="data_statistic__number">[[${albums.size()}]]</strong></a>
                 </li>		
             </ul>
             <div class="data__actions" role="toolbar">			
-                <a href="#" class="mod_btn_blue2 js_singer_radio"><i class="mod_btn_blue__icon_play"></i><img src="image/Index_image/mod_play.png" class="operate_btn" alt="play">播放歌手热门歌曲</a>
-                <a href="javascript:;" class="mod_btn js_follow"><i class="mod_btn__icon_more" data-status="0"></i><img src="image/Index_image/more.png" class="operate_btn" alt="more">关注 [[${follownum}]]</a>
+                <a href="#" class="mod_btn_blue2 js_singer_radio"><i class="mod_btn_blue__icon_play"></i><img src="../image/Index_image/mod_play.png" class="operate_btn" alt="play">播放歌手热门歌曲</a>
+                <a href="javascript:;" class="mod_btn js_follow" th:onclick="FollowSinger([[${singer.getSingerid()}]]);" th:data-focusnum="${follownum}" id="focus"><i class="mod_btn__icon_more" ></i><img src="../image/Index_image/more.png" class="operate_btn"  >关注 [[${follownum}]]</a>
             </div>
             </div>
         </div>
@@ -399,7 +415,7 @@ body {
         	<div class="mod_part">
         		<div class="part__hd">
                 	<h2 class="part__tit">热门歌曲</h2>
-                	<a href="//y.qq.com/n/yqq/singer/004Qq6qC03P6Pb.html#tab=song&amp;" class="part__more js_goto_tab" data-stat="y_new.singer.index.song_all" data-tab="song">全部<i class="icon_part_arrow sprite"></i></a>		
+                	<a href="#" class="part__more js_goto_tab" data-stat="y_new.singer.index.song_all" data-tab="song">全部<i class="icon_part_arrow sprite"></i></a>
             	</div>
             	<div class="mod_songlist">
 			    	<ul class="songlist__header">
@@ -415,10 +431,10 @@ body {
                             <li class="songlist__btn"  th:id="'oa_'+${iterStat.index}">
                                 <span><a href="#"><img src="../image/Index_image/play.png" alt="play" height="40px" width="40px" class="songlist_btn"/></a></span>
                                 <span><a href="#"><img src="../image/Index_image/like.png" alt="like" height="40px" width="40px" class="songlist_btn"/></a></span>
-                                <span><a href="#"><img src="../image/Index_image/add.png" alt="add" height="40px" width="40px" class="songlist_btn"/></a></span>
+                                <span><a href="#"><img src="../image/Index_image/add.png" id="add" href="javascript:;" th:onclick="choseSongList([[${iterStat.index}]],[[${song.getSongid()}]])" height="40px" width="40px" class="songlist_btn"/></a></span>
                                 <span><a href="#"><img src="../image/Index_image/download.png" alt="download" height="40px" width="40px" class="songlist_btn"/></a></span>
                             </li>
-                            <li class="songlist__header_author" th:text="${singer.getSingername()}">Immediate Music</li>
+                            <li class="songlist__header_author"> <a th:each="singer:${singers.get(iterStat.index)}" th:text="${singer.getSingername()}+' '" th:href="@{'/Singer?singerid='+${singer.getSingerid()}}"></a></li>
                             <li class="songlist__header_time" th:text="${song.getLength()}"></li>
                         </ul>
                     </div>
@@ -441,7 +457,7 @@ body {
 							</div>
 							<h4 class="playlist__title"><span class="playlist__title_txt"><a href="https://y.qq.com/n/yqq/playlist/2887580659.html" class="js_playlist" th:text="${album.getAlbumname()}"></a></span></h4>
 							<div class="playlist__author">
-								<a class="js_user" href="//y.qq.com/portal/profile.html?uin=oi-l7w4l7wcl7z**" th:text="${singer.getSingername()}">几米</a>
+								<a class="js_user" href="//y.qq.com/portal/profile.html?uin=oi-l7w4l7wcl7z**" th:text="${singer.getSingername()}"></a>
 							</div>
 							</div>
 						 </li>
@@ -513,6 +529,9 @@ body {
 	}, false);
 	</script>
 </div>
+    <div class="mod_operate_menu" id="popwindow" style="display:none;position:absolute;left:697px;top:669px;" >
+
+    </div>
 </body>
 </html>
 

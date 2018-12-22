@@ -22,8 +22,6 @@ public class SongImpl implements SongService {
     private BuyMapper buyMapper;
     @Resource
     private CommentsMapper commentsMapper;
-    @Resource
-    private AlbumMapper albumMapper;
 
     @Override
     public ResultEntity getSingersInSong(String songid){
@@ -78,6 +76,18 @@ public class SongImpl implements SongService {
             comments = new ArrayList<>();
         }
         return comments;
+    }
+    @Override
+    public boolean commentSong(String words,String songid,String userid){
+        Map<String,Object> map = new HashMap<>();
+        map.put("songid",songid);
+        map.put("userid",userid);
+        map.put("commenttext",words);
+        commentsMapper.addComment(map);
+        String result = (String)map.get("succ");
+        if(result.equals("1"))
+            return true;
+        return false;
     }
 
 }

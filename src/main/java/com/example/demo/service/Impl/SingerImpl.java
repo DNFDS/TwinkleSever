@@ -62,14 +62,39 @@ public class SingerImpl implements SingerService {
         map.put("singerid",singerid);
         map.put("userid",userid);
         singerMapper.likeSinger(map);
-        return (boolean)map.get("succ");
+        String succ = (String) map.get("succ");
+        if(succ.equals("1")){
+            return true;
+        }
+        return false;
     }
     public boolean unfollowSinger(String userid,String singerid){
         Map<String,Object> map = new HashMap<>();
         map.put("singerid",singerid);
         map.put("userid",userid);
         singerMapper.unlikeSinger(map);
-        return (boolean)map.get("succ");
+        String succ = (String) map.get("succ");
+        if(succ.equals("1")){
+            return true;
+        }
+        return false;
+    }
+    public boolean isUserLikeSinger(String singerid,String userid){
+        Map<String,Object> map = new HashMap<>();
+        map.put("singerid",singerid);
+        map.put("userid",userid);
+        singerMapper.isUserLikeSinger(map);
+        String succ = (String) map.get("islike");
+        if(succ.equals("1")){
+            return true;
+        }
+        return false;
+    }
+    public ArrayList<Singer> getSingerUserLike(String userid){
+        Map<String,Object> map = new HashMap<>();
+        map.put("userid",userid);
+        singerMapper.getSingerUserLike(map);
+        return (ArrayList<Singer>)map.get("singers");
     }
 
 }

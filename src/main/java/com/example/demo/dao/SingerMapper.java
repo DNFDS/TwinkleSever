@@ -77,4 +77,18 @@ public interface SingerMapper {
      * @OUT: "succ"> 1:true 0:false
      */
     void unlikeSinger(Map<String,Object> Map);
+
+    /**
+     * @param Map
+     * @IN :"userid","singerid"
+     * @OUT: "islike"> String
+     */
+    void isUserLikeSinger(Map<String,Object> Map);
+
+    /**
+     * @param Map
+     * @IN :"userid"
+     * @OUT: "singers"> ArrayList<Singer>
+     */
+    void getSingerUserLike(Map<String,Object> Map);
 }

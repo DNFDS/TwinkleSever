@@ -82,6 +82,9 @@ public class DetailController {
         }
         ArrayList<Album> albums = singerService.getSingerAlbum(singerid);
         int follownum = singerService.getFansNum(singerid);
+        ResultEntity e = songListService.getSingerInSongList(songs);
+        ArrayList<ArrayList<Singer>> singers = (ArrayList<ArrayList<Singer>>)e.getObject();
+        map.put("singers",e.getObject());
         map.put("albums",albums);
         map.put("singer",singer);
         map.put("follownum",follownum);
@@ -105,11 +108,20 @@ public class DetailController {
         map.put("album",album);
         return "/Details/album_detail";
     }
-
+    @ResponseBody
+    @RequestMapping(value ="/Comment",method = RequestMethod.POST)
+    public String Comment(HttpServletRequest request, @RequestParam("words") String words,@RequestParam("songid") String songid){
+        User user = (User) request.getSession(false).getAttribute("user");
+        boolean succ = songService.commentSong(words,songid,user.getUserid());
+        if(succ)
+            return "评论成功";
+        else
+            return "评论失败";
+    }
     @ResponseBody
     @RequestMapping(value = "/getMySongList", method = RequestMethod.GET)
     public ModelAndView getMySongList(HttpServletRequest request, @RequestParam("songid") String songid){
-        User user = (User) request.getSession(false).getAttribute("visted");
+        User user = (User) request.getSession(false).getAttribute("user");
         ResultEntity e = userService.getSongLists(user);
         Map<String,Object>e_map = (Map<String, Object>) e.getObject();
         ArrayList<SongList> createdsonglist = (ArrayList<SongList>)e_map.get("createdsonglist");

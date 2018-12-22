@@ -247,4 +247,10 @@
   <select id="unlikeSinger" statementType="CALLABLE">
   call USER_PKG.unlike_singer(#{userid,jdbcType=VARCHAR,mode=IN},#{singerid,jdbcType=VARCHAR,mode=IN},#{succ,jdbcType=VARCHAR,mode=OUT})
   </select>
+  <select id="isUserLikeSinger" statementType="CALLABLE">
+  call SINGER_PKG.is_user_like_singer(#{userid,jdbcType=VARCHAR,mode=IN},#{singerid,jdbcType=VARCHAR,mode=IN},#{islike,jdbcType=VARCHAR,mode=OUT})
+  </select>
+  <select id="getSingerUserLike" statementType="CALLABLE">
+  call SINGER_PKG.get_singer_user_like(#{userid,jdbcType=VARCHAR,mode=IN},#{singers,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SingerResultMap})
+  </select>
 </mapper>

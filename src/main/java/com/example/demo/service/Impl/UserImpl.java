@@ -157,4 +157,16 @@ public class UserImpl implements UserService {
             return new ResultEntity(true,"",true);
         return new ResultEntity(true,"",false);
     }
+
+    public SongList getFavoritelist(String userid){
+        Map<String,Object>map = new HashMap<>();
+        map.put("userid",userid);
+        songListMapper.getSongListCreatedByUserId(map);
+        ArrayList<SongList> songLists =  (ArrayList<SongList>) map.get("createdsonglist");
+        for(SongList songList:songLists){
+            if(songList.getSonglistname().equals("我喜欢"))
+                return songList;
+        }
+        return null;
+    }
 }

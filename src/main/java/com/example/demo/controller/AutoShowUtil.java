@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.example.demo.entity.*;
 import com.example.demo.entity.result.ResultEntity;
+import com.example.demo.service.SingerService;
 import com.example.demo.service.SongListService;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +16,8 @@ public class AutoShowUtil {
     private UserService userService;
     @Autowired
     private SongListService songListService;
+    @Autowired
+    private SingerService singerService;
 
     /**
      * @param :Arraylist<song> songs
@@ -79,6 +81,21 @@ public class AutoShowUtil {
         return map;
     }
 
+    public Map<String,Object> showSingerFollow(String id, ArrayList<Singer> follows){
+        Map<String,Object> map = new HashMap<>();
+        ArrayList<Integer> FollowNum = new ArrayList<>();
+        ArrayList<Boolean> isFollow = new ArrayList<>();
+        for(Singer singer:follows){
+            FollowNum.add(singerService.getFansNum(singer.getSingerid()));
+            boolean i = singerService.isUserLikeSinger(singer.getSingerid(),id);
+            isFollow.add(i);
+        }
+        map.put("Follows",follows);
+        map.put("FollowNum",FollowNum);
+        map.put("isFollow",isFollow);
+        return map;
+    }
+
     /**
      *
      * @param userid
@@ -107,10 +124,27 @@ public class AutoShowUtil {
         return map;
     }
 
-    /**public String changeFollowSinger(String userid,String singerid){
-
+    public Map<String,String> changeFollowSinger(String userid,String singerid){
+        //先判断用户关注这个人没有
+        Map<String,String> map = new HashMap<>();
+        boolean is = singerService.isUserLikeSinger(singerid,userid);
+        //如果关注了就取消关注
+        if(is){
+            map.put("flag","2");
+            is = singerService.unfollowSinger(userid,singerid);
+        }
+        //没有关注就关注
+        else{
+            map.put("flag","1");
+            is = singerService.followSinger(userid,singerid);
+        }
+        if(is)
+            map.put("succ","1");
+        else
+            map.put("succ","0");
+        return map;
     }
-     */
+
 
     public String getSongListStyle(ArrayList<Song> songs){
         class Group{

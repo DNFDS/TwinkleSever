@@ -82,6 +82,50 @@
         }
     </style>
     <script>
+
+
+        function popwindowup(i){
+            var styleVal1 = document.getElementById('popwindow').getAttribute("style");
+            var len= styleVal1.length;
+            var xx= styleVal1.substring(0,14);
+            var yy= styleVal1.substring(14,len);
+            var zz="display:block;position:absolute;";
+            var top=228+i*50;
+            styleVal1=zz+"left:548px;top:"+top+"px;";
+            document.getElementById("popwindow").setAttribute("style",styleVal1);
+        }
+        function choseSongList(index,songid){
+            $.ajax({
+                type:"GET",
+                url:"/getMySongList",
+                data:{
+                    songid:songid
+                },
+                dataType: "html",   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
+                cache:true,
+                success:function(data){
+                    $('#popwindow').html(data);
+                    popwindowup(index);
+                },
+                error:function(){
+                    alert('请求失败');
+                }
+            });
+        }
+        function favoriteSong(songid) {
+            $.ajax({
+                type:"POST",
+                url:"/favoriteSong",
+                data:{
+                    songid:songid
+                },
+                dataType: "json",
+                cache:true,
+                success:function(data){
+                    alert(data.errorMsg);
+                }
+            });
+        }
         document.onclick = function (event)  {
             var e = event || window.event;
             var istrue="false";
@@ -107,21 +151,7 @@
             }
         }
 
-        function popwindowup(i){
-            var styleVal1 = document.getElementById('popwindow').getAttribute("style");
-            var len= styleVal1.length;
-            var xx= styleVal1.substring(0,14);
-            var yy= styleVal1.substring(14,len);
-            var zz="display:block;position:absolute;";
-            var top=228+i*50;
-            styleVal1=zz+"left:548px;top:"+top+"px;";
-            document.getElementById("popwindow").setAttribute("style",styleVal1);
-        }
-        function choseSongList(){}
-
-
-
-    $(document).ready(function(){
+        $(document).ready(function(){
             /*<![CDATA[*/
             var size = [[${songs.size()}]];
             /*]]>*/
@@ -229,13 +259,13 @@
             <ul th:class="${iterStat.odd}? 'songlistlist1 submeau_1' : 'songlistlist2 submeau_2'" th:onmouseover="'javascript:buttonShow(\''+${iterStat.index}+'\')'" th:onmouseout="'javascript:buttonhide(\''+${iterStat.index}+'\')'" >
                 <li class="songlist__name"  ><a th:href="@{'/Song?songid='+${song.getSongid()}}" th:text="${song.getSongname()}"></li>
                 <div class="songlist__btn"  th:id="'oa_'+${iterStat.index}">
-                    <span><a href="#"><img src="../image/Index_image/play.png"  th:onclick="playSong([[${song.getSongid()}]])" alt="play" height="35px" width="35px" class="songlist_btn"/></a></span>
-                    <span><a href="#"><img src="../image/Index_image/like.png" alt="like" height="35px" width="35px" class="songlist_btn"/></a></span>
-                    <span><a id="add" href="javascript:;" th:onclick="popwindowup([[${iterStat.index}]])"><img src="../image/Index_image/add.png" alt="add" height="35px" width="35px" class="songlist_btn"/></a></span>
+                    <span><a href="#" th:onclick="playSong([[${song.getSongid()}]])"><img src="../image/Index_image/play.png"   alt="play" height="35px" width="35px" class="songlist_btn"/></a></span>
+                    <span><a href="#" th:onclick="favoriteSong([[${song.getSongid()}]])"><img src="../image/Index_image/like.png" alt="like" height="35px" width="35px" class="songlist_btn"/></a></span>
+                    <span><a id="add" href="#" th:onclick="choseSongList([[${iterStat.index}]],[[${song.getSongid()}]])"><img src="../image/Index_image/add.png" alt="add" height="35px" width="35px" class="songlist_btn"/></a></span>
                     <span><a href="#"><img src="../image/Index_image/download.png" alt="download" height="35px" width="35px" class="songlist_btn"/></a></span>
                 </div>
                 <li class="songlist__header_album" ><a th:text="${albums.get(iterStat.index).getAlbumname()}" th:href="@{'/Album?albumid='+${albums.get(iterStat.index).getAlbumid()}}" ></a></li>
-                <li class="songlist__header_author" th:text="${singername.get(iterStat.index)}">Immediate Music</li>
+                <li class="songlist__header_author" ><a th:each="singer:${singers.get(iterStat.index)}" th:text="${singer.getSingername()}+' '" th:href="@{'/Singer?singerid='+${singer.getSingerid()}}"></a></li>
                 <li class="songlist__header_time" th:text="${song.getLength()}"></li>
             </ul>
         </div>

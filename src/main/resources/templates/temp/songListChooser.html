@@ -62,7 +62,19 @@
     </style>
     <script>
         function addSongToSongList(songlistid,songid) {
-
+            $.ajax({
+                type:"POST",
+                url:"/KeepSong",
+                data:{
+                    songlistid:songlistid,
+                    songid:songid
+                },
+                dataType: "json",   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
+                cache:true,
+                success:function(data){
+                    alert(data.errorMsg);
+                }
+            });
         }
     </script>
 </head>
@@ -71,7 +83,7 @@
     <a href="javascript:;" class="operate_menu__link js_addto_playlist">歌单列表</a>
     <ul role="menu" class="operate_menu__list operate_menu__top_line">
         <li class="operate_menu__item" th:each="songlist:${songlists}">
-            <a href="javascript:;" class="operate_menu__link js_addto_taogelist" th:onclick="addSongToSongList([[${songlist.getSonglistid()}]],[[${toAdd}]])"><i class="operate_menu__icon_like"></i>[[songlist.getSonglistname()]] </a>
+            <a href="javascript:;" class="operate_menu__link js_addto_taogelist" th:onclick="addSongToSongList([[${songlist.getSonglistid()}]],[[${toAdd}]])"><i class="operate_menu__icon_like"></i>[[${songlist.getSonglistname()}]] </a>
         </li>
     </ul>
 </div>

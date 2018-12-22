@@ -6,6 +6,7 @@ import com.example.demo.entity.Song;
 import com.example.demo.entity.SongList;
 import com.example.demo.entity.User;
 import com.example.demo.entity.result.ResultEntity;
+import com.example.demo.service.SingerService;
 import com.example.demo.service.SongListService;
 import com.example.demo.service.SongService;
 import com.example.demo.service.UserService;
@@ -31,6 +32,8 @@ public class PersonalController {
     private SongService songService;
     @Autowired
     private AutoShowUtil showUtil;
+    @Autowired
+    private SingerService singerService;
 
     @RequestMapping(value = "/profile/like_song", method = RequestMethod.GET)
     public String mainPage(HttpServletRequest request,Map<String, Object> map) {
@@ -40,8 +43,9 @@ public class PersonalController {
         ArrayList<User> fans = (ArrayList<User>)e.getObject();
         e= userService.getFriends(user);
         ArrayList<User> friends = (ArrayList<User>)e.getObject();
+        ArrayList<Singer> singers = singerService.getSingerUserLike(user.getUserid());
         map.put("FansNum",fans.size());
-        map.put("FriendsNum",friends.size());
+        map.put("FriendsNum",friends.size()+singers.size());
         return "profile/like_song";
     }
 
@@ -73,11 +77,8 @@ public class PersonalController {
     public ModelAndView showFollowSinger(HttpServletRequest request, HttpServletResponse response){
         User user = (User) request.getSession(false).getAttribute("visted");
         User my =(User) request.getSession(false).getAttribute("user");
-        ResultEntity e;
-        Map<String,Object>map = new HashMap<>();
-        e = userService.getFriends(user);
-        ArrayList<User> Follows = (ArrayList<User>)e.getObject();
-        map.put("Follows",Follows);
+        ArrayList<Singer> Follows = (ArrayList<Singer>)singerService.getSingerUserLike(user.getUserid());
+        Map<String,Object>map  = showUtil.showSingerFollow(my.getUserid(),Follows);
         return new ModelAndView("/temp/follows/follow_singer",map);
     }
 
@@ -87,12 +88,10 @@ public class PersonalController {
         User user = (User) request.getSession(false).getAttribute("visted");
         User my =(User) request.getSession(false).getAttribute("user");
         String flag = request.getParameter("flag");
-        ResultEntity e;
-        Map<String,Object>map ;
-        e = userService.getFriends(user);
+        ResultEntity e = userService.getFriends(user);
         ArrayList<User> Follows = (ArrayList<User>)e.getObject();
         //"Follows"关注的用户 "FollowNum"关注的人数 "isFollow"是否关注
-        map = showUtil.showFollow(my.getUserid(),Follows);
+        Map<String,Object> map = showUtil.showFollow(my.getUserid(),Follows);
         if(flag.equals("2"))
             return new ModelAndView("/temp/follows/follow_user",map);
         return new ModelAndView("/temp/follow_main",map);
@@ -100,10 +99,18 @@ public class PersonalController {
 
     @ResponseBody
     @RequestMapping(value = "/profile/changeFollow", method = RequestMethod.GET)
-    public Map<String, String> changeFollow(HttpServletRequest request, HttpServletResponse response){
+    public Map<String, String> changeFollow(HttpServletRequest request){
         User my =(User) request.getSession(false).getAttribute("user");
         String id = request.getParameter("id");
         return showUtil.changeFollow(my.getUserid(),id);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/profile/changeFollowSinger", method = RequestMethod.GET)
+    public Map<String, String> changeFollowSinger(HttpServletRequest request){
+        User my =(User) request.getSession(false).getAttribute("user");
+        String id = request.getParameter("id");
+        return showUtil.changeFollowSinger(my.getUserid(),id);
     }
 
     @ResponseBody

@@ -46,17 +46,21 @@
 <!--/*@thymesVar id="songs" type="com.example.demo.entity.Song"*/-->
 <div th:each="song,iterStat:${songs}">
     <ul th:class="${iterStat.odd}? 'songlistlist1 submeau_1' : 'songlistlist2 submeau_2'" th:onmouseover="'javascript:buttonShow(\''+${iterStat.index}+'\')'" th:onmouseout="'javascript:buttonhide(\''+${iterStat.index}+'\')'" >
-        <li class="songlist__name" th:text="${song.getSongname()}"></li>
+        <li class="songlist__name"  ><a th:href="@{'/Song?songid='+${song.getSongid()}}" th:text="${song.getSongname()}"></li>
         <div class="songlist__btn"  th:id="'oa_'+${iterStat.index}">
-            <span><a href="#"><img src="../image/Index_image/play.png" alt="play" height="35px" width="35px" class="songlist_btn"/></a></span>
-            <span><a href="#"><img src="../image/Index_image/like.png" alt="like" height="35px" width="35px" class="songlist_btn"/></a></span>
-            <span><a href="#"><img src="../image/Index_image/add.png" alt="add" height="35px" width="35px" class="songlist_btn"/></a></span>
+            <span><a href="#"><img src="../image/Index_image/play.png"  th:onclick="playSong([[${song.getSongid()}]])" alt="play" height="35px" width="35px" class="songlist_btn"/></a></span>
+            <span><a href="#" th:onclick="favoriteSong([[${song.getSongid()}]])"><img src="../image/Index_image/like.png" alt="like" height="35px" width="35px" class="songlist_btn"/></a></span>
+            <span><a id="add" href="javascript:;" th:onclick="choseSongList([[${iterStat.index}]],[[${song.getSongid()}]])"><img src="../image/Index_image/add.png" alt="add" height="35px" width="35px" class="songlist_btn"/></a></span>
             <span><a href="#"><img src="../image/Index_image/download.png" alt="download" height="35px" width="35px" class="songlist_btn"/></a></span>
         </div>
-        <li class="songlist__header_album" th:text="${albums.get(iterStat.index).getAlbumname()}">Immediate Music</li>
-        <li class="songlist__header_author" th:text="${singername.get(iterStat.index)}">Immediate Music</li>
+        <li class="songlist__header_album" ><a th:text="${albums.get(iterStat.index).getAlbumname()}" th:href="@{'/Album?albumid='+${albums.get(iterStat.index).getAlbumid()}}" ></a></li>
+        <li class="songlist__header_author" ><a th:each="singer:${singers.get(iterStat.index)}" th:text="${singer.getSingername()}+' '" th:href="@{'/Singer?singerid='+${singer.getSingerid()}}"></a></li>
         <li class="songlist__header_time" th:text="${song.getLength()}"></li>
     </ul>
+</div>
+
+<div class="mod_operate_menu" id="popwindow" style="display:none;position:absolute;left:697px;top:669px;" >
+
 </div>
 </body>
 </html>

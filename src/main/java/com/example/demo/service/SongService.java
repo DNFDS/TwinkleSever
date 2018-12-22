@@ -12,4 +12,5 @@ public interface SongService {
     ArrayList<comments> getCommentsInSong(String songid);
     ResultEntity getBoughtSongByUserId(String userid);
     Song getSongById(String songid);
+    boolean commentSong(String words,String songid,String userid);
 }

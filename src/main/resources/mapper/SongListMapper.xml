@@ -238,7 +238,7 @@
     call SONGLIST_PKG.ADD_SONGLIST(#{songlistname,mode=IN,jdbcType=VARCHAR},#{songlistimage,mode=IN,jdbcType=VARCHAR},#{isprivate,mode=IN,jdbcType=VARCHAR},#{userid,mode=IN,jdbcType=VARCHAR},#{songlistid,mode=OUT,jdbcType=VARCHAR})
   </select>
   <select id="addSongToSongList" parameterType="java.util.HashMap" statementType="CALLABLE">
-    call SONGLIST_PKG.ADD_SONG_TO_SONGLIST(#{songlistid,mode=IN,jdbcType=VARCHAR},#{songid,mode=IN,jdbcType=VARCHAR},#{isprivate,mode=IN,jdbcType=VARCHAR},#{succ,mode=OUT,jdbcType=VARCHAR})
+    call SONGLIST_PKG.ADD_SONG_TO_SONGLIST(#{songlistid,mode=IN,jdbcType=VARCHAR},#{songid,mode=IN,jdbcType=VARCHAR},#{succ,mode=OUT,jdbcType=VARCHAR})
   </select>
   <select id="deleteSonglist" statementType="CALLABLE">
     call SONGLIST_PKG.delete_songlist(#{songlistid,mode=IN,jdbcType=VARCHAR},#{succ,mode=OUT,jdbcType=VARCHAR})

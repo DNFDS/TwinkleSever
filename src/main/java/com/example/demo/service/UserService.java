@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.SongList;
 import com.example.demo.entity.User;
 import com.example.demo.entity.result.ResultEntity;
 
@@ -15,4 +16,5 @@ public interface UserService {
     ResultEntity getFavoriteAlbum(User user);
     ResultEntity getUserById(String id);
     ResultEntity isFriendExist(String userid,String friendid);
+    SongList getFavoritelist(String userid);
 }

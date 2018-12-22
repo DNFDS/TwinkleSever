@@ -36,7 +36,7 @@ public interface CommentsMapper {
      * @IN :"userid","songid","commenttext"
      * @OUT: "succ"> String
      */
-    String addComment(Map<String,Object> Map);
+    void addComment(Map<String,Object> Map);
 
     /**
      * @param Map
