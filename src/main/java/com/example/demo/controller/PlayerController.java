@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,6 +39,8 @@ public class PlayerController
     public void closePlayer(HttpServletRequest request)
     {
         request.getSession().removeAttribute("playerLoaded");
+        request.getSession().removeAttribute("playList");
+        request.getSession().removeAttribute("playList_mode");
     }
     @ResponseBody
     @RequestMapping(value = "/getPlayer",method = RequestMethod.GET)
@@ -53,23 +56,6 @@ public class PlayerController
     }
 
     @ResponseBody
-    @RequestMapping(value = "/getNextSong",method = RequestMethod.POST)
-    public Song getNextSong(String songID,HttpServletRequest request)
-    {
-        ArrayList<Integer>playList=(ArrayList<Integer>) request.getSession().getAttribute("playList");
-        HashMap hashMap=new HashMap();
-        Integer temp=playList.indexOf(Integer.parseInt(songID));//当前歌曲的index
-        if(temp.equals(playList.size()-1))//当前是最后一首
-        {
-            hashMap.put("songid",playList.get(0));
-        }
-        else
-        {
-            hashMap.put("songid",playList.get(temp+1));
-        }
-        return playerService.getSongByID(hashMap);
-    }
-    @ResponseBody
     @RequestMapping(value = "/addSongToList",method = RequestMethod.POST)
     public Map addSongToList(@Param("songID")Integer songID, HttpServletRequest request)
     {
@@ -77,10 +63,17 @@ public class PlayerController
         if(session.getAttribute("playList")==null)
         {
             ArrayList<Integer> arrayList=new ArrayList<>();
+            ArrayList<Integer> arrayList_mode=new ArrayList<>();
             session.setAttribute("playList",arrayList);
+            session.setAttribute("playList_mode",arrayList_mode);
         }
         ArrayList<Integer> arrayList=(ArrayList<Integer>) session.getAttribute("playList");
-        arrayList.add(songID);
+        ArrayList<Integer> arrayList_mode=(ArrayList<Integer>)session.getAttribute("playList_mode");
+        if(arrayList.indexOf(songID)==-1)
+        {
+            arrayList.add(songID);
+            arrayList_mode.add(songID);
+        }
 
         if(session.getAttribute("playerLoaded")==null)//还没有播放器界面
         {
@@ -159,5 +152,68 @@ public class PlayerController
             return map;
         }
         return null;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getNextSong",method = RequestMethod.POST)
+    public Song getNextSong(@Param("songID") String songID,HttpServletRequest request)
+    {
+        ArrayList<Integer>playList=(ArrayList<Integer>) request.getSession().getAttribute("playList_mode");
+        HashMap hashMap=new HashMap();
+        Integer temp=playList.indexOf(Integer.parseInt(songID));//当前歌曲的index
+        if(temp.equals(playList.size()-1))//当前是最后一首
+        {
+            hashMap.put("songid",playList.get(0));
+        }
+        else
+        {
+            hashMap.put("songid",playList.get(temp+1));
+        }
+        return playerService.getSongByID(hashMap);
+    }
+
+    @RequestMapping(value = "/getLastSong",method = RequestMethod.POST)
+    @ResponseBody
+    public Song getLastSong(@Param("songID")String songID,HttpServletRequest request)
+    {
+        ArrayList<Integer>playList=(ArrayList<Integer>) request.getSession().getAttribute("playList_mode");
+        HashMap hashMap=new HashMap();
+        Integer temp=playList.indexOf(Integer.parseInt(songID));//当前歌曲的index
+        if(temp.equals(0))//当前是第一首
+        {
+            hashMap.put("songid",playList.get(playList.size()-1));
+        }
+        else
+        {
+            hashMap.put("songid",playList.get(temp-1));
+        }
+        return playerService.getSongByID(hashMap);
+    }
+    @RequestMapping(value = "/changePlayMode",method = RequestMethod.POST)
+    @ResponseBody
+    public void changePlayMode(@Param("mode")String mode,@Param("songID")String songID, HttpServletRequest request)
+    {
+        ArrayList<Integer>playlist=(ArrayList<Integer>)request.getSession().getAttribute("playList");
+        request.getSession().removeAttribute("playList_mode");
+        if(mode.equals("0"))
+        {
+            //随机播放
+            ArrayList<Integer>temp=new ArrayList<>(playlist);
+            Collections.shuffle(temp);
+            request.getSession().setAttribute("playList_mode",temp);
+        }
+        else if(mode.equals("1"))
+        {
+            //单曲循环
+            ArrayList<Integer>temp=new ArrayList<>();
+            temp.add(Integer.parseInt(songID));
+            request.getSession().setAttribute("playList_mode",temp);
+        }
+        else
+        {
+            //顺序播放
+            ArrayList<Integer>temp=new ArrayList<>(playlist);
+            request.getSession().setAttribute("playList_mode",temp);
+        }
     }
 }
