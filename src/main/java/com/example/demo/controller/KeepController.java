@@ -38,6 +38,19 @@ public class KeepController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/KeepSongList",method = RequestMethod.POST)
+    public ResultEntity KeepSongList(@Param("songlistid")String songlistid, HttpServletRequest request){
+        User user = (User) request.getSession(false).getAttribute("user");
+        String result = keepService.KeepSongList(songlistid,user.getUserid());
+        boolean succ = true;
+        if(result.equals("0")){
+            succ = false;
+            return new ResultEntity(succ,"歌单已收藏",null);
+        }
+        return new ResultEntity(succ,"收藏成功",null);
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/favoriteSong",method = RequestMethod.POST)
     public ResultEntity favoriteSong(@Param("songid")String songid, HttpServletRequest request){
         User user = (User) request.getSession(false).getAttribute("user");

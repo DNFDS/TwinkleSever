@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <script src="/JS/main_js.js"></script>
+    <script src="/JS/play.js"></script>
     <style>
         .mod_operate_menu {
             position: absolute;
@@ -72,7 +74,7 @@
                 dataType: "json",   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
                 cache:true,
                 success:function(data){
-                    alert(data.errorMsg);
+                    showTips(data.errorMsg,50,1);
                 }
             });
         }

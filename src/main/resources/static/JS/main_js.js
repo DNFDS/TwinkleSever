@@ -1,5 +1,26 @@
 // JavaScript Document
 //disc_js
+function showTips( content, height, time ){
+    //窗口的宽度
+    var windowWidth  = $(window).width();
+    var tipsDiv = '<div class="tipsClass">' + content + '</div>';
+    $( 'body' ).append( tipsDiv );
+    $( 'div.tipsClass' ).css({
+        'top'       : height + 'px',
+        'left'      : ( windowWidth / 2 ) - 350/2 + 'px',
+        'position'  : 'absolute',
+        'padding'   : '3px 5px',
+        'background': '#8FBC8F',
+        'font-size' : 12 + 'px',
+        'margin'    : '0 auto',
+        'text-align': 'center',
+        'width'     : '350px',
+        'height'    : 'auto',
+        'color'     : '#fff',
+        'opacity'   : '0.8'
+    }).show();
+    setTimeout( function(){$( 'div.tipsClass' ).fadeOut();}, ( time * 1000 ) );
+}
 function disc_over(id)
 {
 	var classVal = document.getElementById(id).getAttribute("class");
