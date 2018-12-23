@@ -186,7 +186,6 @@
             height: 135px;
             background-color: rgba(0, 0, 0, 0.62);
             border-radius: 7px;
-            position: absolute;
             left: -3px;
             bottom: 52px;
             flex-direction: column;
@@ -434,7 +433,7 @@
             jsonp: "callback",
             jsonpCallback:'callback',
             scriptCharset: 'GBK',//解决中文乱码
-            success: function(data){
+            success: function callback(data){
                 var albumid=data.data.song.list[0].albumid;
                 document.getElementsByTagName('img')[0].src="http://imgcache.qq.com/music/photo/album_300/"+albumid%100+"/300_albumpic_"+albumid+"_0.jpg";
 
