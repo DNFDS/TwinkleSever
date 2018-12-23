@@ -173,6 +173,7 @@
 }
 .mod_btn {
     border: 1px solid #c9c9c9;
+    background-color: #FFFFFF;
     color: #000;
 }
 .mod_btn:hover {

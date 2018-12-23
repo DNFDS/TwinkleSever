@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public interface SongService {
 
+    ArrayList<Song> getSongByNamePart(String name);
     ResultEntity getSingersInSong(String songid);
     ArrayList<comments> getCommentsInSong(String songid);
     ResultEntity getBoughtSongByUserId(String userid);

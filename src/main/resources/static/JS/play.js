@@ -1,3 +1,4 @@
+// JavaScript Document
 function playSong(songid) {
     var songid = parseInt(songid);
     $.ajax({

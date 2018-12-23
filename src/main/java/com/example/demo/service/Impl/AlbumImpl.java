@@ -39,4 +39,11 @@ public class AlbumImpl implements AlbumService {
         songMapper.getSongByAlbumId(map);
         return (ArrayList<Song>)map.get("songs");
     }
+    @Override
+    public ArrayList<Album> getAlbumByNamePart(String name){
+        Map<String,Object> map = new HashMap<>();
+        map.put("albumname",name);
+        albumMapper.getAlbumByNamePart(map);
+        return (ArrayList<Album>)map.get("albums");
+    }
 }

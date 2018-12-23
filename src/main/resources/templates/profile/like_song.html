@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>搜索音乐</title>
-<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link href="../css/bootstrap.min.css" rel="stylesheet">
-<link href="../css/main.css" rel="stylesheet">
-<link href="../css/PersonalMessage.css" rel="stylesheet">
-<link href="/css/like_song.css" rel="stylesheet">
-<script src="/JS/jquery-3.3.1.min.js"></script>
-<script src="/JS/bootstrap.min.js"></script>
-<script src="/JS/main_js.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>搜索音乐</title>
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="../css/bootstrap.min.css" rel="stylesheet">
+	<link href="../css/main.css" rel="stylesheet">
+	<link href="../css/PersonalMessage.css" rel="stylesheet">
+	<link href="/css/like_song.css" rel="stylesheet">
+	<script src="/JS/jquery-3.3.1.min.js"></script>
+	<script src="/JS/bootstrap.min.js"></script>
+	<script src="/JS/main_js.js"></script>
     <script>
         function refresh() {
             showMyLike();
@@ -105,7 +105,19 @@
                     fans_tab.className = 'mod_tab__item'
                 }
             });
-
+        }
+        function showMyCreate() {
+            $.ajax({
+                type:"GET",
+                url:"/profile/showMyCreate",
+                dataType: "html",   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
+                cache:true,
+                data:{
+                },
+                success:function(data){
+                    $('#main').html(data);
+                }
+            });
         }
     </script>
 <style>
@@ -151,13 +163,30 @@ body {
             <a class="mod_tab__item"  href="#" id="buy_tab" onclick="showMyBought()"  data-tab="buy" data-stat="y_new.profile.tab.digital_album">我的已购</a>
             <a class="mod_tab__item"  href="#" id="focus_tab" onclick="showFollows()"  data-tab="focus" data-stat="y_new.profile.tab.focus">关注</a>
             <a class="mod_tab__item"  href="#" id="fans_tab" onclick="showFans()" data-tab="fans" data-stat="y_new.profile.tab.fans">粉丝</a>
-            <a class="mod_tab__item"  href="#" id="uploadmv_tab" data-tab="uploadmv" data-stat="y_new.profile.tab.uploadmv" >我上传的视频</a>
+            <a class="mod_tab__item"  href="#" id="uploadmv_tab" onclick="showMyCreate" data-stat="y_new.profile.tab.uploadmv" >我创建的歌单</a>
         </div>
         <div  id="main" >
 
         </div>
 
 	</div>
+        <!--悬浮框-->
+        <div class="mod_popup_mask" id="mask" style="display:none;"></div>
+        <div id="newsonglist_div" class="mod_popup popup_new_list" data-aria="popup" style="display:none;position:fixed;z-index:100000;margin:10px;width:520px;height:auto;left: 507px;top:242px;">
+            <div class="popup__hd">
+                <h2 class="popup__tit">创建新歌单</h2>
+                <a href="javascript:;" class="popup__close" title="关闭"><i class="popup__icon_close"></i><i class="icon_txt">关闭</i></a>
+            </div>
+
+            <div class="popup__bd " id="dialogbox">
+                <label class="form__label">歌单名</label> <div class="mod_form_txt"> <input type="text" value="" class="form_txt__input" id="new_playlist_fav"><span class="form_txt__tips" id="name_leftnum_fav">20</span></div>
+            </div>
+
+            <div class="popup__ft">
+                <button onclick="close_newsonglist_div()" class="mod_btn upload_btns__item js-button1">取消</button>
+                <button  class="mod_btn_blue upload_btns__item js-button2">确定</button>
+            </div>
+        </div>
 	<!--footer-->
 	<div class="footer">
 		<div class="container">
@@ -189,17 +218,17 @@ body {
 	</div>
 	<!--disk导航-->
 	<nav class="top-right">
-	<a href="find_music.jsp" class="disc l1" onMouseOver="disc1_over()" onMouseOut="disc1_out()">
+	<a th:href="@{/profile/like_song}" class="disc l1" onMouseOver="disc1_over()" onMouseOut="disc1_out()">
 	<div id="disc1" class="">发现音乐</div>
 	</a>
-	<a href="my_music.jsp" class="disc l2" onMouseOver="disc2_over()" onMouseOut="disc2_out()">
+	<a th:href="@{/profile/like_song}" class="disc l2" onMouseOver="disc2_over()" onMouseOut="disc2_out()">
 	<div id="disc2" class="">我的音乐</div>
 	</a>
 	<a th:href="@{/profile/like_song}" class="disc l3" onMouseOver="disc3_over()" onMouseOut="disc3_out()">
 	<div id="disc3" class="">个人主页</div>
 	</a>
-	<a href="VIP_index.jsp" class="disc l4" onMouseOver="disc4_over()" onMouseOut="disc4_out()">
-	<div id="disc4" class="">成为会员</div>
+	<a th:href="@{'/Exit'}" class="disc l4" onMouseOver="disc4_over()" onMouseOut="disc4_out()">
+	<div id="disc4" class="">退出登录</div>
 	</a>
 	<a class="disc l5 toggle">
 	菜单
@@ -235,5 +264,6 @@ body {
         });
     </script>
 	</div>
+
 </body>
 </html>

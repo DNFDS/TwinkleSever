@@ -133,5 +133,13 @@ public class DetailController {
         map.put("toAdd",songid);
         return new ModelAndView("/temp/songListChooser",map);
     }
+    @RequestMapping(value ="/User",method = RequestMethod.GET)
+    public String showUser(@RequestParam("userid") String userid, Map<String, Object> map,HttpServletRequest request){
+        ResultEntity e = userService.getUserById(userid);
+        if(e.getSuccess()){
+            request.getSession().setAttribute("visted",e.getObject());
+        }
+        return "redirect:/profile/like_song";
+    }
 
 }

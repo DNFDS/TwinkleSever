@@ -460,6 +460,23 @@ body {
             </div>
         </div>
 	</div>
+		<!--悬浮框-->
+		<div class="mod_popup_mask" id="mask" style="display:none;"></div>
+		<div id="newsonglist_div" class="mod_popup popup_new_list" data-aria="popup" style="display:none;position:fixed;z-index:100000;margin:10px;width:520px;height:auto;left: 507px;top:242px;">
+			<div class="popup__hd">
+				<h2 class="popup__tit">创建新歌单</h2>
+				<a href="javascript:;" class="popup__close" title="关闭"><i class="popup__icon_close"></i><i class="icon_txt">关闭</i></a>
+			</div>
+
+			<div class="popup__bd " id="dialogbox">
+				<label class="form__label">歌单名</label> <div class="mod_form_txt"> <input type="text" value="" class="form_txt__input" id="new_playlist_fav"><span class="form_txt__tips" id="name_leftnum_fav">20</span></div>
+			</div>
+
+			<div class="popup__ft">
+				<button onclick="close_newsonglist_div()" class="mod_btn upload_btns__item js-button1">取消</button>
+				<button  class="mod_btn_blue upload_btns__item js-button2">确定</button>
+			</div>
+		</div>
 	<!--footer-->
 	<div class="footer">
 		<div class="container">
@@ -495,14 +512,14 @@ body {
 	<a href="../find_music.jsp" class="disc l1" onMouseOver="disc1_over()" onMouseOut="disc1_out()">
 	<div id="disc1" class="">发现音乐</div>
 	</a>
-	<a href="my_music.jsp" class="disc l2" onMouseOver="disc2_over()" onMouseOut="disc2_out()">
+	<a th:href="@{/profile/like_song}" class="disc l2" onMouseOver="disc2_over()" onMouseOut="disc2_out()">
 	<div id="disc2" class="">我的音乐</div>
 	</a>
-	<a href="like_song.jsp" class="disc l3" onMouseOver="disc3_over()" onMouseOut="disc3_out()">
+	<a th:href="@{/profile/like_song}" class="disc l3" onMouseOver="disc3_over()" onMouseOut="disc3_out()">
 	<div id="disc3" class="">个人主页</div>
 	</a>
-	<a href="../VIP_index.jsp" class="disc l4" onMouseOver="disc4_over()" onMouseOut="disc4_out()">
-	<div id="disc4" class="">成为会员</div>
+	<a th:href="@{'/Exit'}" class="disc l4" onMouseOver="disc4_over()" onMouseOut="disc4_out()">
+	<div id="disc4" class="">退出登录</div>
 	</a>
 	<a class="disc l5 toggle">
 	菜单

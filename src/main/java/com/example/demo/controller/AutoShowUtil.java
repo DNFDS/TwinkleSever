@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.*;
 import com.example.demo.entity.result.ResultEntity;
+import com.example.demo.service.AlbumService;
 import com.example.demo.service.SingerService;
 import com.example.demo.service.SongListService;
 import com.example.demo.service.UserService;
@@ -18,6 +19,8 @@ public class AutoShowUtil {
     private SongListService songListService;
     @Autowired
     private SingerService singerService;
+    @Autowired
+    private AlbumService albumService;
 
     /**
      * @param :Arraylist<song> songs
@@ -142,6 +145,27 @@ public class AutoShowUtil {
             map.put("succ","1");
         else
             map.put("succ","0");
+        return map;
+    }
+
+    /**
+     *
+     * @param albums
+     * @return "albums" "songnum" "singers"
+     */
+    public Map<String,Object> showAlbum(ArrayList<Album> albums){
+        Map<String,Object> map = new HashMap<>();
+        ArrayList<Integer> songnum = new ArrayList<>();
+        ArrayList<Singer> singers = new ArrayList<>();
+        for(Album album:albums){
+            Singer singer = singerService.getSingerById(album.getSingerid());
+            ArrayList<Song> songs = albumService.getSongsInAlbum(album.getAlbumid());
+            singers.add(singer);
+            songnum.add(songs.size());
+        }
+        map.put("albums",albums);
+        map.put("songnum",songnum);
+        map.put("singers",singers);
         return map;
     }
 

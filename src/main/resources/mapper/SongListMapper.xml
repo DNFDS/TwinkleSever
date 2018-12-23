@@ -226,10 +226,10 @@
     call SONGLIST_PKG.get_songlist_saved_num(#{songlistid,mode=IN,jdbcType=VARCHAR},#{savednum,mode=OUT,jdbcType=INTEGER})
   </select>
   <select id="getSongListByNamePart" parameterType="java.util.HashMap" statementType="CALLABLE">
-    call SONGLIST_PKG.search_songlist_by_name_part(#{songname,mode=IN,jdbcType=VARCHAR},#{songlists,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SongListResultMap})
+    call SONGLIST_PKG.search_songlist_by_name_part(#{songlistname,mode=IN,jdbcType=VARCHAR},#{songlists,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SongListResultMap})
   </select>
   <select id="getSongListByName" parameterType="java.util.HashMap" statementType="CALLABLE">
-    call SONGLIST_PKG.search_songlist_by_name_full(#{songname,mode=IN,jdbcType=VARCHAR},#{songlists,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SongListResultMap})
+    call SONGLIST_PKG.search_songlist_by_name_full(#{songlistname,mode=IN,jdbcType=VARCHAR},#{songlists,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SongListResultMap})
   </select>
   <select id="getAllSongList" parameterType="java.util.HashMap" statementType="CALLABLE">
     call SONGLIST_PKG.view_all_songlist(#{songlists,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SongListResultMap})

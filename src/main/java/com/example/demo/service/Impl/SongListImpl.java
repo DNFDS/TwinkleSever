@@ -90,6 +90,12 @@ public class SongListImpl implements SongListService {
         int num = (int)map.get("savednum");
         return new ResultEntity(true,"",num);
     }
-
+    public ArrayList<SongList> getSongListByNamePart(String name){
+        Map<String,Object> map = new HashMap<>();
+        map.put("songlistname",name);
+        songListMapper.getSongListByNamePart(map);
+        ArrayList<SongList> songLists = (ArrayList<SongList>)map.get("songlists");
+        return songLists;
+    }
 
 }

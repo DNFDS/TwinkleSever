@@ -62,17 +62,3 @@ function search_result_out_setTimeout()
 		document.getElementById("search_result").setAttribute("class",classVal);
 	}
 }
-document.onclick = function (event)  {     
-	var e = event || window.event;  
-	var elem = e.srcElement||e.target;  
-
-	while(elem)  
-	{   
-		if(elem.id == "search_group"||elem.id == "search_result")  
-		{  
-				return;  
-		}  
-		elem = elem.parentNode;       
-	}
-	search_out();  
-}

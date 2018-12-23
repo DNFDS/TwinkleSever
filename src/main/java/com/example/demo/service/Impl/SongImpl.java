@@ -90,4 +90,12 @@ public class SongImpl implements SongService {
         return false;
     }
 
+    public ArrayList<Song> getSongByNamePart(String name){
+        Map<String,Object> map = new HashMap<>();
+        map.put("songname",name);
+        songMapper.getSongByNamePart(map);
+        return (ArrayList<Song>) map.get("songs");
+    }
+
+
 }

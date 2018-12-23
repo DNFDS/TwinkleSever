@@ -127,7 +127,7 @@ public class PersonalController {
         ArrayList<SongList> createdsonglist = (ArrayList<SongList>)e_map.get("createdsonglist");
         getFavoriteList(map,createdsonglist);
         ArrayList<Song> songs = (ArrayList<Song>) map.get("songs");
-        map = showUtil.showSong(songs);
+        map.putAll(showUtil.showSong(songs));
         if(flag.equals("2"))
             return new ModelAndView("/temp/mylike/song_list_details",map);
         return new ModelAndView("/temp/mylike_main",map);
@@ -138,22 +138,16 @@ public class PersonalController {
     public ModelAndView showSongsListInList(HttpServletRequest request, HttpServletResponse response){
         User user = (User) request.getSession(false).getAttribute("visted");
         String flag = request.getParameter("flag");
-        ResultEntity e;
-        //得到用户的所有歌单,createdsonglist  与  keepedsonglist
-        e = userService.getSongLists(user);
-        Map<String,Object>e_map = (Map<String, Object>) e.getObject();
         //如果请求的form页面，就直接返回
         //list页面，要额外添加歌单的收藏数和曲目数
-        ArrayList<SongList>createdsonglist = (ArrayList<SongList>)e_map.get("createdsonglist");
-        ArrayList<SongList>keepedsonglist = (ArrayList<SongList>)e_map.get("keepedsonglist");
+        ArrayList<SongList>keepedSongList = userService.getKeepedSongList(user.getUserid());
         //得到所有歌单的曲目数和收藏数创建人  songnum  savenum username
-        e_map.put("createdsonglist",showUtil.showSongList(createdsonglist));
-        e_map.put("keepedsonglist",showUtil.showSongList(keepedsonglist));
+        Map<String,Object>map = showUtil.showSongList(keepedSongList);
         if(flag.equals("1"))
-            return new ModelAndView("/temp/mylike/songlist_details",e_map);
+            return new ModelAndView("/temp/mylike/songlist_details",map);
         if(flag.equals("2"))
-            return new ModelAndView("/temp/mylike/songlist_form_details",e_map);
-        return new ModelAndView("/temp/mylike/songlist_list_details",e_map);
+            return new ModelAndView("/temp/mylike/songlist_form_details",map);
+        return new ModelAndView("/temp/mylike/songlist_list_details",map);
     }
 
     @ResponseBody

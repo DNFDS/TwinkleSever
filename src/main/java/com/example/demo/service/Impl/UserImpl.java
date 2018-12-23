@@ -91,12 +91,18 @@ public class UserImpl implements UserService {
         return new ResultEntity(true,"",map);
     }
     @Override
-    public ResultEntity getFavoriteAlbum(User user){
+    public ArrayList<SongList> getCreatedSongList(String userid){
         Map<String,Object>map = new HashMap<>();
-        map.put("userid",user.getUserid());
+        map.put("userid",userid);
         songListMapper.getSongListCreatedByUserId(map);//"keepedsonglist"
-        ArrayList<SongList>list = (ArrayList<SongList>)map.get("createdsonglist");
-        return new ResultEntity(true,"",list);
+        return  (ArrayList<SongList>)map.get("createdsonglist");
+    }
+    @Override
+    public ArrayList<SongList> getKeepedSongList(String userid){
+        Map<String,Object>map = new HashMap<>();
+        map.put("userid",userid);
+        songListMapper.getSongListKeepedByUserId(map);//"keepedsonglist"
+        return  (ArrayList<SongList>)map.get("keepedsonglist");
     }
 
     @Override
@@ -108,8 +114,7 @@ public class UserImpl implements UserService {
         ArrayList<User> users = (ArrayList<User>)map.get("result");
         if(users.size() == 0){
             user = new User();
-            user.setUserid("null");
-            user.setUsername("无");
+            return new ResultEntity(false,"",null);
         }
         else
         user = users.get(0);

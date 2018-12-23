@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <script src="/JS/main_js.js"></script>
-    <script src="/JS/play.js"></script>
+    <script src="/JS/newSonglist.js"></script>
     <style>
         .mod_operate_menu {
             position: absolute;
@@ -62,6 +61,146 @@
 
         }
     </style>
+    <style>
+        .mod_popup {
+
+            position: absolute;
+            border: 1px solid #bfbfbf;
+            box-shadow: 0 0 10px rgba(0,0,0,.3);
+            z-index: 999;
+            background-color: #fff;
+            font-size: 14px;
+            color: #333;
+
+        }
+        .popup__hd {
+            font-size: 14px;
+            color: #333;
+            position: relative;
+            height: 55px;
+            border-bottom: 1px solid #f2f2f2;
+
+        }
+        .popup__tit {
+            line-height: 55px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 400;
+
+        }
+        .popup__close {
+
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 24px;
+            height: 24px;
+            overflow: hidden;
+            z-index: 2;
+
+        }
+
+        .popup__icon_close {
+
+            display: block;
+            margin: 6px auto;
+            width: 12px;
+            height: 12px;
+            background-position: 0 -200px;
+
+        }
+        .popup_new_list .popup__bd {
+
+            position: relative;
+            margin-top: 39px;
+            padding: 0 40px 0 101px;
+            padding-bottom: 0px;
+            padding-bottom: 28px;
+            overflow: hidden;
+
+        }
+        .popup_new_list .form__label {
+
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 81px;
+            line-height: 40px;
+            text-align: right;
+
+        }
+        .mod_form_txt {
+
+            position: relative;
+            display: block;
+            height: 38px;
+            background-color: #fff;
+            border: 1px solid #c8cbcc;
+
+
+        }
+        .popup_new_list .mod_form_txt {
+
+            width: 377px;
+            border-color: #e1e1e1;
+
+        }
+        .form_txt__input {
+
+            width: 450px;
+            height: 38px;
+            line-height: 38px;
+            border: 0 none;
+            margin-left: 11px;
+            vertical-align: top;
+            background: 0 0;
+
+        }
+        .popup_new_list .form_txt__input {
+
+            width: 330px;
+
+        }
+        .form_txt__tips {
+
+            position: absolute;
+            top: 0;
+            right: 11px;
+            color: #999;
+            line-height: 38px;
+        }
+        .popup__ft {
+
+            padding: 20px 20px 0 0;
+            height: 80px;
+            text-align: right;
+
+        }
+        .upload_btns__item {
+
+            width: 122px;
+            margin: 0 3px;
+
+        }
+        .popup__ft .mod_btn, .popup__ft .mod_btn_green {
+
+            width: auto;
+            min-width: 122px;
+            text-align: center;
+
+        }
+
+        .mod_popup_mask {
+
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,.2);
+            z-index: 999;
+        }
+    </style>
     <script>
         function addSongToSongList(songlistid,songid) {
             $.ajax({
@@ -86,6 +225,9 @@
     <ul role="menu" class="operate_menu__list operate_menu__top_line">
         <li class="operate_menu__item" th:each="songlist:${songlists}">
             <a href="javascript:;" class="operate_menu__link js_addto_taogelist" th:onclick="addSongToSongList([[${songlist.getSonglistid()}]],[[${toAdd}]])"><i class="operate_menu__icon_like"></i>[[${songlist.getSonglistname()}]] </a>
+        </li>
+        <li class="operate_menu__item" >
+            <a href="javascript:;" class="operate_menu__link js_addto_taogelist" onclick="show_newsonglist_div()" ><i class="operate_menu__icon_like"></i>新建歌单 </a>
         </li>
     </ul>
 </div>

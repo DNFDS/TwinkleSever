@@ -1,3 +1,4 @@
+// JavaScript Document
 function choseSongList(index,songid){
     $.ajax({
         type:"GET",
@@ -67,4 +68,16 @@ document.onclick = function (event)  {
             document.getElementById("popwindow").setAttribute("style",styleVal1);
         }
     }
+    var e = event || window.event;
+    var elem = e.srcElement||e.target;
+
+    while(elem)
+    {
+        if(elem.id == "search_group"||elem.id == "search_result")
+        {
+            return;
+        }
+        elem = elem.parentNode;
+    }
+    search_out();
 }

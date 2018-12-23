@@ -6,9 +6,9 @@ function showTips( content, height, time ){
     var tipsDiv = '<div class="tipsClass">' + content + '</div>';
     $( 'body' ).append( tipsDiv );
     $( 'div.tipsClass' ).css({
-        'top'       : height + 'px',
-        'left'      : ( windowWidth / 2 ) - 350/2 + 'px',
-        'position'  : 'absolute',
+        'top'       : '50%',
+        'left'      : '40%',
+        'position'  : 'fixed',
         'padding'   : '3px 5px',
         'background': '#8FBC8F',
         'font-size' : 12 + 'px',
@@ -44,6 +44,7 @@ function disc_over(id)
 		}
 	}
 }
+
 function buttonShow(index){
     $("#oa_"+index).show();
 }

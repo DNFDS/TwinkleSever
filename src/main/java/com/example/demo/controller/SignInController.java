@@ -41,9 +41,16 @@ public class SignInController {
             return "Login";
         }
     }
-    /*@ResponseBody
-    @RequestMapping("/getUser")
-    public String getUser(HttpServletRequest request){
-        return userService.findUserById(request.getParameter("id")).getUsername();
-    }*/
+
+    @RequestMapping(value = "/myPage")
+    public String toMypage(HttpServletRequest request){
+        Object o = request.getSession().getAttribute("user");
+        request.getSession().setAttribute("visted",o);
+        return "redirect:/profile/like_song";
+    }
+    @RequestMapping(value ="/Exit")
+    public String Exit(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return "redirect:/";
+    }
 }
