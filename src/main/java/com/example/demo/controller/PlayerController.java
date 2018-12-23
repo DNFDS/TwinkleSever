@@ -123,14 +123,16 @@ public class PlayerController
     @RequestMapping(value = "/addSongListToList",method = RequestMethod.POST)
     public Map addSongListToList(@Param("songListID")Integer songListID,HttpServletRequest request)
     {
-        System.out.println(1);
         HttpSession session=request.getSession();
         if(session.getAttribute("playList")==null)
         {
             ArrayList<Integer> arrayList=new ArrayList<>();
+            ArrayList<Integer> arrayList_mode=new ArrayList<>();
             session.setAttribute("playList",arrayList);
+            session.setAttribute("playList_mode",arrayList_mode);
         }
         ArrayList<Integer> arrayList=(ArrayList<Integer>) session.getAttribute("playList");
+        ArrayList<Integer> arrayList_mode=(ArrayList<Integer>)session.getAttribute("playList_mode");
 
         HashMap<String,Object>hashMap =new HashMap<>();
         hashMap.put("songlistid",songListID);
@@ -142,7 +144,10 @@ public class PlayerController
         for(Integer i:songList)
         {
             if(arrayList.indexOf(i)==-1)
+            {
                 arrayList.add(i);
+                arrayList_mode.add(i);
+            }
         }
         if(session.getAttribute("playerLoaded")==null)
         {
