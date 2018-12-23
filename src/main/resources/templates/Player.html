@@ -7,7 +7,59 @@
     <script src="../JS/jquery-3.3.1.min.js"></script>
 
     <style>
+        .lrc{
+            z-index: 100;
+            position: absolute;
+            left: 450px;
+            top: 100px;
+            width:600px;
+            height:500px;
+            overflow-x:hidden;
+            overflow-y:auto;
+        }
 
+        /*兼容IE*/
+        .lrc{
+            scrollbar-face-color: #20a774;/*移动滑块颜色*/
+            scrollbar-shadow-color: #20a774;/*移动滑块边框颜色*/
+            scrollbar-track-color: #ccc;/*背景颜色*/
+            scrollbar-arrow-color: #ddd;/*箭头颜色*/
+        }
+        .lrc::-webkit-scrollbar-track
+        {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            background-color: #ccc;
+        }/* 滚动条的滑轨背景颜色 */
+        .lrc::-webkit-scrollbar
+        {
+            width: 6px;
+            background-color: #ccc;
+        }
+
+        .lrc::-webkit-scrollbar-thumb
+        {
+            background-color: #20a774;
+        }/* 滑块颜色 */
+        .lrc .gc
+        {
+
+            margin: 10px;
+            font-size: 25px;
+            color:#D6D8D4;
+            font-family:  Wawati SC;
+            list-style-type:none;
+            position:absolute;
+            height: 500px;
+            width: 600px;
+        }
+        .logo
+        {
+            position:absolute;
+            top: 40px;
+            left: 60px;
+            width: 150px;
+            height: 40px;
+        }
         .bg .bgImg
         {
             background-size: cover;
@@ -186,6 +238,11 @@
 <body>
 <div id="bg" class="bg">
     <img class="bgImg" src="">
+    <img class="logo" src="https://y.gtimg.cn/mediastyle/yqq/img/logo@2x.png?nowebp=1"/>
+    <div class="lrc">
+        <ul id="gc" class="gc">
+        </ul>
+    </div>
 </div>
 <div class="audio green-audio-player" >
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -264,6 +321,7 @@
 
     var draggableClasses = ['pin'];
     var currentlyDragged = null;
+    var num=0;
 
     window.onbeforeunload=function leave()
     {
@@ -382,10 +440,65 @@
 
             },
             error: function(){
-                alert(11);
+                alert("qq音乐接口");
             }
         });
+        $.ajax({
+            url: "http://tingapi.ting.baidu.com/v1/restserver/ting?format=json&calback=&from=webapp_music&method=baidu.ting.search.catalogSug&query="+player.dataset.name,
+            type:"get",
+            dataType:'jsonp',
+            jsonp: "callback",
+            scriptCharset: 'GBK',//解决中文乱码
+            success: function callback(data){
+                var songid=data.song[0].songid;
+                $.ajax({
+                    url: "http://tingapi.ting.baidu.com/v1/restserver/ting?format=json&calback=&from=webapp_music&method=baidu.ting.song.lry&songid="+songid,
+                    type:"get",
+                    dataType:'jsonp',
+                    jsonp: "callback",
+                    success: function(data) {
+                        var lrc = data.lrcContent;
+                        var str = parseLyric(lrc);
 
+                        document.getElementsByClassName("lrc")[0].scrollTop=0;
+                        $("ul").find("li").remove()
+                        var li='<li>'+" "+'</li>';
+                        $('#gc').append(li);
+
+                        for (var i = 0, li; i < str.length; i++) {
+                            li = '<li>' + str[i][1] + '</li>';
+                            $('#gc').append(li);
+                        }
+                        player.ontimeupdate = function ()
+                        {
+                            var i=0;
+                            var l;
+                            for (i,l = str.length; i < l; i++)//判断到第i句歌词 对应下标为i的li标签
+                                if (this.currentTime <str[i][0])
+                                    break;
+                            for(var j=0,k=document.getElementsByTagName('li').length;j<k;j++)
+                                document.getElementsByTagName('li')[j].style.color="#D6D8D4"
+                            document.getElementsByTagName('li')[i].style.color="#20A774";
+                            if(i>8)
+                            {
+                                document.getElementsByClassName("lrc")[0].scrollTop=document.getElementsByTagName('li')[i].offsetTop-216;
+                            }
+                            if(i>num)//每次歌曲时间更新后 该时间对应的那句歌词如果比之前存储的num大 说明到了下一句歌词
+                            {
+                                num++;
+                            }
+
+                        };
+                    },
+                    error: function(){
+                        alert("歌词ajax");
+                    }
+                })
+            },
+            error: function(){
+                alert("找歌曲ajax");
+            }
+        })
     });
     player.addEventListener('canplay', makePlay);//显示播放按钮而不是转圈
 
@@ -552,25 +665,32 @@
             volumeControls.style.left = '-3px';
         }
     }
+    function parseLyric(text)
+    {
+        var lines = text.split('\n'),              //将文本分隔成一行一行，存入数组
+            pattern = /\[\d{2}:\d{2}.\d{2}\]/g,    //用于匹配时间的正则表达式，匹配的结果类似[xx:xx.xx]
+            result = [];                           //保存最终结果的数组
+        while (!pattern.test(lines[0]))
+        {          //去掉不含时间的行
+            lines = lines.slice(1);
+        };
+        lines[lines.length - 1].length === 0 && lines.pop();//上面用'\n'生成生成数组时，结果中最后一个为空元素，这里将去掉
+        lines.forEach(function(v,i,a)               /*数组元素值*/ /*元素索引*//*数组本身*/
+        {
+            var time = v.match(pattern),            //提取出时间[xx:xx.xx]
+                value = v.replace(pattern, '');    //提取歌词
+            time.forEach(function(v1, i1, a1)
+            {                                       //因为一行里面可能有多个时间，所以time有可能是[xx:xx.xx][xx:xx.xx][xx:xx.xx]的形式，需要进一步分隔
+                var t = v1.slice(1, -1).split(':'); //去掉时间里的中括号得到xx:xx.xx
+                result.push([parseInt(t[0], 10) * 60 + parseFloat(t[1]), value]);//将结果压入最终数组
+            });
+        });
+        result.sort(function(a, b)
+        {                                            //最后将结果数组中的元素按时间大小排序，以便保存之后正常显示歌词
 
-    function parseLyric(lrc) {
-        var lyrics = lrc.split("\n");
-        var lrcObj = {};
-        for(var i=0;i<lyrics.length;i++){
-            var lyric = decodeURIComponent(lyrics[i]);
-            var timeReg = /\[\d*:\d*((\.|\:)\d*)*\]/g;
-            var timeRegExpArr = lyric.match(timeReg);
-            if(!timeRegExpArr)continue;
-            var clause = lyric.replace(timeReg,'');
-            for(var k = 0,h = timeRegExpArr.length;k < h;k++) {
-                var t = timeRegExpArr[k];
-                var min = Number(String(t.match(/\[\d*/i)).slice(1)),
-                    sec = Number(String(t.match(/\:\d*/i)).slice(1));
-                var time = min * 60 + sec;
-                lrcObj[time] = clause;
-            }
-        }
-        return lrcObj;
+            return a[0] - b[0];
+        });
+        return result;
     }
 </script>
 
