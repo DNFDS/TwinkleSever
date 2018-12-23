@@ -443,7 +443,7 @@ body {
 					<ul class="playlist__list" >
 						<li class="playlist__item"  th:each="album, iterState2:${albums}" onmouseover="this.className=(this.className+' playlist__item--hover')" onmouseout="this.className=this.className.replace(/ playlist__item--hover/, '')">
 							<div class="playlist__item_box">
-							<div class="he_border2"><img src="//p.qpic.cn/music_cover/HictYs5zfjNDmZ6NgVbHYiapgPODicIKJiaJibj7vkYiaDZH7WH2Eb4icMg3A/300?n=1" onerror="this.src='//y.gtimg.cn/mediastyle/global/img/cover_playlist.png?max_age=31536000';this.onerror=null;" alt="1—3岁儿童歌曲集，那些带你认识世界的儿歌" class="playlist__pic">
+								<div class="he_border2"><img src="//p.qpic.cn/music_cover/HictYs5zfjNDmZ6NgVbHYiapgPODicIKJiaJibj7vkYiaDZH7WH2Eb4icMg3A/300?n=1" onerror="this.src='//y.gtimg.cn/mediastyle/global/img/cover_playlist.png?max_age=31536000';this.onerror=null;" alt="1—3岁儿童歌曲集，那些带你认识世界的儿歌" class="playlist__pic"></div>
 							<div class="he_border2_caption">
 							<p class="he_border2_caption_p">查看专辑</p>
 							<a class="he_border2_caption_a" th:href="@{'/Album?albumid='+ ${album.getAlbumid()}}"></a>
@@ -538,6 +538,56 @@ body {
 		toggle.innerHTML = toggle_open_text;
 	  }
 	}, false);
+
+	var j=0;
+    window.onload=function foo(ev)
+    {
+        var singerImg=document.getElementsByClassName('data__photo');
+        var albumNames=document.getElementsByClassName('js_playlist');
+        var albumImgs=document.getElementsByClassName('playlist__pic');
+        $.ajax({
+            url: "https://c.y.qq.com/soso/fcgi-bin/client_search_cp?aggr=1&cr=1&flag_qc=0&p=1&n=1&w="+document.getElementsByClassName('data__name_txt js_index')[0].innerText,
+            type:"get",
+            dataType:'jsonp',
+            jsonp: "callback",
+            jsonpCallback:"callback",
+            scriptCharset: 'GBK',//解决中文乱码
+            success: function callback(data){
+                var singerMid=data.data.song.list[0].grp[0].singer[0].mid;
+                var temp="https://y.gtimg.cn/music/photo_new/T001R300x300M000"+singerMid+".jpg?max_age=2592000";
+                for(var i=0;i<singerImg.length;i++)
+				{
+				    singerImg[i].src=temp;
+				}
+                $.ajax({
+                    url: "https://c.y.qq.com/soso/fcgi-bin/client_search_cp?aggr=1&cr=1&flag_qc=0&p=1&n=1&w="+albumNames[j].innerText,
+                    type:"get",
+                    dataType:'jsonp',
+                    jsonp: "callback",
+                    jsonpCallback:"callback",
+                    scriptCharset: 'GBK',//解决中文乱码
+                    success: function callback(data){
+                        var albumid=data.data.song.list[0].albumid;
+                        var temp="http://imgcache.qq.com/music/photo/album_300/"+albumid%100+"/300_albumpic_"+albumid+"_0.jpg";
+                        albumImgs[j].src=temp;
+                        j++;
+                        if(j<albumNames.length)
+                            foo();
+                    },
+                    error: function(){
+                        alert("qq音乐接口");
+                    }
+                });
+            },
+            error: function(){
+                alert("qq音乐头像接口");
+            }
+        });
+    };
+    window.callback=function (res)
+	{
+
+	}
 	</script>
 </div>
     <div class="mod_operate_menu" id="popwindow" style="display:none;position:absolute;left:697px;top:669px;" >

@@ -394,6 +394,25 @@
 	}
 	</style>
 	<script>
+		window.onload=function (ev)
+		{
+            $.ajax({
+                url: "https://c.y.qq.com/soso/fcgi-bin/client_search_cp?aggr=1&cr=1&flag_qc=0&p=1&n=1&w="+document.getElementById('albumName').innerText,
+                type:"get",
+                dataType:'jsonp',
+                jsonp: "callback",
+                jsonpCallback:'callback',
+                scriptCharset: 'GBK',//解决中文乱码
+                success: function(data){
+                    var albumid=data.data.song.list[0].albumid;
+                    document.getElementById('albumImg').src="http://imgcache.qq.com/music/photo/album_300/"+albumid%100+"/300_albumpic_"+albumid+"_0.jpg";
+
+                },
+                error: function(){
+                    alert("qq音乐接口");
+                }
+            });
+		};
         function popwindowup(i){
             var styleVal1 = document.getElementById('popwindow').getAttribute("style");
             var len= styleVal1.length;
@@ -443,7 +462,7 @@
             </span>
             <div class="data__cont">
                 <div class="data__name">
-                    <h1 class="data__name_txt" title="Showboat" th:text="${album.getAlbumname()}">Showboat</h1>
+                    <h1 id="albumName" class="data__name_txt" title="Showboat" th:text="${album.getAlbumname()}">Showboat</h1>
                 </div>
                 <div class="data__singer">
                     <i class="icon_singer sprite"></i><a th:href="@{'/Singer?singerid='+${author.getSingerid()}}" class="js_singer data__singer_txt" th:text="${author.getSingername()}">Brian Newman</a>
