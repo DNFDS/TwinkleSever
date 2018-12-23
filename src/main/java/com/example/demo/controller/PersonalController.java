@@ -135,7 +135,7 @@ public class PersonalController {
 
     @ResponseBody
     @RequestMapping(value = "/profile/like_song_songlist_typeList", method = RequestMethod.GET)
-    public ModelAndView showSongsListInList(HttpServletRequest request, HttpServletResponse response){
+    public ModelAndView showKeepedSongList(HttpServletRequest request, HttpServletResponse response){
         User user = (User) request.getSession(false).getAttribute("visted");
         String flag = request.getParameter("flag");
         //如果请求的form页面，就直接返回
@@ -148,6 +148,18 @@ public class PersonalController {
         if(flag.equals("2"))
             return new ModelAndView("/temp/mylike/songlist_form_details",map);
         return new ModelAndView("/temp/mylike/songlist_list_details",map);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/profile/showCreatedSongList", method = RequestMethod.GET)
+    public ModelAndView showCreatedSongList(HttpServletRequest request, HttpServletResponse response){
+        User user = (User) request.getSession(false).getAttribute("visted");
+        //如果请求的form页面，就直接返回
+        //list页面，要额外添加歌单的收藏数和曲目数
+        ArrayList<SongList>keepedSongList = userService.getKeepedSongList(user.getUserid());
+        //得到所有歌单的曲目数和收藏数创建人  songnum  savenum username
+        Map<String,Object>map = showUtil.showSongList(keepedSongList);
+        return new ModelAndView("/temp/created_main",map);
     }
 
     @ResponseBody

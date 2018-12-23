@@ -653,7 +653,7 @@
 	<a th:href="@{/profile/like_song}" class="disc l2" onMouseOver="disc2_over()" onMouseOut="disc2_out()">
 	<div id="disc2" class="">我的音乐</div>
 	</a>
-	<a th:href="@{/profile/like_song}" class="disc l3" onMouseOver="disc3_over()" onMouseOut="disc3_out()">
+	<a th:href="@{/myPage}" class="disc l3" onMouseOver="disc3_over()" onMouseOut="disc3_out()">
 	<div id="disc3" class="">个人主页</div>
 	</a>
 	<a th:href="@{'/Exit'}" class="disc l4" onMouseOver="disc4_over()" onMouseOut="disc4_out()">
@@ -690,12 +690,16 @@
 		</div>
 
 		<div class="popup__bd " id="dialogbox">
-			<label class="form__label">歌单名</label> <div class="mod_form_txt"> <input type="text" value="" class="form_txt__input" id="new_playlist_fav"><span class="form_txt__tips" id="name_leftnum_fav">20</span></div>
+			<label class="form__label">歌单名</label>
+			<div class="mod_form_txt">
+                <input type="text" value="" class="form_txt__input" id="new_playlist_fav">
+                <span class="form_txt__tips" id="name_leftnum_fav">20</span>
+            </div>
 		</div>
 
 		<div class="popup__ft">
 			<button onclick="close_newsonglist_div()" class="mod_btn upload_btns__item js-button1">取消</button>
-			<button  class="mod_btn_blue upload_btns__item js-button2">确定</button>
+			<button onclick="create_newsonglist()" class="mod_btn_blue upload_btns__item js-button2" >确定</button>
 		</div>
 	</div>
 </body>

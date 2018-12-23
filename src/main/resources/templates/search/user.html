@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>搜索专辑</title>
+    <title>搜索音乐</title>
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/PersonalMessage.css" rel="stylesheet">
@@ -20,7 +20,7 @@
     <script>
         $(document).ready(function(){
             /*<![CDATA[*/
-            var size = [[${albums.size()}]];
+            var size = [[${users.size()}]];
             /*]]>*/
             for (var num =0; num<size; num++) {
                 $("#oa_"+num).hide();
@@ -36,83 +36,29 @@
             styleVal1=zz+"left:548px;top:"+top+"px;";
             document.getElementById("popwindow").setAttribute("style",styleVal1);
         }
-        function show_song(word) {
-            alert(word);
+        function FollowUser(userid,index) {
+            var btn_id = "focus"+index;
             $.ajax({
                 type:"GET",
-                url:"/SearchSong",
+                url:"/profile/changeFollow",
                 data:{
-                    words:word
+                    id:userid
                 },
-                dataType: "html",   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
+                dataType:"json",   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
                 cache:true,
-                success:function(data){
-                    $('#flushDIV').html(data);
-                    var song = document.getElementById('song_tab');
-                    var songlist = document.getElementById('songlist_tab');
-                    var album = document.getElementById('album_tab');
-                    song.className = 'mod_tab__item mod_tab__current';
-                    songlist.className = 'mod_tab__item';
-                    album.className = 'mod_tab__item';
-                },
-                error:function(XMLHttpRequest, textStatus, errorThrown){
-                    alert(XMLHttpRequest.status);
-                    alert(XMLHttpRequest.readyState);
-                    alert(textStatus);
-                }
-            });
-        }
-        function show_songlist(word) {
-            alert(word);
-            $.ajax({
-                type:"GET",
-                url:"/SearchSongList",
-                data:{
-                    words:word
-                },
-                dataType: "html",   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
-                cache:true,
-                success:function(data){
-                    $('#flushDIV').html(data);
-                    var song = document.getElementById('song_tab');
-                    var songlist = document.getElementById('songlist_tab');
-                    var album = document.getElementById('album_tab');
-                    song.className = 'mod_tab__item'
-                    songlist.className = 'mod_tab__item mod_tab__current';
-                    album.className = 'mod_tab__item';
-                },
-                error:function(XMLHttpRequest, textStatus, errorThrown){
-                    alert(XMLHttpRequest.status);
-                    alert(XMLHttpRequest.readyState);
-                    alert(textStatus);
-                }
-            });
-        }
-        function showAlbum(word) {
-            /*<![CDATA[*/
-            var words = [[${words}]];
-            /*]]>*/
-            $.ajax({
-                type:"GET",
-                url:"/SearchAlbum",
-                data:{
-                    words:word
-                },
-                dataType: "html",
-                cache:true,
-                success:function(data){
-                    $('#flushDIV').html(data);
-                    var song = document.getElementById('song_tab');
-                    var songlist = document.getElementById('songlist_tab');
-                    var album = document.getElementById('album_tab');
-                    song.className = 'mod_tab__item mod_tab__current';
-                    songlist.className = 'mod_tab__item';
-                    album.className = 'mod_tab__item';
-                },
-                error:function(XMLHttpRequest, textStatus, errorThrown){
-                    alert(XMLHttpRequest.status);
-                    alert(XMLHttpRequest.readyState);
-                    alert(textStatus);
+                success:function(dataObj) {
+                    var tab = document.getElementById(btn_id);
+                    if (dataObj.succ === '1') {
+                        if (dataObj.flag === '1') {
+                            tab.innerHTML="取消关注";
+                            showTips('关注成功',50,1);
+                        } else {
+                            tab.innerHTML="关注";
+                            showTips('取消关注成功',50,1);
+                        }
+                    }
+                    else
+                        alert('请求失败');
                 }
             });
         }
@@ -251,6 +197,131 @@
         .mod_songlist_toolbar{
             padding-top:0px
         }
+        .mod_singer_list_text {
+            margin-top: 50px;
+            margin-bottom: 20px;
+            min-height: 500px;
+
+        }
+        .singer_list__item {
+
+            position: relative;
+            height: 80px;
+            display: table;
+            width: 100%;
+
+        }
+        .singer_list__playlist, .singer_list__title {
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 14px;
+
+        }
+        .singer_list__title {
+
+            width: 40%;
+            min-width: 280px;
+            font-weight: 400;
+            text-indent: 20px;
+            overflow: hidden;
+            line-height: 80px;
+            padding-left: 20px;
+            font-size: 0;
+
+        }
+        .singer_list__cover {
+
+            position: relative;
+            float: left;
+            width: 60px;
+            height: 60px;
+            margin-top: 10px;
+
+        }
+        .singer_list__pic {
+
+            display: block;
+            width: 100%;
+            min-height: 50px;
+            border-radius: 50%;
+
+        }
+        .singer_list__pic {
+
+            height: 100%;
+            object-fit: cover;
+
+        }
+
+        .singer_list__title_txt {
+
+            float: left;
+            max-width: 310px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 14px;
+
+        }
+        .singer_list__playlist {
+
+            width: 22%;
+            padding-left: 20px;
+
+        }
+        .singer_list__count, .singer_list__other, .singer_list__playlist, .singer_list__title {
+
+            display: table-cell;
+            height: 80px;
+            vertical-align: middle;
+            box-sizing: border-box;
+
+        }
+        .singer_list__count {
+
+            width: 22%;
+            padding-left: 15px;
+
+        }
+        .singer_list__other {
+
+            width: 122px;
+
+        }
+        .singer_list__btn_focus {
+
+            display: block;
+            width: 122px;
+            text-align: center;
+            margin-right: 20px;
+
+        }
+        .mod_btn {
+
+            border: 1px solid #c9c9c9;
+            color: #000;
+
+        }
+        .mod_btn, .mod_btn_green {
+
+            border-radius: 2px;
+            font-size: 14px;
+            margin-right: 6px;
+            padding: 0 23px;
+            height: 38px;
+            line-height: 38px;
+            display: inline-block;
+            white-space: nowrap;
+            box-sizing: border-box;
+            overflow: hidden;
+
+        }
+        .singer_list__item.even {
+
+            background-color: #fbfbfd;
+
+        }
     </style>
 </head>
 <body id="body" >
@@ -260,7 +331,7 @@
     <!-- 搜索框 -->
     <div class="mod_search" style="background-image:url(../image/Search_image/search_bg.jpg);" role="search">
         <div class="mod_search_input" id="search_group">
-            <form th:action="@{/Search/Album}" method="get">
+            <form th:action="@{/Search/User }" method="get">
                 <input  class="search_input__input" autocomplete="off" id="search_input" name="words" onClick="search_click_keydown()" oninput="search_click_keydown()" aria-label="请输入搜索内容" th:value="${words}" placeholder="搜索关键字" type="text">
                 <input class="search_input__btn" type="submit" value="搜索">
             </form>
@@ -385,38 +456,36 @@
         <div class="mod_tab" role="nav">
             <a class= "mod_tab__item"id="song_tab" th:href="@{'/Search/Song?words='+${words}}"  >歌曲 </a>
             <a class="mod_tab__item" id="songlist_tab" th:href="@{'/Search/SongList?words='+${words}}" >歌单 </a>
-            <a class="mod_tab__item mod_tab__current" id="album_tab" th:href="@{'/Search/Album?words='+${words}}" >专辑</a>
-            <a class="mod_tab__item" th:href="@{'/Search/User?words='+${words}}">视频</a>
+            <a class="mod_tab__item" id="album_tab" th:href="@{'/Search/Album?words='+${words}}" >专辑</a>
+            <a class="mod_tab__item mod_tab__current" th:href="@{'/Search/User?words='+${words}}">视频</a>
         </div>
-        <div class="mod_songlist" id="flushDIV">
-            <div class="mod_songlist_toolbar">
-                <a href="javascript:;" class="mod_btn_blue js_all_play" ><i class="mod_btn_green__icon_play"></i><img src="../image/Index_image/mod_play.png" class="operate_btn" alt="play">播放全部</a>
-                <a href="javascript:;" class="mod_btn js_all_fav"><i class="mod_btn__icon_add"></i><img src="../image/Index_image/mod_add.png" class="operate_btn" alt="add">添加到</a>
-                <a href="javascript:;" class="mod_btn js_all_down"><i class="mod_btn__icon_down"></i><img src="../image/Index_image/mod_download.png" class="operate_btn" alt="download">下载</a>
-                <a href="javascript:;" class="mod_btn js_batch"><i class="mod_btn__icon_batch"></i><img src="../image/Index_image/mod_multoperate.png" class="operate_btn" alt="operate">批量操作</a>
-            </div>
-            <ul class="songlist__header">
-                <li class="songlist__header_name">专辑</li>
-                <li class="songlist__header_album">曲目数</li>
-                <li class="songlist__header_author">歌手</li>
-                <li class="songlist__header_time">语种</li>
-            </ul>
-            <!--/*@thymesVar id="createdsonglist" type="java.util.HashMap"*/-->
-            <div th:each="list,iterStat:${albums}">
-                <ul th:class="${iterStat.odd}? 'songlistlist1 submeau_1' : 'songlistlist2 submeau_2'" th:onmouseover="'javascript:buttonShow(\''+${iterStat.index}+'\')'" th:onmouseout="'javascript:buttonhide(\''+${iterStat.index}+'\')'" >
-                    <li class="songlist__name" ><a th:href="@{'/Album?albumid='+${list.getAlbumid()}}" th:text="${list.getAlbumname()}"></a><img th:src="@{'../image/SongList_image/album1.png'}" alt="songlist_cover" class="playlist__cover"></li>
-                    <div class="songlist__btn"  th:id="'oa_'+${iterStat.index}">
-                        <span><a href="javascript:;" th:onclick="playAlbum([[${list.getAlbumid()}]])"><img src="../image/Index_image/play.png"   alt="play" height="35px" width="35px" class="songlist_btn"/></a></span>
-                        <span><a href="javascript:;" ><img src="../image/Index_image/like.png" alt="like" height="35px" width="35px" class="songlist_btn"/></a></span>
-                        <span><a id="add" href="javascript:;" ><img src="../image/Index_image/add.png" alt="add" height="35px" width="35px" class="songlist_btn"/></a></span>
-                        <span><a href="javascript:;"><img src="../image/Index_image/download.png" alt="download" height="35px" width="35px" class="songlist_btn"/></a></span>
+        <div class="mod_singer_list_text">
+            <ul class="singer_list__list">
+                <li class="singer_list__item" th:each="user,iterStat:${users}">
+                    <h4 class="singer_list__title">
+                        <div class="singer_list__cover" style="visibility: visible;"><a href="javascript:;" class="js_user" >
+                            <img data-original="//thirdqq.qlogo.cn/g?b=sdk&amp;k=DVexvF7VXQk58E7JsKl0PQ&amp;s=140&amp;t=1500472351" src="//thirdqq.qlogo.cn/g?b=sdk&amp;k=DVexvF7VXQk58E7JsKl0PQ&amp;s=140&amp;t=1500472351" onerror="this.src='//y.gtimg.cn/mediastyle/global/img/person_300.png?max_age=31536000';this.onerror=null;" alt="1" class="singer_list__pic" style="display: block; visibility: visible;">
+                        </a></div>
+                        <span class="singer_list__title_txt"><a th:href="@{'/User?userid='+${user.getUserid()}}" class="js_user" th:text="${user.getUsername()}"></a></span>
+                        <i class="singer_list__icon singer_list__icon_fan sprite" title="好友"></i>
+                    </h4>
+                    <div class="singer_list__playlist">
+                        歌单:[[${songlistnum.get(iterStat.index)}]]
                     </div>
-                    <li class="songlist__album" th:text="${songnum.get(iterStat.index)}"></li>
-                    <li class="songlist__author" ><a th:text="${singers[iterStat.index].getSingername()}" th:href="@{'/Singer?singerid='+${singers[iterStat.index].getSingerid()}}"></a></li>
-                    <li class="songlist__time" th:text="${list.getLanguage()}">04:00</li>
-                </ul>
-            </div>
+                    <div class="singer_list__count js_num_follow" data-num="0">
+                        粉丝：[[${fansnum.get(iterStat.index)}]]
+                    </div>
+                    <div class="singer_list__other">
+
+                        <a href="javascript:;" class="mod_btn singer_list__btn_focus js_focus_user" >
+                            <i class="mod_btn__icon_new" th:id="'focus'+${iterStat.index}" th:onclick="FollowUser([[${user.getUserid()}]],[[${iterStat.index}]]);" th:text="${isfollowed.get(iterStat.index)}?'已关注':'未关注'"></i>
+                        </a>
+
+                    </div>
+                </li>
+            </ul>
         </div>
+    </div>
         <div class="mod_operate_menu" id="popwindow" style="display:none;position:absolute;left:697px;top:669px;" >
 
         </div>

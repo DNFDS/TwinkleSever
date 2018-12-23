@@ -4,6 +4,7 @@ import com.example.demo.entity.SongList;
 import com.example.demo.entity.User;
 import com.example.demo.entity.result.ResultEntity;
 import com.example.demo.service.KeepService;
+import com.example.demo.service.SongListService;
 import com.example.demo.service.UserService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class KeepController {
     private KeepService keepService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private SongListService songListService;
 
     @ResponseBody
     @RequestMapping(value = "/KeepSong",method = RequestMethod.POST)
@@ -66,5 +69,13 @@ public class KeepController {
             return new ResultEntity(succ,"保存失败,歌曲已存在",null);
         }
         return new ResultEntity(succ,"喜欢成功",null);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/createNewSonglist",method = RequestMethod.POST)
+    public ResultEntity createNewSonglist(@Param("name")String name, @Param("isprivate")String isprivate,@Param("image")String image, HttpServletRequest request) {
+        User user = (User) request.getSession(false).getAttribute("user");
+        String id = songListService.createNewSongList(name,image,isprivate,user.getUserid());
+        return new ResultEntity(true,"您新创建的歌单id为: "+id,null);
     }
 }

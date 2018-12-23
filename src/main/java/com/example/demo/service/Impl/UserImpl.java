@@ -174,4 +174,12 @@ public class UserImpl implements UserService {
         }
         return null;
     }
+
+    public ArrayList<User> getUserByNamePart(String username){
+        Map<String,Object>map = new HashMap<>();
+        map.put("username",username);
+        userMapper.getUserByNamePart(map);
+        return (ArrayList<User>)map.get("users");
+    }
+
 }

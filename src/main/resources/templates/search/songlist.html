@@ -386,7 +386,7 @@
             <a class= "mod_tab__item"id="song_tab" th:href="@{'/Search/Song?words='+${words}}"  >歌曲 </a>
             <a class="mod_tab__item mod_tab__current" id="songlist_tab" th:href="@{'/Search/SongList?words='+${words}}" >歌单 </a>
             <a class="mod_tab__item" id="album_tab" th:href="@{'/Search/Album?words='+${words}}" >专辑</a>
-            <a class="mod_tab__item" href="javascript:;" th:onclick="showAlbum([[${words}]])">视频</a>
+            <a class="mod_tab__item" th:href="@{'/Search/'}">用户</a>
         </div>
         <div class="mod_songlist" id="flushDIV">
             <div class="mod_songlist_toolbar">
@@ -476,7 +476,7 @@
         <a th:href="@{/profile/like_song}" class="disc l2" onMouseOver="disc2_over()" onMouseOut="disc2_out()">
             <div id="disc2" class="">我的音乐</div>
         </a>
-        <a th:href="@{/profile/like_song}" class="disc l3" onMouseOver="disc3_over()" onMouseOut="disc3_out()">
+        <a th:href="@{/myPage}" class="disc l3" onMouseOver="disc3_over()" onMouseOut="disc3_out()">
             <div id="disc3" class="">个人主页</div>
         </a>
         <a th:href="@{'/Exit'}" class="disc l4" onMouseOver="disc4_over()" onMouseOut="disc4_out()">

@@ -109,7 +109,7 @@
         function showMyCreate() {
             $.ajax({
                 type:"GET",
-                url:"/profile/showMyCreate",
+                url:"/profile/showCreatedSongList",
                 dataType: "html",   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
                 cache:true,
                 data:{
@@ -159,11 +159,11 @@ body {
 	<!-- 主体 -->
 	<div class="main main--profile" style="">
         <div class="mod_tab profile_nav" role="nav" id="nav">
-            <a class=" mod_tab__current" href="#" id="mylike_tab" onclick="showMyLike()">我喜欢</a>
-            <a class="mod_tab__item"  href="#" id="buy_tab" onclick="showMyBought()"  data-tab="buy" data-stat="y_new.profile.tab.digital_album">我的已购</a>
-            <a class="mod_tab__item"  href="#" id="focus_tab" onclick="showFollows()"  data-tab="focus" data-stat="y_new.profile.tab.focus">关注</a>
-            <a class="mod_tab__item"  href="#" id="fans_tab" onclick="showFans()" data-tab="fans" data-stat="y_new.profile.tab.fans">粉丝</a>
-            <a class="mod_tab__item"  href="#" id="uploadmv_tab" onclick="showMyCreate" data-stat="y_new.profile.tab.uploadmv" >我创建的歌单</a>
+            <a class=" mod_tab__current" href="javascript:;" id="mylike_tab" onclick="showMyLike()">我喜欢</a>
+            <a class="mod_tab__item"  href="javascript:;" id="buy_tab" onclick="showMyBought()"  data-tab="buy" data-stat="y_new.profile.tab.digital_album">我的已购</a>
+            <a class="mod_tab__item"  href="javascript:;" id="focus_tab" onclick="showFollows()"  data-tab="focus" data-stat="y_new.profile.tab.focus">关注</a>
+            <a class="mod_tab__item"  href="javascript:;" id="fans_tab" onclick="showFans()" data-tab="fans" data-stat="y_new.profile.tab.fans">粉丝</a>
+            <a class="mod_tab__item"  href="javascript:;" id="uploadmv_tab" onclick="showMyCreate()" data-stat="y_new.profile.tab.uploadmv" >我创建的歌单</a>
         </div>
         <div  id="main" >
 
@@ -224,7 +224,7 @@ body {
 	<a th:href="@{/profile/like_song}" class="disc l2" onMouseOver="disc2_over()" onMouseOut="disc2_out()">
 	<div id="disc2" class="">我的音乐</div>
 	</a>
-	<a th:href="@{/profile/like_song}" class="disc l3" onMouseOver="disc3_over()" onMouseOut="disc3_out()">
+	<a th:href="@{/myPage}" class="disc l3" onMouseOver="disc3_over()" onMouseOut="disc3_out()">
 	<div id="disc3" class="">个人主页</div>
 	</a>
 	<a th:href="@{'/Exit'}" class="disc l4" onMouseOver="disc4_over()" onMouseOut="disc4_out()">

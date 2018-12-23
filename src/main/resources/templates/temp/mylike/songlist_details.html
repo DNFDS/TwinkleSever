@@ -208,12 +208,12 @@
         <div th:each="list,iterStat:${songlist}">
              <ul th:class="${iterStat.odd}? 'songlistlist1 submeau_1' : 'songlistlist2 submeau_2'" th:onmouseover="'javascript:buttonShow(\''+${iterStat.index}+'\')'" th:onmouseout="'javascript:buttonhide(\''+${iterStat.index}+'\')'" >
                 <li class="songlist__name" ><img th:src="@{'../image/SongList_image/album1.png'}" alt="songlist_cover" class="playlist__cover"><a th:text="${list.getSonglistname()}" th:href="@{'/SongList?songlistid='+${list.getSonglistid()}}"></a></li>
-                <div class="songlist__btn" th:id="'oa_'+${iterStat.index}">
-                    <span><a href="javascript:;"><img src="../image/Index_image/play.png" alt="play" height="35px" width="35px" class="songlist_btn"/></a></span>
-                    <span><a href="javascript:;"><img src="../image/Index_image/like.png" alt="like" height="35px" width="35px" class="songlist_btn"/></a></span>
-                    <span><a href="javascript:;"><img src="../image/Index_image/add.png" alt="add" height="35px" width="35px" class="songlist_btn"/></a></span>
-                    <span><a href="javascript:;"><img src="../image/Index_image/download.png" alt="download" height="35px" width="35px" class="songlist_btn"/></a></span>
-                </div>
+                 <div class="songlist__btn" th:id="'oa_'+${iterStat.index}">
+                     <span><a href="javascript:;" th:onclick="playSongList([[${list.getSonglistid()}]])"><img src="../image/Index_image/play.png" alt="play" height="35px" width="35px" class="songlist_btn"/></a></span>
+                     <span><a href="javascript:;" th:onclick="KeepSonglist([[${list.getSonglistid()}]])"><img src="../image/Index_image/like.png" alt="like" height="35px" width="35px" class="songlist_btn"/></a></span>
+                     <span><a href="javascript:;"><img src="../image/Index_image/add.png" alt="add" height="35px" width="35px" class="songlist_btn"/></a></span>
+                     <span><a href="javascript:;"><img src="../image/Index_image/download.png" alt="download" height="35px" width="35px" class="songlist_btn"/></a></span>
+                 </div>
                 <li class="songlist__album" th:text="${songnum.get(iterStat.index)}"></li>
                 <li class="songlist__author" th:text="${username.get(iterStat.index)}"></li>
                 <li class="songlist__time" th:text="${savenum.get(iterStat.index)}"></li>
