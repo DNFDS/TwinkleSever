@@ -98,4 +98,15 @@ public class SongListImpl implements SongListService {
         return songLists;
     }
 
+    @Override
+    public String createNewSongList(String name, String image, String isprivate,String userid){
+        Map<String,Object> map = new HashMap<>();
+        map.put("songlistname",name);
+        map.put("songlistimage",image);
+        map.put("isprivate",isprivate);
+        map.put("userid",userid);
+        songListMapper.createSongList(map);
+        return (String) map.get("songlistid");
+    }
+
 }

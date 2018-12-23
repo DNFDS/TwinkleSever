@@ -58,4 +58,13 @@ public class SearchController {
         return "search/album";
     }
 
+    @RequestMapping(value ="/Search/User",method = RequestMethod.GET)
+    public String searchUser(@RequestParam("words")String searchWords, Map<String, Object> map, HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        ArrayList<User> users = userService.getUserByNamePart(searchWords);
+        map.put("words",searchWords);
+        map.putAll(autoShowUtil.showUser(users,user.getUserid()));
+        return "search/user";
+    }
+
 }

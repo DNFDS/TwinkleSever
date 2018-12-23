@@ -35,86 +35,6 @@
             styleVal1=zz+"left:548px;top:"+top+"px;";
             document.getElementById("popwindow").setAttribute("style",styleVal1);
         }
-        function show_song(word) {
-            alert(word);
-            $.ajax({
-                type:"GET",
-                url:"/SearchSong",
-                data:{
-                    words:word
-                },
-                dataType: "html",   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
-                cache:true,
-                success:function(data){
-                    $('#flushDIV').html(data);
-                    var song = document.getElementById('song_tab');
-                    var songlist = document.getElementById('songlist_tab');
-                    var album = document.getElementById('album_tab');
-                    song.className = 'mod_tab__item mod_tab__current';
-                    songlist.className = 'mod_tab__item';
-                    album.className = 'mod_tab__item';
-                },
-                error:function(XMLHttpRequest, textStatus, errorThrown){
-                    alert(XMLHttpRequest.status);
-                    alert(XMLHttpRequest.readyState);
-                    alert(textStatus);
-                }
-            });
-        }
-        function show_songlist(word) {
-            alert(word);
-            $.ajax({
-                type:"GET",
-                url:"/SearchSongList",
-                data:{
-                    words:word
-                },
-                dataType: "html",   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
-                cache:true,
-                success:function(data){
-                    $('#flushDIV').html(data);
-                    var song = document.getElementById('song_tab');
-                    var songlist = document.getElementById('songlist_tab');
-                    var album = document.getElementById('album_tab');
-                    song.className = 'mod_tab__item'
-                    songlist.className = 'mod_tab__item mod_tab__current';
-                    album.className = 'mod_tab__item';
-                },
-                error:function(XMLHttpRequest, textStatus, errorThrown){
-                    alert(XMLHttpRequest.status);
-                    alert(XMLHttpRequest.readyState);
-                    alert(textStatus);
-                }
-            });
-        }
-        function showAlbum(word) {
-            /*<![CDATA[*/
-            var words = [[${words}]];
-            /*]]>*/
-            $.ajax({
-                type:"GET",
-                url:"/SearchAlbum",
-                data:{
-                    words:word
-                },
-                dataType: "html",
-                cache:true,
-                success:function(data){
-                    $('#flushDIV').html(data);
-                    var song = document.getElementById('song_tab');
-                    var songlist = document.getElementById('songlist_tab');
-                    var album = document.getElementById('album_tab');
-                    song.className = 'mod_tab__item mod_tab__current';
-                    songlist.className = 'mod_tab__item';
-                    album.className = 'mod_tab__item';
-                },
-                error:function(XMLHttpRequest, textStatus, errorThrown){
-                    alert(XMLHttpRequest.status);
-                    alert(XMLHttpRequest.readyState);
-                    alert(textStatus);
-                }
-            });
-        }
     </script>
     <style>
         .mod_songlist {
@@ -256,7 +176,7 @@
             <a class="mod_tab__item mod_tab__current" id="song_tab" th:href="@{'/Search/Song?words='+${words}}"  >歌曲 </a>
             <a class="mod_tab__item" id="songlist_tab" th:href="@{'/Search/SongList?words='+${words}}" >歌单 </a>
             <a class="mod_tab__item" id="album_tab" th:href="@{'/Search/Album?words='+${words}}" >专辑</a>
-            <a class="mod_tab__item" href="javascript:;" th:onclick="showAlbum([[${words}]])">视频</a>
+            <a class="mod_tab__item" th:href="@{'/Search/User?words='+${words}}">用户</a>
 		</div>
         <div class="mod_songlist" id="flushDIV">
             <div class="mod_songlist_toolbar">
@@ -347,7 +267,7 @@
 	<a th:href="@{/profile/like_song}" class="disc l2" onMouseOver="disc2_over()" onMouseOut="disc2_out()">
 	<div id="disc2" class="">我的音乐</div>
 	</a>
-	<a th:href="@{/profile/like_song}" class="disc l3" onMouseOver="disc3_over()" onMouseOut="disc3_out()">
+	<a th:href="@{/myPage}" class="disc l3" onMouseOver="disc3_over()" onMouseOut="disc3_out()">
 	<div id="disc3" class="">个人主页</div>
 	</a>
 	<a th:href="@{'/Exit'}" class="disc l4" onMouseOver="disc4_over()" onMouseOut="disc4_out()">

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public interface SongListService {
     SongList getSongListById(String songlistid);
+    String createNewSongList(String name, String image, String isprivate,String userid);
     ArrayList<SongList> getSongListByNamePart(String name);
     ResultEntity getSongsInSongList(SongList list);
     ResultEntity getSongListSavedNum(SongList list);

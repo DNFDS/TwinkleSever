@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>搜索音乐</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet">
+    <link href="../css/PersonalMessage.css" rel="stylesheet">
+    <link href="../css/like_song.css" rel="stylesheet">
+    <script src="/JS/jquery-3.3.1.min.js"></script>
+    <script src="/JS/bootstrap.min.js"></script>
+    <script src="/JS/main_js.js"></script>
+    <script src="/JS/play.js"></script>
+    <script src="/JS/showChooser.js"></script>
+    <style>
+        .mod_operate_menu {
+            position: absolute;
+            top: auto;
+            left: auto;
+            z-index: 100;
+            color: #4F4F4F;
+            font-size: 14px;
+        }
+        .operate_menu__cont, .operate_menu__sub {
+
+            width: 128px;
+            padding: 5px 0;
+            background-color: #fff;
+            box-shadow: 0 0 10px 0 rgba(183,183,183,.65);
+            border: 1px solid #bfbfbf;
+
+        }
+        .operate_menu__link {
+
+            display: block;
+            height: 36px;
+            line-height: 36px;
+            padding-left: 30px;
+            padding-right: 15px;
+            margin-bottom: 1px;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+
+        }
+        .operate_menu__top_line {
+
+            padding-top: 5px;
+            border-top: 1px solid #f0f0f0;
+            margin-top: 5px;
+
+        }
+        .operate_menu__list {
+
+            overflow-y: auto;
+
+        }
+        .operate_menu__link {
+
+            display: block;
+            height: 36px;
+            line-height: 36px;
+            padding-left: 30px;
+            padding-right: 15px;
+            margin-bottom: 1px;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+
+        }
+        body {
+            background-color: #fafafa;
+        }
+        .mod_songlist_toolbar a:hover{
+            color: rgba(0,124,249,1.00);
+        }
+        .mod_songlist {
+            padding-bottom:50px;
+            min-height:400px;
+        }
+    </style>
+    <style>
+        body {
+            background-color: #fafafa;
+        }
+        .songlist__header, .songlist__list1,.songlist__list2 {
+            position: relative;
+            padding-left: 20px;
+            padding-right: 100px;
+        }
+        .songlist__header{
+            height: 50px;
+            line-height: 50px;
+            background-color: rgba(0,0,0,.01);
+            color: #999;
+        }
+        .songlist__header_name {
+            float: left;
+            width: 56%;
+            position: relative;
+            white-space: normal;
+        }
+        .songlist__header_album, .songlist__header_author {
+            float: right;
+            padding-left: 20px;
+            width: 22%;
+            box-sizing: border-box;
+        }
+        .songlist__header_time {
+            position: absolute;
+            top: 0;
+            right: 38px;
+            width: 50px;
+        }
+        .songlist__header_other{
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 38px;
+            overflow: inherit;
+        }
+        .songlistlist1 {
+            height: 70px;
+            line-height: 50px;
+            background-color:rgba(251,251,251,1.00);
+            color: #727272;
+        }
+        .songlistlist2 {
+            height: 70px;
+            line-height: 50px;
+            background-color: rgba(0,0,0,.01);
+            color: #727272;
+        }
+        .songlist__name{
+            float: left;
+            padding-top:10px;
+            width: 36%;
+            position: relative;
+            white-space: normal;
+        }
+        .songlist__btn{
+            float: left;
+            top:10px;
+            width: 20%;
+            position: relative;
+            white-space: normal;
+        }
+        .songlist_btn{
+            margin-left: 10px;
+        }
+        .songlist__album, .songlist__author {
+            float: right;
+            padding-top:10px;
+            padding-left: 20px;
+            width: 22%;
+            box-sizing: border-box;
+        }
+        .songlist__time {
+            position: absolute;
+            top: 10px;
+            right: 38px;
+            width: 50px;
+        }
+        .songlist__other {
+            position: absolute;
+            top: 10px;
+            right: 0;
+            width: 38px;
+            overflow: inherit;
+        }
+        .playlist__cover {
+            float: left;
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            overflow: hidden;
+        }
+        .style_switch {
+            position: absolute;
+            top: 30px;
+            right: 0;
+            width: 80px;
+            height: 38px;
+            border-radius: 2px;
+            border: 1px solid #c9c9c9;
+        }
+        .style_switch__item {
+            float: left;
+            width: 50%;
+            height: 38px;
+            position: relative;
+        }
+        .style_switch__item_right {
+            float: left;
+            width: 50%;
+            height: 36px;
+            position: relative;
+        }
+        .style_switch__item--select {
+            background-color: rgba(22,154,243,1.00);
+        }
+        .style_switch__item_img {
+            margin-left: 12px;
+            margin-top: 10px;
+        }
+        .mod_songlist {
+            margin-top: 50px;
+        }
+        .mod_songlist_toolbar{
+            padding-top:0px
+        }
+    </style>
+    <script>
+        function popwindowup(i){
+            var styleVal1 = document.getElementById('popwindow').getAttribute("style");
+            var len= styleVal1.length;
+            var xx= styleVal1.substring(0,14);
+            var yy= styleVal1.substring(14,len);
+            var zz="display:block;position:absolute;";
+            var top=228+i*50;
+            styleVal1=zz+"left:548px;top:"+top+"px;";
+            document.getElementById("popwindow").setAttribute("style",styleVal1);
+        }
+        document.onclick = function (event)  {
+            var e = event || window.event;
+            var istrue="false";
+            var elem = e.srcElement||e.target;
+            var styleVal1 = document.getElementById('popwindow').getAttribute("style");
+            var len= styleVal1.length;
+            var xx= styleVal1.substring(0,14);
+            var yy= styleVal1.substring(14,len);
+            if(xx=="display:block;"){
+                while(elem)
+                {
+                    if(elem.id == "popwindow"||elem.id =="add")
+                    {
+                        istrue="true";
+                        break;
+                    }
+                    elem = elem.parentNode;
+                }
+                if(istrue!="true"){
+                    styleVal1="display:none;"+yy;
+                    document.getElementById("popwindow").setAttribute("style",styleVal1);
+                }
+            }
+        }
+        $(document).ready(function(){
+            /*<![CDATA[*/
+            var size = [[${songlist.size()}]];
+            /*]]>*/
+            for (var num =0; num<size; num++) {
+                $("#oa_"+num).hide();
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="mod_songlist_toolbar">
+        <a href="javascript:;" class="mod_btn_blue js_all_play"><i class="mod_btn_green__icon_play"></i><img src="../image/Index_image/mod_play.png" class="operate_btn" alt="play">播放全部</a>
+        <a href="javascript:;" class="mod_btn js_all_fav"><i class="mod_btn__icon_add"></i><img src="../image/Index_image/mod_add.png" class="operate_btn" alt="add">添加到</a>
+        <a href="javascript:;" class="mod_btn js_all_down"><i class="mod_btn__icon_down"></i><img src="../image/Index_image/mod_download.png" class="operate_btn" alt="download">下载</a>
+        <a href="javascript:;" class="mod_btn js_batch"><i class="mod_btn__icon_batch"></i><img src="../image/Index_image/mod_multoperate.png" class="operate_btn" alt="operate">批量操作</a>
+    </div>
+    <ul class="songlist__header">
+        <li class="songlist__header_name">歌单</li>
+        <li class="songlist__header_album">曲目数</li>
+        <li class="songlist__header_author">创建人</li>
+        <li class="songlist__header_time">收藏数</li>
+    </ul>
+    <!--/*@thymesVar id="createdsonglist" type="java.util.HashMap"*/-->
+    <div th:each="list,iterStat:${songlist}">
+        <ul th:class="${iterStat.odd}? 'songlistlist1 submeau_1' : 'songlistlist2 submeau_2'" th:onmouseover="'javascript:buttonShow(\''+${iterStat.index}+'\')'" th:onmouseout="'javascript:buttonhide(\''+${iterStat.index}+'\')'" >
+            <li class="songlist__name" ><img th:src="@{'../image/SongList_image/album1.png'}" alt="songlist_cover" class="playlist__cover"><a th:text="${list.getSonglistname()}" th:href="@{'/SongList?songlistid='+${list.getSonglistid()}}"></a></li>
+            <div class="songlist__btn" th:id="'oa_'+${iterStat.index}">
+                <span><a href="javascript:;" th:onclick="playSongList([[${list.getSonglistid()}]])"><img src="../image/Index_image/play.png" alt="play" height="35px" width="35px" class="songlist_btn"/></a></span>
+                <span><a href="javascript:;" th:onclick="KeepSonglist([[${list.getSonglistid()}]])"><img src="../image/Index_image/like.png" alt="like" height="35px" width="35px" class="songlist_btn"/></a></span>
+                <span><a href="javascript:;"><img src="../image/Index_image/add.png" alt="add" height="35px" width="35px" class="songlist_btn"/></a></span>
+                <span><a href="javascript:;"><img src="../image/Index_image/download.png" alt="download" height="35px" width="35px" class="songlist_btn"/></a></span>
+            </div>
+            <li class="songlist__album" th:text="${songnum.get(iterStat.index)}"></li>
+            <li class="songlist__author" th:text="${username.get(iterStat.index)}"></li>
+            <li class="songlist__time" th:text="${savenum.get(iterStat.index)}"></li>
+        </ul>
+    </div>
+<!-- 输入框页面 -->
+<div class="mod_popup_mask" id="mask" style="display:none;"></div>
+<div id="newsonglist_div" class="mod_popup popup_new_list" data-aria="popup" style="display:none;position:fixed;z-index:100000;margin:10px;width:520px;height:auto;left: 507px;top:242px;">
+    <div class="popup__hd">
+        <h2 class="popup__tit">创建新歌单</h2>
+        <a href="javascript:;" class="popup__close" title="关闭"><i class="popup__icon_close"></i><i class="icon_txt">关闭</i></a>
+    </div>
+
+    <div class="popup__bd " id="dialogbox">
+        <label class="form__label">歌单名</label> <div class="mod_form_txt"> <input type="text" value="" class="form_txt__input" id="new_playlist_fav"><span class="form_txt__tips" id="name_leftnum_fav">20</span></div>
+    </div>
+
+    <div class="popup__ft">
+        <button onclick="close_newsonglist_div()" class="mod_btn upload_btns__item js-button1">取消</button>
+        <button  class="mod_btn_blue upload_btns__item js-button2">确定</button>
+    </div>
+</div>
+<div class="mod_operate_menu" id="popwindow" style="display:none;position:absolute;left:697px;top:669px;" >
+
+</div>
+</body>
+</html>

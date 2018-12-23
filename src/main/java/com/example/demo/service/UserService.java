@@ -17,6 +17,7 @@ public interface UserService {
     ResultEntity getSongLists(User user);
     ArrayList<SongList> getCreatedSongList(String userid);
     ArrayList<SongList> getKeepedSongList(String userid);
+    ArrayList<User> getUserByNamePart(String username);
     ResultEntity getUserById(String id);
     ResultEntity isFriendExist(String userid,String friendid);
     SongList getFavoritelist(String userid);

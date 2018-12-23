@@ -61,7 +61,26 @@ public class AutoShowUtil {
         return map;
     }
 
-
+    /**
+     *
+     * @param albums
+     * @return "albums" "songnum" "singers"
+     */
+    public Map<String,Object> showAlbum(ArrayList<Album> albums){
+        Map<String,Object> map = new HashMap<>();
+        ArrayList<Integer> songnum = new ArrayList<>();
+        ArrayList<Singer> singers = new ArrayList<>();
+        for(Album album:albums){
+            Singer singer = singerService.getSingerById(album.getSingerid());
+            ArrayList<Song> songs = albumService.getSongsInAlbum(album.getAlbumid());
+            singers.add(singer);
+            songnum.add(songs.size());
+        }
+        map.put("albums",albums);
+        map.put("songnum",songnum);
+        map.put("singers",singers);
+        return map;
+    }
     /**
      *
      * @param id
@@ -81,6 +100,29 @@ public class AutoShowUtil {
         map.put("Follows",follows);
         map.put("FollowNum",FollowNum);
         map.put("isFollow",isFollow);
+        return map;
+    }
+
+    /**
+     *
+     * @param users
+     * @return "songlistnum" "fansnum" "isfollowed" "users"
+     */
+    public Map<String, Object> showUser(ArrayList<User> users, String myid){
+        ArrayList<Integer> songlistnum = new ArrayList<>();
+        ArrayList<Integer> fansnum = new ArrayList<>();
+        ArrayList<Boolean> isfollowed = new ArrayList<>();
+        Map<String,Object> map = new HashMap<>();
+        for(User user:users){
+            isfollowed.add((Boolean)userService.isFriendExist(myid,user.getUserid()).getObject());
+            ArrayList<User> i = (ArrayList<User>)userService.getFans(user).getObject();
+            fansnum.add(i.size());
+            songlistnum.add(userService.getCreatedSongList(user.getUserid()).size());
+        }
+        map.put("songlistnum",songlistnum);
+        map.put("fansnum",fansnum);
+        map.put("isfollowed",isfollowed);
+        map.put("users",users);
         return map;
     }
 
@@ -148,26 +190,7 @@ public class AutoShowUtil {
         return map;
     }
 
-    /**
-     *
-     * @param albums
-     * @return "albums" "songnum" "singers"
-     */
-    public Map<String,Object> showAlbum(ArrayList<Album> albums){
-        Map<String,Object> map = new HashMap<>();
-        ArrayList<Integer> songnum = new ArrayList<>();
-        ArrayList<Singer> singers = new ArrayList<>();
-        for(Album album:albums){
-            Singer singer = singerService.getSingerById(album.getSingerid());
-            ArrayList<Song> songs = albumService.getSongsInAlbum(album.getAlbumid());
-            singers.add(singer);
-            songnum.add(songs.size());
-        }
-        map.put("albums",albums);
-        map.put("songnum",songnum);
-        map.put("singers",singers);
-        return map;
-    }
+
 
 
     public String getSongListStyle(ArrayList<Song> songs){
