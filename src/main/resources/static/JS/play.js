@@ -39,7 +39,9 @@ function playSongList(songListID) {
                 showTips( "添加成功！", 50, 1 );
                 localStorage.clear();
                 for(var i=0;i<data.newSongList.length;i++)
+                {
                     localStorage.setItem("songChanged",data.newSongList[i]);
+                }
             }
         },
         error: function () {

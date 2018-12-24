@@ -401,59 +401,30 @@
 
     window.addEventListener("storage", function(e)
     {
-        if(e.newValue!=null)
-            if(localStorage.getItem("songChanged")!=null)
-            {
-                $.ajax({
-                    url: "/getSongByID",
-                    type: 'post',
-                    dataType: 'json',
-                    data: {
-                        "songID":e.newValue
-                    },
-                    success: function(data){
-                        if(data!=null)
-                        {
-                            var li_play='<li class="songInfo" data-songid='+data.songid+'  onmouseenter="listOnMouseEnter(this)" onmouseleave="listOnMouseLeave(this)" onclick="playListClick(this.dataset.songid)" style="border-bottom: solid 1px rgba(214,216,212,0.3);">'+data.songname+'</li>';
-                            var li_length='<li class="lengthInfo"  style="border-bottom: solid 1px rgba(214,216,212,0.3);">'+data.length+'</li>';
-                            $("#playList").append(li_play);
-                            $("#lengthList").append(li_length);
-                        }
-                        else
-                            alert("找不到该歌曲?");
-                    },
-                    error: function(){
-                        alert("找不到该歌曲！");
+        if(e.newValue!=null&&localStorage.getItem("songChanged")!=null)
+            $.ajax({
+                url: "/getSongByID",
+                type: 'post',
+                async:false,
+                dataType: 'json',
+                data: {
+                    "songID":e.newValue
+                },
+                success: function(data){
+                    if(data!=null)
+                    {
+                        var li_play='<li class="songInfo" data-songid='+data.songid+'  onmouseenter="listOnMouseEnter(this)" onmouseleave="listOnMouseLeave(this)" onclick="playListClick(this.dataset.songid)" style="border-bottom: solid 1px rgba(214,216,212,0.3);">'+data.songname+'</li>';
+                        var li_length='<li class="lengthInfo"  style="border-bottom: solid 1px rgba(214,216,212,0.3);">'+data.length+'</li>';
+                        $("#playList").append(li_play);
+                        $("#lengthList").append(li_length);
                     }
-                });
-            }
-            else if(localStorage.getItem("listChanged")!=null)
-            {
-                $.ajax({
-                    url: "/getSongsByListID",
-                    type: 'post',
-                    dataType: 'json',
-                    data: {
-                        "songListID":e.newValue
-                    },
-                    success: function(data){
-                        for(var i=0;i<data.size();i++)
-                        {
-                            var li_play='<li class="songInfo" data-songid='+data.songid+'  onmouseenter="listOnMouseEnter(this)" onmouseleave="listOnMouseLeave(this)" onclick="playListClick(this.dataset.songid)" style="border-bottom: solid 1px rgba(214,216,212,0.3);">'+data.songname+'</li>';
-                            var li_length='<li class="lengthInfo"  style="border-bottom: solid 1px rgba(214,216,212,0.3);">'+data.length+'</li>';
-                            $("#playList").append(li_play);
-                            $("#lengthList").append(li_length);
-                        }
-                    },
-                    error: function(){
-                        alert("storage监听2");
-                    }
-                });
-            }
-            else
-            {
-                alert("没有set storage");
-            }
+                    else
+                        alert("找不到该歌曲?");
+                },
+                error: function(){
+                    alert("找不到该歌曲！");
+                }
+            });
     });
     function listOnMouseEnter(el)
     {
