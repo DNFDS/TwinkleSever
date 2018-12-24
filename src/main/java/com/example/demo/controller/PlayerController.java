@@ -48,10 +48,16 @@ public class PlayerController
     {
         ModelAndView modelAndView=new ModelAndView("Player");
         ArrayList<Integer>playList=(ArrayList<Integer>) request.getSession().getAttribute("playList");
-        HashMap hashMap=new HashMap();
-        hashMap.put("songid",playList.get(0));
-        Song temp=playerService.getSongByID(hashMap);
-        modelAndView.addObject("song",temp);
+        ArrayList<Song>songList=new ArrayList<>();
+
+        for(Integer i:playList)
+        {
+            HashMap hashMap=new HashMap();
+            hashMap.put("songid",i);
+            Song temp=playerService.getSongByID(hashMap);
+            songList.add(temp);
+        }
+        modelAndView.addObject("songList",songList);
         return modelAndView;
     }
 
@@ -74,6 +80,8 @@ public class PlayerController
             arrayList.add(songID);
             arrayList_mode.add(songID);
         }
+        else
+            return null;
 
         if(session.getAttribute("playerLoaded")==null)//还没有播放器界面
         {
@@ -82,7 +90,9 @@ public class PlayerController
             hashMap.put("urllink","/getPlayer");
             return hashMap;
         }
-        return null;
+        HashMap hashMap=new HashMap();
+        hashMap.put("newSong",songID);
+        return hashMap;
     }
     @ResponseBody
     @RequestMapping(value = "/addAlbumToList",method = RequestMethod.POST)
@@ -141,10 +151,12 @@ public class PlayerController
         {
             return null;
         }
+        ArrayList<Integer>addList=new ArrayList<>();
         for(Integer i:songList)
         {
             if(arrayList.indexOf(i)==-1)
             {
+                addList.add(i);
                 arrayList.add(i);
                 arrayList_mode.add(i);
             }
@@ -156,7 +168,9 @@ public class PlayerController
             map.put("urllink","/getPlayer");
             return map;
         }
-        return null;
+        HashMap returnMap=new HashMap();
+        returnMap.put("newSongList",addList);
+        return returnMap;
     }
 
     @ResponseBody
@@ -221,4 +235,30 @@ public class PlayerController
             request.getSession().setAttribute("playList_mode",temp);
         }
     }
+    @RequestMapping(value = "/getSongByID",method = RequestMethod.POST)
+    @ResponseBody
+    public Song getSongByID(@Param("songID")String songID)
+    {
+        HashMap hashMap=new HashMap();
+        hashMap.put("songid",songID);
+        Song temp=playerService.getSongByID(hashMap);
+        return temp;
+    }
+
+    /*@RequestMapping(value = "/getSongsByListID",method = RequestMethod.POST)
+    @ResponseBody
+    public ArrayList<Song>getSongsByListID(@Param("songListID")String songListID,HttpServletRequest request)
+    {
+        ArrayList<Integer>playList=(ArrayList<Integer>) request.getSession().getAttribute("playList");
+        HashMap<String,Object>hashMap =new HashMap<>();
+        hashMap.put("songlistid",songListID);
+        ArrayList<Integer>songIdList=playerService.getListByListID(hashMap);
+        ArrayList<Song>songList=new ArrayList<>();
+        for(Integer i:songIdList)
+        {
+            if(playList.indexOf())
+        }
+        return songList;
+    }*/
+
 }
