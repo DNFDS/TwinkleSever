@@ -50,7 +50,7 @@ public class SignInController {
         if(result.getSuccess()){
             request.getSession().setAttribute("user",result.getObject());
             request.getSession().setAttribute("visted",result.getObject());
-            return "redirect:/profile/like_song";
+            return "redirect:/findMusic";
         }
         else{
             map.put("errMsg",result.getErrorMsg());
