@@ -142,7 +142,7 @@ public class PersonalController {
         //list页面，要额外添加歌单的收藏数和曲目数
         ArrayList<SongList>keepedSongList = userService.getKeepedSongList(user.getUserid());
         //得到所有歌单的曲目数和收藏数创建人  songnum  savenum username
-        Map<String,Object>map = showUtil.showSongList(keepedSongList);
+        Map<String,Object>map = showUtil.showSongList(  keepedSongList);
         if(flag.equals("1"))
             return new ModelAndView("/temp/mylike/songlist_details",map);
         if(flag.equals("2"))
