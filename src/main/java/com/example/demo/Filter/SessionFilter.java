@@ -14,7 +14,7 @@ public class SessionFilter implements Filter {
     private String NO_LOGIN = "您还未登录";
 
     //不需要登录就可以访问的路径(比如:注册登录等)
-    private String[] includeUrls = new String[]{"/Login","register","/","/image/*","/css/*"};
+    private String[] includeUrls = new String[]{"/Login","register","/","/image/*","/css/*","/JS/*"};
 
 
     @Override
@@ -46,7 +46,6 @@ public class SessionFilter implements Filter {
                     //重定向到登录页(需要在static文件夹下建立此html文件)
                     response.sendRedirect(request.getContextPath()+"/");
                 }
-                return;
             }
         }*/
     }
@@ -74,6 +73,7 @@ public class SessionFilter implements Filter {
                 if(i+1 == modelString.length()){
                     return modelString.charAt(i) == '*';
                 }
+                return false;
             }
         }
         return  i == toCompared.length();

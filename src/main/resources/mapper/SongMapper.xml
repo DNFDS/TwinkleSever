@@ -38,4 +38,7 @@
   <select id="songPlaytimesPlus" statementType="CALLABLE">
     call SONG_PKG.song_playtimes_plus(#{singerid,mode=IN,jdbcType=VARCHAR},#{succ,mode=OUT,jdbcType=VARCHAR})
   </select>
+  <select id="getPushSong" parameterType="java.util.HashMap" statementType="CALLABLE">
+  call PUSHSONG_PKG.pushsong(#{userid,mode=IN,jdbcType=VARCHAR},#{songs,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SongResultMap})
+  </select>
 </mapper>

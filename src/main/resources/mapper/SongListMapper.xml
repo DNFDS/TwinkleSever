@@ -60,4 +60,7 @@
   <select id="updateIsPrivate" statementType="CALLABLE">
     call SONGLIST_PKG.update_songlist_private(#{songlistid,mode=IN,jdbcType=VARCHAR},#{isprivate,mode=IN,jdbcType=VARCHAR},#{succ,mode=OUT,jdbcType=VARCHAR})
   </select>
+  <select id="getPushSonglist" parameterType="java.util.HashMap" statementType="CALLABLE">
+  call PUSHSONG_PKG.push_sl(#{userid,mode=IN,jdbcType=VARCHAR},#{songlists,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SongListResultMap})
+  </select>
 </mapper>

@@ -7,9 +7,9 @@
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/PersonalMessage.css" rel="stylesheet">
     <link href="../css/main.css" rel="stylesheet">
-    <script src="../JS/jquery-3.3.1.min.js"></script>
-    <script src="../JS/bootstrap.min.js"></script>
-    <script src="../JS/main_js.js"></script>
+    <script src="/JS/jquery-3.3.1.min.js"></script>
+    <script src="/JS/bootstrap.min.js"></script>
+    <script src="/JS/main_js.js"></script>
     <style>
         body {
             background-color: #fafafa;
@@ -93,34 +93,61 @@
             margin: 9px auto 0;
         }
     </style>
+    <script>
+        function FollowUser(userid,index) {
+            var btn_id = "focus"+index;
+            var word_id = "word"+index;
+            $.ajax({
+                type:"GET",
+                url:"/profile/changeFollow",
+                data:{
+                    id:userid
+                },
+                dataType:"json",   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
+                cache:true,
+                success:function(dataObj) {
+                    var tab = document.getElementById(btn_id);
+                    var word = document.getElementById(word_id);
+                    var follownum = word.getAttribute('data-focusnum');
+                    var num = parseInt(follownum);
+                    if (dataObj.succ === '1') {
+                        if (dataObj.flag === '1') {
+                            num ++;
+                            tab.innerHTML="取消关注";
+                            showTips('关注成功',50,1)
+                        } else {
+                            num --;
+                            tab.innerHTML="关注";
+                            showTips('取消关注成功',50,1);
+                        }
+                        word.innerHTML=num+"人已关注";
+                        word.setAttribute('data-focusnum',num);
+                    }
+                    else
+                        alert('请求失败');
+                }
+            });
+        }
+    </script>
+</head>
 <body>
 <div class="js_sub" id="focus_singer_box" style="display: block;">
     <div class="mod_singer_list mod_singer_list--fans">
         <ul class="singer_list__list">
+
             <li class="singer_list__item" th:each="list,iterStat:${Follows}">
                 <div class="singer_list__item_box">
-                    <a href="https://y.qq.com/n/yqq/singer/001Y2Gbc2Xt1hU.html" class="singer_list__cover js_singer" hidefocus="true" data-mid="001Y2Gbc2Xt1hU" data-id="4712">
+                    <a href="https://y.qq.com/n/yqq/singer/001Y2Gbc2Xt1hU.html" class="singer_list__cover js_singer" >
                         <img class="singer_list__pic" src="//y.gtimg.cn/music/photo_new/T001R150x150M000001Y2Gbc2Xt1hU.jpg?max_age=2592000" onerror="this.src='//y.gtimg.cn/mediastyle/global/img/singer_300.png?max_age=31536000';this.error=null;" alt="Michael Jackson">
                     </a>
                     <h3 class="singer_list__title"><a href="https://y.qq.com/n/yqq/singer/001Y2Gbc2Xt1hU.html" class="js_singer" title="Michael Jackson" th:text="${list.getUsername()}"></a></h3>
-                    <p class="singer_list__info" th:text="${FollowNum.get(iterStat.index)}+'人已关注'"></p>
+                    <p class="singer_list__info" th:data-focusnum="${FollowNum.get(iterStat.index)}" th:id="'word'+${iterStat.index}" th:text="${FollowNum.get(iterStat.index)}+'人已关注'"></p>
                     <div class="singer_list__focus">
                         <a href="javascript:;" class="mod_btn singer_list__btn_focus js_follow_singer" ><span class="btn_focus__cont" th:id="'focus'+${iterStat.index}" th:onclick="FollowUser([[${list.getUserid()}]],[[${iterStat.index}]]);" th:text="${isFollow.get(iterStat.index)}?'已关注':'未关注'"></span></a>
                     </div>
                 </div>
             </li>
-            <li class="singer_list__item">
-                <div class="singer_list__item_box">
-                    <a href="https://y.qq.com/n/yqq/singer/001Y2Gbc2Xt1hU.html" class="singer_list__cover js_singer" hidefocus="true" data-mid="001Y2Gbc2Xt1hU" data-id="4712">
-                        <img class="singer_list__pic" src="//y.gtimg.cn/music/photo_new/T001R150x150M000001Y2Gbc2Xt1hU.jpg?max_age=2592000" onerror="this.src='//y.gtimg.cn/mediastyle/global/img/singer_300.png?max_age=31536000';this.error=null;" alt="Michael Jackson">
-                    </a>
-                    <h3 class="singer_list__title"><a href="https://y.qq.com/n/yqq/singer/001Y2Gbc2Xt1hU.html" data-mid="001Y2Gbc2Xt1hU" data-id="4712" class="js_singer" title="Michael Jackson">Michael Jackson</a></h3>
-                    <p class="singer_list__info">204万人关注</p>
-                    <div class="singer_list__focus">
-                        <a href="javascript:;" class="mod_btn singer_list__btn_focus js_follow_singer" data-follow="1" data-mid="001Y2Gbc2Xt1hU" data-id="4712"><span class="btn_focus__cont">已关注</span></a>
-                    </div>
-                </div>
-            </li>
+
         </ul>
     </div>
 </div>

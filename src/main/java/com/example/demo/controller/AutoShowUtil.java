@@ -40,24 +40,24 @@ public class AutoShowUtil {
     }
     /**
      * @param :Arraylist<song> songs
-     * @out : "songlist""songnum" "savenum" "username"
+     * @out : "songlist""songnum" "savenum"  "user"
      */
     public Map<String,Object> showSongList(ArrayList<SongList> songLists){
         Map<String,Object> map = new HashMap<>();
         ArrayList<Integer>songnum = new ArrayList<>();
         ArrayList<Integer>savenum = new ArrayList<>();
-        ArrayList<String>username = new ArrayList<>();
+        ArrayList<User>users = new ArrayList<>();
         map.put("songlist",songLists);
         for(SongList list : songLists){
             ArrayList<Song> l = (ArrayList<Song>)songListService.getSongsInSongList(list).getObject();
             songnum.add(l.size());
             savenum.add((int)songListService.getSongListSavedNum(list).getObject());
             User user = (User) userService.getUserById(list.getUserid()).getObject();
-            username.add(user.getUsername());
+            users.add(user);
         }
         map.put("songnum",songnum);
         map.put("savenum",savenum);
-        map.put("username",username);
+        map.put("users",users);
         return map;
     }
 

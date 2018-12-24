@@ -3,7 +3,7 @@
 <script>
     $(document).ready(function(){
         /*<![CDATA[*/
-        var size = [[${createdsonglist['songlist'].size()}]] + [[${keepedsonglist['songlist'].size()}]];
+        var size = [[${songlist.size()}]]
         /*]]>*/
         for (var num =0; num<size; num++) {
             $("#oa_"+num).hide();
@@ -70,10 +70,9 @@
             <span><a href="javascript:;" th:onclick="playSongList([[${list.getSonglistid()}]])"><img src="../image/Index_image/play.png" alt="play" height="35px" width="35px" class="songlist_btn"/></a></span>
             <span><a href="javascript:;" th:onclick="KeepSonglist([[${list.getSonglistid()}]])"><img src="../image/Index_image/like.png" alt="like" height="35px" width="35px" class="songlist_btn"/></a></span>
             <span><a href="javascript:;"><img src="../image/Index_image/add.png" alt="add" height="35px" width="35px" class="songlist_btn"/></a></span>
-            <span><a href="javascript:;"><img src="../image/Index_image/download.png" alt="download" height="35px" width="35px" class="songlist_btn"/></a></span>
         </div>
         <li class="songlist__album" th:text="${songnum.get(iterStat.index)}"></li>
-        <li class="songlist__author" th:text="${username.get(iterStat.index)}"></li>
+        <li class="songlist__author" ><a th:text="${users[iterStat.index].getUsername()}" th:href="@{'/User?userid='+${users[iterStat.index].getUserid()}}"></a>></li>
         <li class="songlist__time" th:text="${savenum.get(iterStat.index)}"></li>
     </ul>
 </div>

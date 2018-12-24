@@ -100,7 +100,7 @@ public class SongImpl implements SongService {
     public ArrayList<Song> getCommandSong(String userid){
         Map<String,Object> map = new HashMap<>();
         map.put("userid",userid);
-        songMapper.getAllSongDesc(map);
+        songMapper.getPushSong(map);
         return (ArrayList<Song>)map.get("songs");
     }
 

@@ -130,4 +130,10 @@ public interface SongListMapper {
      * @OUT: "succ"> String
      */
     void updateIsPrivate(Map<String,Object>Map);
+    /**
+     * @param Map
+     * @IN :"userid"
+     * @OUT: "songlists"> ArrayList<SongList>
+     */
+    void getPushSonglist(Map<String, Object> Map);
 }

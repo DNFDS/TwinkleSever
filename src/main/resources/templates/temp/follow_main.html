@@ -130,8 +130,8 @@
             });
         }
         function FollowUser(userid,index) {
-			var btn_id = "focus"+index;
-			var word_id = "word"+index;
+            var btn_id = "focus"+index;
+            var word_id = "word"+index;
             $.ajax({
                 type:"GET",
                 url:"/profile/changeFollow",
@@ -149,17 +149,17 @@
                         if (dataObj.flag === '1') {
                             num ++;
                             tab.innerHTML="取消关注";
-                            alert('关注成功');
+                            showTips('关注成功',50,1)
                         } else {
                             num --;
                             tab.innerHTML="关注";
-                            alert('取消关注成功');
+                            showTips('取消关注成功',50,1);
                         }
                         word.innerHTML=num+"人已关注";
                         word.setAttribute('data-focusnum',num);
                     }
                     else
-                    alert('请求失败');
+                        alert('请求失败');
                 }
             });
         }
@@ -168,8 +168,8 @@
 <body >
 	<!-- 主体 -->
 		<div class="mod_tab" >
-			<a class="mod_tab__item" href="#" onclick="showFollowSinger()" id="singer_tab" >歌手</a>
-			<a class="mod_tab__item mod_tab__current" href="#" onclick="showFollowUser()" id="user_tab">用户</a>
+			<a class="mod_tab__item" href="javascript:" onclick="showFollowSinger()" id="singer_tab" >歌手</a>
+			<a class="mod_tab__item mod_tab__current" href="javascript:" onclick="showFollowUser()" id="user_tab">用户</a>
 		</div>
 		<div class="profile_cont" id="followFlush">
 			<a href="javascript:;" class="mod_btn btn_focus_fan js_focus_friends" style="display: block;"><img src="../image/Index_image/add_more.png" alt="add_more" class="operate_btn">关注更多用户</a>

@@ -60,4 +60,11 @@ public interface SongMapper {
      * @OUT: "succ"> String
      */
     void songPlaytimesPlus(Map<String, Object> Map);
+
+    /**
+     * @param Map
+     * @IN :"userid"
+     * @OUT: "songs"> ArrayList<Song>
+     */
+    void getPushSong(Map<String, Object> Map);
 }

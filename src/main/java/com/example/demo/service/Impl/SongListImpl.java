@@ -113,7 +113,7 @@ public class SongListImpl implements SongListService {
     public ArrayList<SongList> getCommandSongList(String userid){
         Map<String,Object> map = new HashMap<>();
         map.put("userid",userid);
-        songListMapper.getAllSonglist(map);
+        songListMapper.getPushSonglist(map);
         return (ArrayList<SongList>)map.get("songlists");
     }
 
