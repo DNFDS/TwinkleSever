@@ -295,7 +295,7 @@
         }
     </style>
 </head>
-<body>
+<body >
 <div id="bg" class="bg">
     <img class="bgImg" src="">
     <img class="logo" src="https://y.gtimg.cn/mediastyle/yqq/img/logo@2x.png?nowebp=1"/>
@@ -308,7 +308,7 @@
             <li style="border-bottom: solid 1px rgba(214,216,212,0.3);">
                 <span>歌曲</span>
             </li>
-            <li class="songInfo"  th:each="song:${songList}" th:data-songid="${song.songid}" th:text="${song.songname}" onmouseenter="listOnMouseEnter(this)" onmouseleave="listOnMouseLeave(this)" onclick="playListClick(this.dataset.songid)" style="border-bottom: solid 1px rgba(214,216,212,0.3);">
+            <li class="songInfo" href="javascript:;" th:each="song:${songList}" th:data-songid="${song.songid}" th:text="${song.songname}" onmouseenter="listOnMouseEnter(this)" onmouseleave="listOnMouseLeave(this)" onclick="playListClick(this.dataset.songid)" style="border-bottom: solid 1px rgba(214,216,212,0.3);">
             </li>
         </ul>
         <ul id="lengthList" class="lengthList">
