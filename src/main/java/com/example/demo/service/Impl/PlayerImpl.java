@@ -26,7 +26,6 @@ public class PlayerImpl implements PlayerService
     {
         songMapper.getSongById(Map);
         ArrayList<Song> temp=(ArrayList<Song>) Map.get("songs");
-
         return temp.get(0);
     }
 

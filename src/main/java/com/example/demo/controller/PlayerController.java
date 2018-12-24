@@ -87,7 +87,7 @@ public class PlayerController
         {
             session.setAttribute("playerLoaded",1);
             HashMap hashMap=new HashMap();
-            hashMap.put("urllink","http://localhost:8080/getPlayer");
+            hashMap.put("urllink","/getPlayer");
             return hashMap;
         }
         HashMap hashMap=new HashMap();
@@ -123,7 +123,7 @@ public class PlayerController
         {
             session.setAttribute("playerLoaded",1);
             HashMap map=new HashMap();
-            map.put("urllink","http://localhost:8080/getPlayer");
+            map.put("urllink","/getPlayer");
             return map;
         }
         return null;
@@ -165,7 +165,7 @@ public class PlayerController
         {
             session.setAttribute("playerLoaded",1);
             HashMap map=new HashMap();
-            map.put("urllink","http://localhost:8080/getPlayer");
+            map.put("urllink","/getPlayer");
             return map;
         }
         HashMap returnMap=new HashMap();
