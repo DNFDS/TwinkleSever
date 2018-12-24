@@ -443,16 +443,16 @@ body {
 					<ul class="playlist__list" >
 						<li class="playlist__item"  th:each="album, iterState2:${albums}" onmouseover="this.className=(this.className+' playlist__item--hover')" onmouseout="this.className=this.className.replace(/ playlist__item--hover/, '')">
 							<div class="playlist__item_box">
-								<div class="he_border2"><img src="//p.qpic.cn/music_cover/HictYs5zfjNDmZ6NgVbHYiapgPODicIKJiaJibj7vkYiaDZH7WH2Eb4icMg3A/300?n=1" onerror="this.src='//y.gtimg.cn/mediastyle/global/img/cover_playlist.png?max_age=31536000';this.onerror=null;" alt="1—3岁儿童歌曲集，那些带你认识世界的儿歌" class="playlist__pic"></div>
-							<div class="he_border2_caption">
-							<p class="he_border2_caption_p">查看专辑</p>
-							<a class="he_border2_caption_a" th:href="@{'/Album?albumid='+ ${album.getAlbumid()}}"></a>
-							</div>
-							</div>
-							<h4 class="playlist__title"><span class="playlist__title_txt"><a th:href="@{'/Album?albumid='+ ${album.getAlbumid()}}" class="js_playlist" th:text="${album.getAlbumname()}"></a></span></h4>
-							<div class="playlist__author">
-								<a class="js_user" href="//y.qq.com/portal/profile.html?uin=oi-l7w4l7wcl7z**" th:text="${singer.getSingername()}"></a>
-							</div>
+								<div class="he_border2"><img src="//p.qpic.cn/music_cover/HictYs5zfjNDmZ6NgVbHYiapgPODicIKJiaJibj7vkYiaDZH7WH2Eb4icMg3A/300?n=1" onerror="this.src='//y.gtimg.cn/mediastyle/global/img/cover_playlist.png?max_age=31536000';this.onerror=null;" alt="1—3岁儿童歌曲集，那些带你认识世界的儿歌" class="playlist__pic">
+									<div class="he_border2_caption">
+										<p class="he_border2_caption_p">查看专辑</p>
+										<a class="he_border2_caption_a" th:href="@{'/Album?albumid='+ ${album.getAlbumid()}}"></a>
+									</div>
+								</div>
+								<h4 class="playlist__title"><span class="playlist__title_txt"><a th:href="@{'/Album?albumid='+ ${album.getAlbumid()}}" class="js_playlist" th:text="${album.getAlbumname()}"></a></span></h4>
+								<div class="playlist__author">
+									<a class="js_user" href="//y.qq.com/portal/profile.html?uin=oi-l7w4l7wcl7z**" th:text="${singer.getSingername()}"></a>
+								</div>
 							</div>
 						 </li>
 					</ul>
