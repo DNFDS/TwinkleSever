@@ -156,9 +156,9 @@ public class PersonalController {
         User user = (User) request.getSession(false).getAttribute("visted");
         //如果请求的form页面，就直接返回
         //list页面，要额外添加歌单的收藏数和曲目数
-        ArrayList<SongList>keepedSongList = userService.getKeepedSongList(user.getUserid());
+        ArrayList<SongList>CreatedSongList = userService.getCreatedSongList(user.getUserid());
         //得到所有歌单的曲目数和收藏数创建人  songnum  savenum username
-        Map<String,Object>map = showUtil.showSongList(keepedSongList);
+        Map<String,Object>map = showUtil.showSongList(CreatedSongList);
         return new ModelAndView("/temp/created_main",map);
     }
 

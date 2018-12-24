@@ -445,7 +445,7 @@
 					<li class="data_info__item">收藏量：[[${savenum}]]</li>
                 </ul>
                 <div class="data__actions" role="toolbar">
-                    <a href="javascript:;" th:onclick="playSongList([[${songlist.getSonglistid()}]])" class="mod_btn_green js_all_play" data-stat="y_new.album.header.playall"><i class="mod_btn_green__icon_play"></i><img src="image/Index_image/mod_play.png" class="operate_btn" alt="play">播放全部</a>
+                    <a href="javascript:;" th:onclick="playSongList([[${songlist.getSonglistid()}]])" class="mod_btn_green js_all_play" ><i class="mod_btn_green__icon_play"></i><img src="image/Index_image/mod_play.png" class="operate_btn" alt="play">播放全部</a>
                     <a href="javascript:;" th:onclick="KeepSonglist([[${songlist.getSonglistid()}]])" class="mod_btn js_fav_album" ><i class="mod_btn__icon_like"></i><img src="image/Index_image/mod_like.png" class="operate_btn" alt="download">收藏</a>
                     <a href="javascript:;" class="mod_btn js_into_comment"  ><i class="mod_btn__icon_comment"></i><img src="image/Index_image/mod_download.png" class="operate_btn" alt="download">下载</a>
                     <a href="javascript:;" class="mod_btn js_more"  ><i class="mod_btn__icon_menu"></i><img src="image/Index_image/mod_add.png" class="operate_btn" alt="add">添加到</a>
@@ -552,13 +552,18 @@
 		</div>
 
 		<div class="popup__bd " id="dialogbox">
-			<label class="form__label">歌单名</label> <div class="mod_form_txt"> <input type="text" value="" class="form_txt__input" id="new_playlist_fav"><span class="form_txt__tips" id="name_leftnum_fav">20</span></div>
+			<label class="form__label">歌单名</label>
+			<div class="mod_form_txt">
+				<input type="text" value="" class="form_txt__input" id="new_playlist_fav">
+				<span class="form_txt__tips" id="name_leftnum_fav">20</span>
+			</div>
 		</div>
 
 		<div class="popup__ft">
 			<button onclick="close_newsonglist_div()" class="mod_btn upload_btns__item js-button1">取消</button>
-			<button  class="mod_btn_blue upload_btns__item js-button2">确定</button>
+			<button onclick="create_newsonglist()" class="mod_btn_blue upload_btns__item js-button2" >确定</button>
 		</div>
+	</div>
 </body>
 </html>
 
