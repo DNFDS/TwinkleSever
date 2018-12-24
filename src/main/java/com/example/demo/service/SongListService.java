@@ -8,6 +8,7 @@ import com.example.demo.entity.result.ResultEntity;
 import java.util.ArrayList;
 
 public interface SongListService {
+    ArrayList<SongList> getCommandSongList(String userid);
     SongList getSongListById(String songlistid);
     String createNewSongList(String name, String image, String isprivate,String userid);
     ArrayList<SongList> getSongListByNamePart(String name);

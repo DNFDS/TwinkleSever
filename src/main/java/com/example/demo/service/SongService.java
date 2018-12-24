@@ -7,7 +7,8 @@ import com.example.demo.entity.result.ResultEntity;
 import java.util.ArrayList;
 
 public interface SongService {
-
+    boolean playSong(String songid,String userid);
+    ArrayList<Song> getCommandSong(String userid);
     ArrayList<Song> getSongByNamePart(String name);
     ResultEntity getSingersInSong(String songid);
     ArrayList<comments> getCommentsInSong(String songid);

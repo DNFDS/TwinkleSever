@@ -348,7 +348,7 @@ body {
 	</div>
 	<!--disk导航-->
 	<nav class="top-right">
-	<a href="find_music.jsp" class="disc l1" onMouseOver="disc1_over()" onMouseOut="disc1_out()">
+	<a href="find_music.html" class="disc l1" onMouseOver="disc1_over()" onMouseOut="disc1_out()">
 	<div id="disc1" class="">发现音乐</div>
 	</a>
 	<a href="my_music.jsp" class="disc l2" onMouseOver="disc2_over()" onMouseOut="disc2_out()">

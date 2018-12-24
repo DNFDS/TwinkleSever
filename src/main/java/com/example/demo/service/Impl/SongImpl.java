@@ -97,5 +97,20 @@ public class SongImpl implements SongService {
         return (ArrayList<Song>) map.get("songs");
     }
 
+    public ArrayList<Song> getCommandSong(String userid){
+        Map<String,Object> map = new HashMap<>();
+        map.put("userid",userid);
+        songMapper.getAllSongDesc(map);
+        return (ArrayList<Song>)map.get("songs");
+    }
+
+    public boolean playSong(String songid,String userid){
+        Map<String,Object> map = new HashMap<>();
+        map.put("userid",userid);
+        map.put("songid",songid);
+        songMapper.songPlaytimesPlus(map);
+        String succ = (String)map.get("succ");
+        return succ.equals("1");
+    }
 
 }
