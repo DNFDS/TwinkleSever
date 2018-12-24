@@ -9,10 +9,17 @@ function playSong(songid) {
         },
         dataType: 'json',
         success: function (data) {
-            window.open(data.urllink);
+            if(data.urllink!=null)
+                window.open(data.urllink);
+            else
+            {
+                showTips( "添加成功！", 50, 1 );
+                localStorage.clear();
+                localStorage.setItem("songChanged",data.newSong);
+            }
         },
         error: function () {
-            showTips( "添加成功！", 50, 1 );
+            showTips( "该歌曲已经存在！", 50, 1 );
         }
     });
 }
@@ -25,10 +32,18 @@ function playSongList(songListID) {
         },
         dataType: 'json',   //返回值类型       使用json的话也可以，但是需要在JS中编写迭代的html代码，如果格式样式
         success:function(data){
-            window.open(data.urllink);
+            if(data.urllink!=null)
+                window.open(data.urllink);
+            else
+            {
+                showTips( "添加成功！", 50, 1 );
+                localStorage.clear();
+                for(var i=0;i<data.newSongList.length;i++)
+                    localStorage.setItem("songChanged",data.newSongList[i]);
+            }
         },
         error: function () {
-            showTips( "添加成功！", 50, 1 );
+            showTips( "添加歌单失败！", 50, 1 );
         }
     });
 }

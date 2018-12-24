@@ -40,6 +40,27 @@
         {
             background-color: #20a774;
         }/* 滑块颜色 */
+        .bg .list{
+            scrollbar-face-color: #20a774;/*移动滑块颜色*/
+            scrollbar-shadow-color: #20a774;/*移动滑块边框颜色*/
+            scrollbar-track-color: #ccc;/*背景颜色*/
+            scrollbar-arrow-color: #ddd;/*箭头颜色*/
+        }
+        .bg .list::-webkit-scrollbar-track
+        {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            background-color: #ccc;
+        }/* 滚动条的滑轨背景颜色 */
+        .bg .list::-webkit-scrollbar
+        {
+            width: 6px;
+            background-color: #ccc;
+        }
+
+        .bg .list::-webkit-scrollbar-thumb
+        {
+            background-color: #20a774;
+        }/* 滑块颜色 */
         .lrc .gc
         {
 
@@ -71,6 +92,41 @@
             -webkit-filter: blur(40px);
             -ms-filter: blur(40px);
             filter: blur(40px);
+        }
+        .bg .list
+        {
+            z-index: 101;
+            position: absolute;
+            right: 50px;
+            top: 100px;
+            width:400px;
+            height:500px;
+            overflow-x:hidden;
+            overflow-y:auto;
+            display: flex;
+            flex-direction: row;
+            margin: 10px;
+            font-size: 25px;
+            color:#D6D8D4;
+            font-family:  Wawati SC;
+        }
+        .bg .list .playList
+         {
+             position: absolute;
+             right: 150px;
+             top: -20px;
+             width:180px;
+             height:500px;
+             list-style-type:none;
+         }
+        .bg .list .lengthList
+        {
+            position: absolute;
+            right: 50px;
+            top: -20px;
+            width:100px;
+            height:500px;
+            list-style-type:none;
         }
         .audio.green-audio-player {
             position:absolute;
@@ -174,6 +230,8 @@
         }
         .audio.green-audio-player .volume {
             position: relative;
+            display: flex;
+            flex-direction: column-reverse;
         }
         .audio.green-audio-player .volume .volume-btn {
             cursor: pointer;
@@ -184,10 +242,11 @@
         .audio.green-audio-player .volume .volume-controls {
             width: 30px;
             height: 135px;
+            position: absolute;
             background-color: rgba(0, 0, 0, 0.62);
             border-radius: 7px;
             left: -3px;
-            bottom: 52px;
+            top: -150px;
             flex-direction: column;
             align-items: center;
             display: flex;
@@ -242,6 +301,22 @@
         <ul id="gc" class="gc">
         </ul>
     </div>
+    <div class="list">
+        <ul id="playList" class="playList">
+            <li style="border-bottom: solid 1px rgba(214,216,212,0.3);">
+                <span>歌曲</span>
+            </li>
+            <li class="songInfo"  th:each="song:${songList}" th:data-songid="${song.songid}" th:text="${song.songname}" onmouseenter="listOnMouseEnter(this)" onmouseleave="listOnMouseLeave(this)" onclick="playListClick(this.dataset.songid)" style="border-bottom: solid 1px rgba(214,216,212,0.3);">
+            </li>
+        </ul>
+        <ul id="lengthList" class="lengthList">
+            <li style="border-bottom: solid 1px rgba(214,216,212,0.3);">
+                <span>时长</span>
+            </li>
+            <li class="lengthInfo" th:each="song:${songList}" th:text="${song.length}" style="border-bottom: solid 1px rgba(214,216,212,0.3);">
+            </li>
+        </ul>
+    </div>
 </div>
 <div class="audio green-audio-player" >
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -273,11 +348,6 @@
         <img data-state="0" id="likeIcon" width="30" height="30" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNTQ1NDk0MDkzMTk3IiBjbGFzcz0iaWNvbiIgc3R5bGU9IiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjgxMCIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwvc3R5bGU+PC9kZWZzPjxwYXRoIGQ9Ik03MjguMTc3Nzc4IDExMy43Nzc3NzhjLTEzMC44NDQ0NDQgMC0yMTAuNDg4ODg5IDEwMi40LTIxMC40ODg4ODkgMTAyLjRTNDQ5LjQyMjIyMiAxMTMuNzc3Nzc4IDMwNy4yIDExMy43Nzc3NzggNTYuODg4ODg5IDE5My40MjIyMjIgNTYuODg4ODg5IDM4Ni44NDQ0NDRjMCAyNzMuMDY2NjY3IDQ2MC44IDU2OC44ODg4ODkgNDYwLjggNTY4Ljg4ODg4OVM5NjcuMTExMTExIDY0Mi44NDQ0NDQgOTY3LjExMTExMSAzOTIuNTMzMzMzQzk2Ny4xMTExMTEgMTg3LjczMzMzMyA4MzYuMjY2NjY3IDExMy43Nzc3NzggNzI4LjE3Nzc3OCAxMTMuNzc3Nzc4TTUxNy42ODg4ODkgODg3LjQ2NjY2N1MxMTMuNzc3Nzc4IDYwOC43MTExMTEgMTEzLjc3Nzc3OCAzODYuODQ0NDQ0YzAtMTQyLjIyMjIyMiA5Ni43MTExMTEtMjIxLjg2NjY2NyAyMDQuOC0yMjEuODY2NjY2QzQyNi42NjY2NjcgMTY0Ljk3Nzc3OCA1MTcuNjg4ODg5IDI4NC40NDQ0NDQgNTE3LjY4ODg4OSAyODQuNDQ0NDQ0czEwOC4wODg4ODktMTE5LjQ2NjY2NyAyMDQuOC0xMTkuNDY2NjY2Yzk2LjcxMTExMSAwIDE5My40MjIyMjIgNzMuOTU1NTU2IDE5My40MjIyMjIgMjI3LjU1NTU1NS01LjY4ODg4OSAyMTYuMTc3Nzc4LTM5OC4yMjIyMjIgNDk0LjkzMzMzMy0zOTguMjIyMjIyIDQ5NC45MzMzMzQiIGZpbGw9IiNENkQ4RDQiIHAtaWQ9IjgxMSI+PC9wYXRoPjwvc3ZnPg=="/>
     </div>
     <div class="volume">
-        <div class="volume-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path fill="#566574" fill-rule="evenodd" d="M14.667 0v2.747c3.853 1.146 6.666 4.72 6.666 8.946 0 4.227-2.813 7.787-6.666 8.934v2.76C20 22.173 24 17.4 24 11.693 24 5.987 20 1.213 14.667 0zM18 11.693c0-2.36-1.333-4.386-3.333-5.373v10.707c2-.947 3.333-2.987 3.333-5.334zm-18-4v8h5.333L12 22.36V1.027L5.333 7.693H0z" id="speaker"/>
-            </svg>
-        </div>
         <div class="volume-controls hidden">
             <div class="slider" data-direction="vertical">
                 <div class="progress">
@@ -285,9 +355,14 @@
                 </div>
             </div>
         </div>
+        <div class="volume-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="#566574" fill-rule="evenodd" d="M14.667 0v2.747c3.853 1.146 6.666 4.72 6.666 8.946 0 4.227-2.813 7.787-6.666 8.934v2.76C20 22.173 24 17.4 24 11.693 24 5.987 20 1.213 14.667 0zM18 11.693c0-2.36-1.333-4.386-3.333-5.373v10.707c2-.947 3.333-2.987 3.333-5.334zm-18-4v8h5.333L12 22.36V1.027L5.333 7.693H0z" id="speaker"/>
+            </svg>
+        </div>
     </div>
 
-    <audio crossorigin th:data-name="${song.songname}" th:data-id="${song.songid}" th:src="${song.songpath}">
+    <audio crossorigin th:data-name="${songList[0].songname}" th:data-id="${songList[0].songid}" th:src="${songList[0].songpath}">
         <source  src="" type="audio/mpeg" id="source">
     </audio>
 </div>
@@ -322,6 +397,120 @@
     var currentlyDragged = null;
     var num=0;
 
+    window.addEventListener("storage", function(e)
+    {
+        if(e.newValue!=null)
+            if(localStorage.getItem("songChanged")!=null)
+            {
+                $.ajax({
+                    url: "/getSongByID",
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        "songID":e.newValue
+                    },
+                    success: function(data){
+                        if(data!=null)
+                        {
+                            var li_play='<li class="songInfo" data-songid='+data.songid+'  onmouseenter="listOnMouseEnter(this)" onmouseleave="listOnMouseLeave(this)" onclick="playListClick(this.dataset.songid)" style="border-bottom: solid 1px rgba(214,216,212,0.3);">'+data.songname+'</li>';
+                            var li_length='<li class="lengthInfo"  style="border-bottom: solid 1px rgba(214,216,212,0.3);">'+data.length+'</li>';
+                            $("#playList").append(li_play);
+                            $("#lengthList").append(li_length);
+                        }
+                        else
+                            alert("找不到该歌曲?");
+                    },
+                    error: function(){
+                        alert("找不到该歌曲！");
+                    }
+                });
+            }
+            else if(localStorage.getItem("listChanged")!=null)
+            {
+                $.ajax({
+                    url: "/getSongsByListID",
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        "songListID":e.newValue
+                    },
+                    success: function(data){
+                        for(var i=0;i<data.size();i++)
+                        {
+                            var li_play='<li class="songInfo" data-songid='+data.songid+'  onmouseenter="listOnMouseEnter(this)" onmouseleave="listOnMouseLeave(this)" onclick="playListClick(this.dataset.songid)" style="border-bottom: solid 1px rgba(214,216,212,0.3);">'+data.songname+'</li>';
+                            var li_length='<li class="lengthInfo"  style="border-bottom: solid 1px rgba(214,216,212,0.3);">'+data.length+'</li>';
+                            $("#playList").append(li_play);
+                            $("#lengthList").append(li_length);
+                        }
+                    },
+                    error: function(){
+                        alert("storage监听2");
+                    }
+                });
+            }
+            else
+            {
+                alert("没有set storage");
+            }
+    });
+    function listOnMouseEnter(el)
+    {
+        var playList=$('#playList').find('li');
+        var lengthList=$('#lengthList').find('li');
+        for(var i=0;i<playList.length;i++)
+        {
+            if(el==playList[i])
+            {
+                el.style.backgroundColor='rgba(214,216,212,0.1)';
+                lengthList[i].style.backgroundColor='rgba(214,216,212,0.1)';
+                if(el.style.color!="rgb(32, 167, 116)")
+                {
+                    el.style.color="#d2d81b";
+                    lengthList[i].style.color="#d2d81b";
+                }
+                break;
+            }
+        }
+    }
+    function listOnMouseLeave(el)
+    {
+        var playList=$('#playList').find('li');
+        var lengthList=$('#lengthList').find('li');
+        for(var i=0;i<playList.length;i++)
+        {
+            if(el==playList[i])
+            {
+                el.style.backgroundColor='rgba(214,216,212,0)';
+                lengthList[i].style.backgroundColor='rgba(214,216,212,0)';
+                if(el.style.color!="rgb(32, 167, 116)")
+                {
+                    el.style.color="#D6D8D4";
+                    lengthList[i].style.color="#D6D8D4";
+                }
+                break;
+            }
+        }
+    }
+    function playListClick(songID)
+    {
+        $.ajax({
+            url: "/getSongByID",
+            type: 'post',
+            dataType: 'json',
+            data: {
+                "songID":songID
+            },
+            success: function(data){
+                player.dataset.id=data.songid;
+                player.src=data.songpath;
+                player.dataset.name=data.songname;
+                playPause.src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNTQ1NDk0MTI2MzY5IiBjbGFzcz0iaWNvbiIgc3R5bGU9IiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjE2NDUiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj48L3N0eWxlPjwvZGVmcz48cGF0aCBkPSJNMjA5LjQxNyA2MmgxNTAuMDA4djkwMGgtMTUwLjAwOHYtOTAweiIgcC1pZD0iMTY0NiIgZmlsbD0iI0Q2RDhENCI+PC9wYXRoPjxwYXRoIGQ9Ik02NTkuNDE3IDYyaDE0OS45ODV2OTAwaC0xNDkuOTg1di05MDB6IiBwLWlkPSIxNjQ3IiBmaWxsPSIjRDZEOEQ0Ij48L3BhdGg+PC9zdmc+";
+            },
+            error: function(){
+                alert("???");
+            }
+        })
+    }
     window.onbeforeunload=function leave()
     {
         $.ajax({
@@ -422,10 +611,23 @@
         totalTime.textContent = formatTime(player.duration);
         if(player.paused)
         {
-            player.play();
+           player.play();
         }
         else
             alert("在播放??");
+        var playList=document.getElementsByClassName("songInfo");
+        var lengthList=document.getElementsByClassName("lengthInfo");
+        for(var i=0;i<playList.length;i++)
+        {
+            playList[i].style.color="#D6D8D4";
+            lengthList[i].style.color="#D6D8D4";
+            if(playList[i].dataset.songid==player.dataset.id)
+            {
+                playList[i].style.color="#20A774";
+                lengthList[i].style.color="#20A774";
+            }
+        }
+
         $.ajax({
             url: "https://c.y.qq.com/soso/fcgi-bin/client_search_cp?aggr=1&cr=1&flag_qc=0&p=1&n=1&w="+player.dataset.name,
             type:"get",
@@ -460,7 +662,7 @@
                         var str = parseLyric(lrc);
 
                         document.getElementsByClassName("lrc")[0].scrollTop=0;
-                        $("ul").find("li").remove()
+                        $("#gc").find("li").remove()
                         var li='<li>'+" "+'</li>';
                         $('#gc').append(li);
 
@@ -475,9 +677,9 @@
                             for (i,l = str.length; i < l; i++)//判断到第i句歌词 对应下标为i的li标签
                                 if (this.currentTime <str[i][0])
                                     break;
-                            for(var j=0,k=document.getElementsByTagName('li').length;j<k;j++)
-                                document.getElementsByTagName('li')[j].style.color="#D6D8D4"
-                            document.getElementsByTagName('li')[i].style.color="#20A774";
+                            for(var j=0,k=$("#gc").find("li").length;j<k;j++)
+                                $("#gc").find("li")[j].style.color="#D6D8D4"
+                            $("#gc").find("li")[i].style.color="#20A774";
                             if(i>8)
                             {
                                 document.getElementsByClassName("lrc")[0].scrollTop=document.getElementsByTagName('li')[i].offsetTop-216;
