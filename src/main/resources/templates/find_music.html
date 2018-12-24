@@ -799,7 +799,12 @@
             }
         }, false);
         var i=0;
-        window.onload=function foo(ev)
+        var j=0;
+        window.onload=function (ev)
+        {
+            foo();
+        };
+        function foo()
         {
             var imgs=document.getElementsByClassName('song');
             if(i<imgs.length)
@@ -809,6 +814,7 @@
                     type:"get",
                     dataType:'jsonp',
                     jsonp: "callback",
+                    async:false,
                     jsonpCallback:"callback",
                     scriptCharset: 'GBK',//解决中文乱码
                     success: function callback(data){
@@ -817,6 +823,37 @@
                         imgs[i].src=temp;
                         i++;
                         foo();
+                    },
+                    error: function(){
+                        alert("qq音乐接口");
+                    }
+                });
+            }
+            else
+			{
+			    bar();
+			}
+        }
+        function bar()
+        {
+            var albumImgs=document.getElementsByClassName('album');
+            if(j<albumImgs.length)
+            {
+                $.ajax({
+                    url: "https://c.y.qq.com/soso/fcgi-bin/client_search_cp?aggr=1&cr=1&flag_qc=0&p=1&n=1&w="+albumImgs[j].parentElement.parentElement.parentElement.getElementsByTagName('p')[1].textContent,
+                    type:"get",
+                    dataType:'jsonp',
+                    jsonp: "callback",
+                    async:false,
+                    jsonpCallback:"callback",
+                    scriptCharset: 'GBK',//解决中文乱码
+                    success: function callback(data){
+                        var albumid=data.data.song.list[0].albumid;
+                        var temp="http://imgcache.qq.com/music/photo/album_300/"+albumid%100+"/300_albumpic_"+albumid+"_0.jpg";
+                        albumImgs[j].src=temp;
+                        j++;
+                        console.log("设置好第几个专辑图？"+j);
+                        bar();
                     },
                     error: function(){
                         alert("qq音乐接口");
