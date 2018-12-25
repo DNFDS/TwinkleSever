@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>搜索音乐</title>
@@ -144,7 +144,7 @@ body {
 				<img src="//thirdqq.qlogo.cn/g?b=sdk&amp;k=FDjMMNJZGGJc9MsnCMnHsw&amp;s=140&amp;t=1529503572" onerror="this.src='//y.gtimg.cn/mediastyle/global/img/person_300.png?max_age=31536000';this.onerror=null;" alt="flowrain" class="profile__cover" id="profileHead">
 			</div>
 			<h1 class="profile__tit">
-				<span class="profile__name" th:text="${session.visted.getUsername()}"></span><a href="https://y.qq.com/portal/vipportal/index.html" rel="noopener nofollow" target="_blank"><img src="//y.gtimg.cn/music/icon/v1/mac/svip_g@2x.png?max_age=2592000" alt="user_cover" class="lv_icon"></a>
+				<span class="profile__name" th:text="${session.visted.getUsername()}+'  id:'+${session.visted.getUserid()}"></span><a href="https://y.qq.com/portal/vipportal/index.html" rel="noopener nofollow" target="_blank"><img src="//y.gtimg.cn/music/icon/v1/mac/svip_g@2x.png?max_age=2592000" alt="user_cover" class="lv_icon"></a>
 			</h1>
 			<ul class="mod_user_statistic">
 				<li class="user_statistic__item">

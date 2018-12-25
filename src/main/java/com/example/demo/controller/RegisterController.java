@@ -37,7 +37,8 @@ public class RegisterController {
         ResultEntity result = userService.Register(user);
         if(result.getSuccess()){
             request.getSession().setAttribute("user",result.getObject());
-            return "test";
+            request.getSession().setAttribute("visted",result.getObject());
+            return "redirect:/profile/like_song";
         }
         else{
             map.put("errMsg",result.getErrorMsg());
