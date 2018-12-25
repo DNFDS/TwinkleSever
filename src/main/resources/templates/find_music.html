@@ -4,12 +4,161 @@
 	<meta charset="utf-8">
 	<title>发现音乐</title>
 	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link href="../css/main.css" rel="stylesheet">
 	<script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 	<script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
 	<script src="JS/main_js.js"></script>
 	<style>
+        .search {
+            width: 100px;
+            height: 100px;
+            margin: 40px auto 0;
+            /*margin-bottom: 40px;*/
+            background-color: #242628;
+            /*position: relative;*/
+            position: fixed;
+            z-index: 100;
+            bottom: 30px;
+            right: 40px;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            border-radius: 100px;
+        }
+
+        .search:before {
+            content: '';
+            display: block;
+            width: 3px;
+            height: 100%;
+            position: relative;
+            background-color: gold;
+            transition: all 0.5s ease;
+        }
+
+        .search.open {
+            width: 420px;
+        }
+
+        .search.open:before {
+            height: 60px;
+            margin: 20px 0 20px 30px;
+            position: absolute;
+        }
+
+        .search-box {
+            width: 100%;
+            height: 100%;
+            box-shadow: none;
+            border: none;
+            background: transparent;
+            color: #fff;
+            padding: 20px 100px 20px 45px;
+            font-size: 40px;
+        }
+
+        .search-box:focus {
+            outline: none;
+        }
+
+        .search-button {
+            width: 100px;
+            height: 100px;
+            display: block;
+            position: absolute;
+            right: 0;
+            top: 0;
+            padding: 20px;
+            cursor: pointer;
+        }
+
+        .search-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 40px;
+            border: 3px solid gold;
+            display: block;
+            position: relative;
+            margin-left: 5px;
+            transition: all 0.5s ease;
+        }
+
+        .search-icon:before {
+            content: '';
+            width: 3px;
+            height: 15px;
+            position: absolute;
+            right: -2px;
+            top: 30px;
+            display: block;
+            background-color: gold;
+            transform: rotate(-45deg);
+            transition: all 0.5s ease;
+        }
+
+        .search-icon:after {
+            content: '';
+            width: 3px;
+            height: 15px;
+            position: absolute;
+            right: -12px;
+            top: 40px;
+            display: block;
+            background-color: gold;
+            transform: rotate(-45deg);
+            transition: all 0.5s ease;
+        }
+
+        .open .search-icon {
+            margin: 0;
+            width: 60px;
+            height: 60px;
+            border-radius: 60px;
+        }
+
+        .open .search-icon:before {
+            transform: rotate(52deg);
+            right: 22px;
+            top: 23px;
+            height: 18px;
+        }
+
+        .open .search-icon:after {
+            transform: rotate(-230deg);
+            right: 22px;
+            top: 13px;
+            height: 18px;
+        }
+
+        /*search*/
+        body, button, input, select, textarea, th {
+            color: #000;
+            font-size: 14px;
+            line-height: 1.5;
+            font-family: poppin,Tahoma,Arial,微软雅黑,sans-serif;
+            font-family: Tahoma,Arial,微软雅黑,sans-serif/9;
+        }
+        img {
+            border: 0 none;
+            -ms-interpolation-mode: bicubic;
+            image-rendering: optimizeQuality;
+        }
+        blockquote, body, button, dd, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, hr, html, input, lengend, li, ol, p, pre, td, textarea, th, ul {
+            margin: 0;
+            padding: 0;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-size: 100%;
+        }
+        a {
+            color: #000;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: none;
+        }
+        li {
+            list-style: none;
+        }
 		*{
 			padding: 0;
 			margin: 0;

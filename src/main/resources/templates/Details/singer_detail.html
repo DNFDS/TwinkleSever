@@ -48,11 +48,11 @@
                         if (dataObj.flag === '1') {
                             num ++;
                             word.innerHTML="取消关注 "+num;
-                            alert('关注成功');
+                            showTips('关注成功',50,1);
                         } else {
                             num --;
                             word.innerHTML="关注"+num;
-                            alert('取消关注成功');
+                            showTips('取消关注成功',50,1);
                         }
                         word.setAttribute('data-focusnum',num);
                     }
