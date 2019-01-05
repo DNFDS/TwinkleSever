@@ -91,7 +91,7 @@ public class DetailController {
         map.put("albums",albums);
         map.put("singer",singer);
         map.put("follownum",follownum);
-        return "/Details/singer_detail";
+        return "Details/singer_detail";
        //"songs" "albums" "follownum"
     }
     @RequestMapping(value ="/Album",method = RequestMethod.GET)
@@ -109,7 +109,7 @@ public class DetailController {
         map.put("author",author);
         map.put("songs",songs);
         map.put("album",album);
-        return "/Details/album_detail";
+        return "Details/album_detail";
     }
     @ResponseBody
     @RequestMapping(value ="/Comment",method = RequestMethod.POST)
@@ -131,7 +131,7 @@ public class DetailController {
         Map<String,Object>map = new HashMap<>();
         map.put("songlists",createdsonglist);
         map.put("toAdd",songid);
-        return new ModelAndView("/temp/songListChooser",map);
+        return new ModelAndView("temp/songListChooser",map);
     }
     @RequestMapping(value ="/User",method = RequestMethod.GET)
     public String showUser(@RequestParam("userid") String userid, Map<String, Object> map,HttpServletRequest request){

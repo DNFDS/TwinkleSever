@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.NewsMapper" >
+  <resultMap id="NewsResultMap" type="com.example.demo.entity.News" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="CREATERID" property="createrid" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="TEXT" property="text" jdbcType="VARCHAR" />
+    <result column="CONTENTID" property="contentid" jdbcType="VARCHAR" />
+    <result column="FORWARDEDID" property="forwardedid" jdbcType="VARCHAR" />
+    <result column="FORWARDEDTEXT" property="forwardedtext" jdbcType="VARCHAR" />
+    <result column="FORWARDER" property="forwarder" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="getFriendsNews" parameterType="java.util.HashMap" statementType="CALLABLE">
+    call NEWS_PKG.getFriendsNews(#{uid,mode=IN,jdbcType=VARCHAR},#{news,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=NewsResultMap})
+  </select>
+  <select id="getAllLiker" parameterType="java.util.HashMap" statementType="CALLABLE">
+    call NEWS_PKG.getAllLiker(#{nid,mode=IN,jdbcType=VARCHAR},#{likers,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=UserResultMap})
+  </select>
+  <select id="getAllForwarder" parameterType="java.util.HashMap" statementType="CALLABLE">
+    call NEWS_PKG.getAllForwarder(#{nid,mode=IN,jdbcType=VARCHAR},#{forwarders,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=UserResultMap})
+  </select>
+  <select id="likeNews" statementType="CALLABLE">
+    call NEWS_PKG.likeNews(#{nid,mode=IN,jdbcType=VARCHAR},#{uid,mode=IN,jdbcType=VARCHAR})
+  </select>
+  <select id="unlikeNews" statementType="CALLABLE">
+    call NEWS_PKG.unlikeNews(#{nid,mode=IN,jdbcType=VARCHAR},#{uid,mode=IN,jdbcType=VARCHAR})
+  </select>
+  <select id="isUserLikeNews" statementType="CALLABLE">
+    call NEWS_PKG.isUserLikeNews(#{nid,mode=IN,jdbcType=VARCHAR},#{uid,mode=IN,jdbcType=VARCHAR},#{islike,mode=OUT,jdbcType=VARCHAR})
+  </select>
+
+  <select id="forwardNews" statementType="CALLABLE">
+    call NEWS_PKG.forwardNews(#{pid,mode=IN,jdbcType=VARCHAR},#{uid,mode=IN,jdbcType=VARCHAR},#{text,mode=IN,jdbcType=VARCHAR})
+  </select>
+  <select id="createNews" statementType="CALLABLE">
+    call NEWS_PKG.createNews(#{uid,mode=IN,jdbcType=VARCHAR},#{type,mode=IN,jdbcType=VARCHAR},#{contentid,mode=IN,jdbcType=VARCHAR},#{text,mode=IN,jdbcType=VARCHAR},#{id,mode=OUT,jdbcType=VARCHAR})
+  </select>
+  <select id="deleteNews" statementType="CALLABLE">
+    call NEWS_PKG.deleteNews(#{nid,mode=IN,jdbcType=VARCHAR})
+  </select>
+  <select id="getUserNews" parameterType="java.util.HashMap" statementType="CALLABLE">
+    call NEWS_PKG.getUserNews(#{uid,mode=IN,jdbcType=VARCHAR},#{news,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=NewsResultMap})
+  </select>
+  <select id="getNews" parameterType="java.util.HashMap" statementType="CALLABLE">
+    call NEWS_PKG.getNews(#{uid,mode=IN,jdbcType=VARCHAR},#{news,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=NewsResultMap})
+  </select>
+</mapper>

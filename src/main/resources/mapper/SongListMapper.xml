@@ -30,7 +30,7 @@
   <select id="getSongListByName" parameterType="java.util.HashMap" statementType="CALLABLE">
     call SONGLIST_PKG.search_songlist_by_name_full(#{songlistname,mode=IN,jdbcType=VARCHAR},#{songlists,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SongListResultMap})
   </select>
-  <select id="getAllSonglist" parameterType="java.util.HashMap" statementType="CALLABLE">
+  <select id="getAllSongList" parameterType="java.util.HashMap" statementType="CALLABLE">
     call SONGLIST_PKG.view_all_songlist(#{songlists,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=SongListResultMap})
   </select>
   <select id="createSongList" parameterType="java.util.HashMap" statementType="CALLABLE">
@@ -39,7 +39,7 @@
   <select id="addSongToSongList" parameterType="java.util.HashMap" statementType="CALLABLE">
     call SONGLIST_PKG.ADD_SONG_TO_SONGLIST(#{songlistid,mode=IN,jdbcType=VARCHAR},#{songid,mode=IN,jdbcType=VARCHAR},#{succ,mode=OUT,jdbcType=VARCHAR})
   </select>
-  <select id="deleteSonglist" statementType="CALLABLE">
+  <select id="deleteSongList" statementType="CALLABLE">
     call SONGLIST_PKG.delete_songlist(#{songlistid,mode=IN,jdbcType=VARCHAR},#{succ,mode=OUT,jdbcType=VARCHAR})
   </select>
   <select id="keepSongList" statementType="CALLABLE">
@@ -49,7 +49,7 @@
     call SONGLIST_PKG.delete_savesonglist(#{songlistid,mode=IN,jdbcType=VARCHAR},#{userid,mode=IN,jdbcType=VARCHAR},#{succ,mode=OUT,jdbcType=VARCHAR})
   </select>
   <select id="deleteSongFromSongList" statementType="CALLABLE">
-    call SONGLIST_PKG.delete_savesonglist(#{songlistid,mode=IN,jdbcType=VARCHAR},#{songid,mode=IN,jdbcType=VARCHAR},#{succ,mode=OUT,jdbcType=VARCHAR})
+    call SONGLIST_PKG.delete_song_to_songlist(#{songlistid,mode=IN,jdbcType=VARCHAR},#{songid,mode=IN,jdbcType=VARCHAR},#{succ,mode=OUT,jdbcType=VARCHAR})
   </select>
   <select id="updateSongListName" statementType="CALLABLE">
     call SONGLIST_PKG.update_songlist_name(#{songlistid,mode=IN,jdbcType=VARCHAR},#{songlistname,mode=IN,jdbcType=VARCHAR},#{succ,mode=OUT,jdbcType=VARCHAR})

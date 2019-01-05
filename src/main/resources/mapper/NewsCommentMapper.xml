@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.NewsCommentMapper" >
+  <resultMap id="NewsCommentResultMap" type="com.example.demo.entity.NewsComment" >
+    <id column="COMMENTID" property="commentid" jdbcType="VARCHAR" />
+    <result column="NEWSID" property="newsid" jdbcType="VARCHAR" />
+    <result column="TEXT" property="text" jdbcType="VARCHAR" />
+    <result column="COMMENTTIME" property="commenttime" jdbcType="TIMESTAMP" />
+    <result column="COMMENTERID" property="commenterid" jdbcType="VARCHAR" />
+    <result column="PARENTID" property="parentid" jdbcType="VARCHAR" />
+    <result column="PARENTTEXT" property="parenttext" jdbcType="VARCHAR" />
+    <result column="PARENTER" property="parenter" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="getAllComments" parameterType="java.util.HashMap" statementType="CALLABLE">
+    call NEWS_PKG.getAllComments(#{nid,mode=IN,jdbcType=VARCHAR},#{comments,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=NewsCommentResultMap})
+  </select>
+  <select id="commentNews" statementType="CALLABLE">
+    call NEWS_PKG.commentNews(#{nid,mode=IN,jdbcType=VARCHAR},#{text,mode=IN,jdbcType=VARCHAR},#{commenterid,mode=IN,jdbcType=VARCHAR},#{id,mode=OUT,jdbcType=VARCHAR})
+  </select>
+  <select id="commentComment" statementType="CALLABLE">
+    call NEWS_PKG.commentComment(#{parentid,mode=IN,jdbcType=VARCHAR},#{text,mode=IN,jdbcType=VARCHAR},#{commenterid,mode=IN,jdbcType=VARCHAR},#{id,mode=OUT,jdbcType=VARCHAR})
+  </select>
+  <select id="likeComments" statementType="CALLABLE">
+    call NEWS_PKG.likeComments(#{cid,mode=IN,jdbcType=VARCHAR},#{uid,mode=IN,jdbcType=VARCHAR})
+  </select>
+  <select id="unlikeComments" statementType="CALLABLE">
+    call NEWS_PKG.unlikeComments(#{cid,mode=IN,jdbcType=VARCHAR},#{uid,mode=IN,jdbcType=VARCHAR})
+  </select>
+  <select id="deleteComment" statementType="CALLABLE">
+    call NEWS_PKG.deleteComment(#{cid,mode=IN,jdbcType=VARCHAR})
+  </select>
+  <select id="isUserLikeComments" statementType="CALLABLE">
+    call NEWS_PKG.isUserLikeComments(#{cid,mode=IN,jdbcType=VARCHAR},#{uid,mode=IN,jdbcType=VARCHAR},#{islike,mode=OUT,jdbcType=VARCHAR})
+  </select>
+  <select id="getCommentLikeCount" statementType="CALLABLE">
+    call NEWS_PKG.getCommentLikeCount(#{cid,mode=IN,jdbcType=VARCHAR},#{cnt,mode=OUT,jdbcType=INTEGER})
+  </select>
+</mapper>

@@ -59,7 +59,7 @@ public class PersonalController {
         ArrayList<User> Follows = (ArrayList<User>)e.getObject();
         //"Follows"关注的用户 "FollowNum"关注的人数 "isFollow"是否关注
         map = showUtil.showFollow(my.getUserid(),Follows);
-        return new ModelAndView("/temp/fans_main",map);
+        return new ModelAndView("temp/fans_main",map);
     }
 
     @ResponseBody
@@ -69,7 +69,7 @@ public class PersonalController {
         ResultEntity e = songService.getBoughtSongByUserId(user.getUserid());
         ArrayList<SongList>boughtSongList = (ArrayList<SongList>)e.getObject();
         Map<String,Object>map = showUtil.showSongList(boughtSongList);
-        return new ModelAndView("/temp/mybought_main",map);
+        return new ModelAndView("temp/mybought_main",map);
     }
 
     @ResponseBody
@@ -79,7 +79,7 @@ public class PersonalController {
         User my =(User) request.getSession(false).getAttribute("user");
         ArrayList<Singer> Follows = (ArrayList<Singer>)singerService.getSingerUserLike(user.getUserid());
         Map<String,Object>map  = showUtil.showSingerFollow(my.getUserid(),Follows);
-        return new ModelAndView("/temp/follows/follow_singer",map);
+        return new ModelAndView("temp/follows/follow_singer",map);
     }
 
     @ResponseBody
@@ -93,8 +93,8 @@ public class PersonalController {
         //"Follows"关注的用户 "FollowNum"关注的人数 "isFollow"是否关注
         Map<String,Object> map = showUtil.showFollow(my.getUserid(),Follows);
         if(flag.equals("2"))
-            return new ModelAndView("/temp/follows/follow_user",map);
-        return new ModelAndView("/temp/follow_main",map);
+            return new ModelAndView("temp/follows/follow_user",map);
+        return new ModelAndView("temp/follow_main",map);
     }
 
     @ResponseBody
@@ -129,8 +129,8 @@ public class PersonalController {
         ArrayList<Song> songs = (ArrayList<Song>) map.get("songs");
         map.putAll(showUtil.showSong(songs));
         if(flag.equals("2"))
-            return new ModelAndView("/temp/mylike/song_list_details",map);
-        return new ModelAndView("/temp/mylike_main",map);
+            return new ModelAndView("temp/mylike/song_list_details",map);
+        return new ModelAndView("temp/mylike_main",map);
     }
 
     @ResponseBody
@@ -144,10 +144,10 @@ public class PersonalController {
         //得到所有歌单的曲目数和收藏数创建人  songnum  savenum username
         Map<String,Object>map = showUtil.showSongList(  keepedSongList);
         if(flag.equals("1"))
-            return new ModelAndView("/temp/mylike/songlist_details",map);
+            return new ModelAndView("temp/mylike/songlist_details",map);
         if(flag.equals("2"))
-            return new ModelAndView("/temp/mylike/songlist_form_details",map);
-        return new ModelAndView("/temp/mylike/songlist_list_details",map);
+            return new ModelAndView("temp/mylike/songlist_form_details",map);
+        return new ModelAndView("temp/mylike/songlist_list_details",map);
     }
 
     @ResponseBody
@@ -159,7 +159,7 @@ public class PersonalController {
         ArrayList<SongList>CreatedSongList = userService.getCreatedSongList(user.getUserid());
         //得到所有歌单的曲目数和收藏数创建人  songnum  savenum username
         Map<String,Object>map = showUtil.showSongList(CreatedSongList);
-        return new ModelAndView("/temp/created_main",map);
+        return new ModelAndView("temp/created_main",map);
     }
 
     @ResponseBody

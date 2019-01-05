@@ -1,23 +1,18 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.Album;
-import com.example.demo.entity.Song;
-import com.example.demo.entity.SongList;
-import com.example.demo.entity.User;
+import com.example.demo.entity.*;
 import com.example.demo.service.AlbumService;
 import com.example.demo.service.SongListService;
 import com.example.demo.service.SongService;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -66,5 +61,7 @@ public class SearchController {
         map.putAll(autoShowUtil.showUser(users,user.getUserid()));
         return "search/user";
     }
+
+
 
 }

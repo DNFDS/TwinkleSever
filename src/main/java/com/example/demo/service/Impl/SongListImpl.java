@@ -117,4 +117,28 @@ public class SongListImpl implements SongListService {
         return (ArrayList<SongList>)map.get("songlists");
     }
 
+    @Override
+    public String deleteSongList(String songlistid){
+        Map<String,Object> map = new HashMap<>();
+        map.put("songlistid",songlistid);
+        songListMapper.deleteSongList(map);
+        return "成功了嗷";
+    }
+
+    @Override
+    public String changeSongListName(String name,String songlistid){
+        Map<String,Object> map = new HashMap<>();
+        map.put("songlistid",songlistid);
+        map.put("songlistname",name);
+        songListMapper.updateSongListName(map);
+        return (String) map.get("succ");
+    }
+
+    public boolean deleteSongInList(String songid,String songlistid){
+        Map<String,Object> map = new HashMap<>();
+        map.put("songid",songid);
+        map.put("songlistid",songlistid);
+        songListMapper.deleteSongFromSongList(map);
+        return true;
+    }
 }

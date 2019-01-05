@@ -1,7 +1,7 @@
 
 spring:
   datasource:
-    url: jdbc:oracle:thin:@111.230.63.192:1521:orcl
+    url: jdbc:oracle:thin:@129.211.118.50:1521:orcl
     username: music
     password: music
     driver-class-name: oracle.jdbc.driver.OracleDriver

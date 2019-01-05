@@ -72,7 +72,7 @@
             <span><a href="javascript:;"><img src="../image/Index_image/add.png" alt="add" height="35px" width="35px" class="songlist_btn"/></a></span>
         </div>
         <li class="songlist__album" th:text="${songnum.get(iterStat.index)}"></li>
-        <li class="songlist__author" ><a th:text="${users[iterStat.index].getUsername()}" th:href="@{'/User?userid='+${users[iterStat.index].getUserid()}}"></a>></li>
+        <li class="songlist__author" ><a th:text="${users[iterStat.index].getUsername()}" th:href="@{'/User?userid='+${users[iterStat.index].getUserid()}}"></a></li>
         <li class="songlist__time" th:text="${savenum.get(iterStat.index)}"></li>
     </ul>
 </div>

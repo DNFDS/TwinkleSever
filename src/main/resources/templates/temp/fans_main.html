@@ -137,7 +137,7 @@
 
             <li class="singer_list__item" th:each="list,iterStat:${Follows}">
                 <div class="singer_list__item_box">
-                    <a href="https://y.qq.com/n/yqq/singer/001Y2Gbc2Xt1hU.html" class="singer_list__cover js_singer" >
+                    <a th:href="@{'/User?userid='+${list.getUserid()}}" class="singer_list__cover js_singer" >
                         <img class="singer_list__pic" src="//y.gtimg.cn/music/photo_new/T001R150x150M000001Y2Gbc2Xt1hU.jpg?max_age=2592000" onerror="this.src='//y.gtimg.cn/mediastyle/global/img/singer_300.png?max_age=31536000';this.error=null;" alt="Michael Jackson">
                     </a>
                     <h3 class="singer_list__title"><a href="https://y.qq.com/n/yqq/singer/001Y2Gbc2Xt1hU.html" class="js_singer" title="Michael Jackson" th:text="${list.getUsername()}"></a></h3>

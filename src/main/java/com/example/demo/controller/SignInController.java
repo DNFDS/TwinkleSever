@@ -91,6 +91,6 @@ public class SignInController {
         else
             map.put("albums",albums);
 
-        return "/find_music";
+        return "find_music";
     }
 }

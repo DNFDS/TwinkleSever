@@ -22,11 +22,25 @@ public class KeepImpl implements KeepService {
         songListMapper.addSongToSongList(map);
         return (String)map.get("succ");
     }
+    public String unKeepSongList(String songlistid,String userid){
+        Map<String,Object> map = new HashMap<>();
+        map.put("songlistid",songlistid);
+        map.put("userid",userid);
+        songListMapper.unKeepSongList(map);
+        return (String)map.get("succ");
+    }
     public String KeepSongList(String songlistid,String userid){
         Map<String,Object> map = new HashMap<>();
         map.put("songlistid",songlistid);
         map.put("userid",userid);
         songListMapper.keepSongList(map);
+        return (String)map.get("succ");
+    }
+    public String unKeepSong(String songid,String songlistid){
+        Map<String,Object> map = new HashMap<>();
+        map.put("songlistid",songlistid);
+        map.put("songid",songid);
+        songListMapper.deleteSongFromSongList(map);
         return (String)map.get("succ");
     }
 }
